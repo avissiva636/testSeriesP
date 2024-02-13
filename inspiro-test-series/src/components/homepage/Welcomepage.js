@@ -6,18 +6,19 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 
 const Welcomepage = () => {
   return (
-    <Stack spacing={4}>
-      <Stack>
-        <Typography variant="h4" sx={{ marginLeft: "150px" }}>
+    <Stack spacing={0} direction={"column"} sx={{marginLeft:"400px", overflow:"auto"}} >
+      <Stack>{/*To set the position from left side */}
+        <Typography variant="h4" alignItems={"center"} sx={{ marginLeft: "300px" }}>
           Welcome Jagan to the Online Examination Portal
         </Typography>
       </Stack>
-      <Stack spacing={4} direction={"row"} sx={{}}>
+      <Stack spacing={0} direction={"row"} flexWrap={"wrap"} justifyContent={"space-evenly"} sx={{marginLeft:"240px", marginTop:"20px"}} overflow={"auto"}>
         <Card
           variant="outlined"
           sx={{
             minWidth: "300px",
             minHeight: "300px",
+            marginTop:"20px",
             backgroundColor: "#3498db",
             textAlign: "center",
             color: "#ffffff",
@@ -28,7 +29,6 @@ const Welcomepage = () => {
             <h1>Mains Test Series</h1>
             <Stack spacing={3}>
               <InsertDriveFileOutlinedIcon sx={{ fontSize: "100px" }} />
-
               <Button
                 sx={{
                   backgroundColor: "#ffffff",
@@ -46,6 +46,7 @@ const Welcomepage = () => {
           sx={{
             minWidth: "300px",
             minHeight: "300px",
+            marginTop:"20px",
             backgroundColor: "#cb6231",
             textAlign: "center",
             color: "#ffffff",
@@ -56,7 +57,6 @@ const Welcomepage = () => {
             <h1>Prelims Test Series</h1>
             <Stack spacing={3}>
               <InsertDriveFileOutlinedIcon sx={{ fontSize: "100px" }} />
-
               <Button
                 sx={{
                   backgroundColor: "#ffffff",
@@ -74,6 +74,7 @@ const Welcomepage = () => {
           sx={{
             minWidth: "300px",
             minHeight: "300px",
+            marginTop:"20px",
             backgroundColor: "#62cb31",
             textAlign: "center",
             color: "#ffffff",
@@ -97,12 +98,11 @@ const Welcomepage = () => {
             </Stack>
           </Stack>
         </Card>
-      </Stack>
-      <Stack spacing={4} direction={"row"}>
         <Card
           variant="outlined"
           sx={{
             minWidth: "300px",
+            marginTop:"20px",
             minHeight: "300px",
             backgroundColor: "#3498db",
             textAlign: "center",
@@ -132,6 +132,7 @@ const Welcomepage = () => {
           sx={{
             minWidth: "300px",
             minHeight: "300px",
+            marginTop:"20px",
             backgroundColor: "#ffb606",
             textAlign: "center",
             color: "#ffffff",
@@ -160,6 +161,7 @@ const Welcomepage = () => {
           sx={{
             minWidth: "300px",
             minHeight: "300px",
+            marginTop:"20px", 
             backgroundColor: "#9b59b6",
             textAlign: "center",
             color: "#ffffff",
