@@ -22,10 +22,74 @@ export const prelimsTest = [
       {
         title: "KAS Prelims Unit Wise Test Series",
         description: "Highly recommended test series for your exam preparation",
-        payHere: "link for course purchasing",
+        payHere:
+          "https://www.instamojo.com/inspiroiaskas/inspiro-kas-general-paper-2-section-3-public-bb364/?ref=store",
         details:
           "http://exam.inspiroias.in/administrator/uploads/All_Karnataka_KAS_2024_Prelims_Test_Series_Schedule_batch_53.jpg",
         fee: 5000,
+      },
+      {
+        title: "IAS Prelims Test Series",
+        description: "Highly recommended for IAS preparation",
+        payHere: "link for course purchasing",
+        details:
+          "http://exam.inspiroias.in/administrator/uploads/All_Karnataka_KAS_2024_Prelims_Test_Series_Schedule_batch_53.jpg",
+        fee: 40000,
+      },
+      {
+        title: "IAS Prelims Test Series",
+        description: "Highly recommended for IAS preparation",
+        payHere: "link for course purchasing",
+        details:
+          "http://exam.inspiroias.in/administrator/uploads/All_Karnataka_KAS_2024_Prelims_Test_Series_Schedule_batch_53.jpg",
+        fee: 40000,
+      },
+    ],
+  },
+];
+export const mainsTest = [
+  {
+    paid: [
+      {
+        title: "IAS Prelims Test Series",
+        description: "Highly recommended for IAS preparation",
+        details:
+          "http://exam.inspiroias.in/administrator/uploads/All_Karnataka_KAS_2024_Prelims_Test_Series_Schedule_batch_53.jpg",
+        question: [
+          {
+            qno: 1,
+            title: "Geography Lesson 1",
+            description: "KAS subject wise prelims test series",
+            time: 120,
+            instruction: "Some instructions about test",
+          },
+        ],
+      },
+    ],
+    mains: [
+      {
+        title: "IAS Prelims Test Series",
+        description: "Highly recommended for IAS preparation",
+        payHere: "link for course purchasing",
+        details:
+          "http://exam.inspiroias.in/administrator/uploads/All_Karnataka_KAS_2024_Prelims_Test_Series_Schedule_batch_53.jpg",
+        fee: 40000,
+      },
+      {
+        title: "IAS Prelims Test Series",
+        description: "Highly recommended for IAS preparation",
+        payHere: "link for course purchasing",
+        details:
+          "http://exam.inspiroias.in/administrator/uploads/All_Karnataka_KAS_2024_Prelims_Test_Series_Schedule_batch_53.jpg",
+        fee: 40000,
+      },
+      {
+        title: "IAS Prelims Test Series",
+        description: "Highly recommended for IAS preparation",
+        payHere: "link for course purchasing",
+        details:
+          "http://exam.inspiroias.in/administrator/uploads/All_Karnataka_KAS_2024_Prelims_Test_Series_Schedule_batch_53.jpg",
+        fee: 40000,
       },
       {
         title: "IAS Prelims Test Series",
