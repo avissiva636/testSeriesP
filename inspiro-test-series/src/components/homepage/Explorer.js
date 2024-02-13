@@ -19,7 +19,7 @@ const navigate = useNavigate();
     navigate(`/${name}`)
   }
   return (
-    <Stack direction={"row"} spacing={4} sx={{backgroundColor:'#fafafa'}}>
+    // <Stack direction={"row"} spacing={4} sx={{backgroundColor:'#fafafa'}}>
     <Stack spacing={0} direction="column" alignItems="flex-start" sx={{ width: 'fit-content', minWidth: '255px', cursor:'pointer' }}>
       <ListItem variant="none" sx={{ width: '100%', borderRadius: '0px', borderColor:'white', fontSize: '1.2rem', height:'60px', border: "1px solid black", justifyContent:'center',}} ><b>HARISH</b></ListItem>
       <Customlistitem icon={<ImportantDevicesIcon />} name="Dashboard" onClick={() => handleClick("Dashboard")} />
@@ -33,8 +33,8 @@ const navigate = useNavigate();
       <Customlistitem icon={<SettingsIcon />} name="Settings" onClick={() => handleClick("Settings")} />
      <ListItem sx={{paddingLeft:'20px',border: "1px solid black", width:'100%', borderbottom:'none'}}>#433, Second Floor<br/> 13th Main, M.C Layout<br/> Opp. Vijayanagar Post Office<br/> Vijayanagar<br/> Bangalore - 560040</ListItem>
     </Stack>
-      <Welcomepage />
-    </Stack>
+      // <Welcomepage />
+    // </Stack>
   );
 };
 export default Explorer;
