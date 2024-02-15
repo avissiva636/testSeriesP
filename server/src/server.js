@@ -25,9 +25,11 @@ const initializeServer = async () => {
     app.use(express.static(path.join(__dirname, '../public')));
 
     app.use('/', require('./routes/root'));
-    app.use("/api/users", require("./routes/userRoutes"));
-    app.use('/refresh', require('./routes/refresh'));    
-    app.use('/logout', require('./routes/logout'));         
+    // app.use("/api/users", require("./routes/userRoutes"));
+    app.use('/user/log',require('./routes/api/user/userLog'));
+
+    app.use('/refresh', require('./routes/refresh'));
+    app.use('/logout', require('./routes/logout'));
 
     app.use(validateToken);
     app.use('/employees', require('./routes/api/employees'));
