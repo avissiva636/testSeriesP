@@ -34,6 +34,7 @@ const initializeServer = async () => {
     app.use('/user/discussion',require('./routes/api/user/userDiscussion'));
     app.use('/user/progress',require('./routes/api/user/userProgress'));
     app.use('/user/archive',require('./routes/api/user/userArchives'));
+    app.use('/user/profile',require('./routes/api/user/userProfile'));
 
     app.use('/refresh', require('./routes/refresh'));
     app.use('/logout', require('./routes/logout'));
