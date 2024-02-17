@@ -27,6 +27,7 @@ const initializeServer = async () => {
     app.use('/', require('./routes/root'));
     // app.use("/api/users", require("./routes/userRoutes"));
     app.use('/user/log',require('./routes/api/user/userLog'));
+    app.use('/user/prelims',require('./routes/api/user/userPrelims'));
 
     app.use('/refresh', require('./routes/refresh'));
     app.use('/logout', require('./routes/logout'));
