@@ -30,6 +30,7 @@ const initializeServer = async () => {
     app.use('/user/prelims',require('./routes/api/user/userPrelims'));
     app.use('/user/mains',require('./routes/api/user/userMains'));
     app.use('/user/purchased',require('./routes/api/user/userPurchased'));
+    app.use('/user/schedule',require('./routes/api/user/userScheduledTest'));
 
     app.use('/refresh', require('./routes/refresh'));
     app.use('/logout', require('./routes/logout'));
