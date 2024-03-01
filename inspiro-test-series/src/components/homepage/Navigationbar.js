@@ -1,6 +1,5 @@
 import {
   AppBar,
-  Badge,
   Button,
   Stack,
   ThemeProvider,
@@ -8,7 +7,6 @@ import {
   Typography,
   createTheme,
 } from "@mui/material";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { useNavigate } from "react-router-dom";
 const Navigationbar = () => {
@@ -43,11 +41,9 @@ const Navigationbar = () => {
                     },
                   }}
                 >
-                  <Badge badgeContent={4} color="error">
-                    <NotificationsNoneOutlinedIcon color="action" />
-                  </Badge>
+                  {}
                 </Stack>
-                <Button color="success" variant="contained">
+                <Button color="error" variant="contained" sx={{ ml: "auto" }}>
                   Sign Out
                 </Button>
               </Stack>

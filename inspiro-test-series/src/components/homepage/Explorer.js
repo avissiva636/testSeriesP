@@ -28,7 +28,7 @@ const navigate = useNavigate();
       <Customlistitem icon={<FileCopyIcon />} name="Mains Test Store" onClick={() => handleClick("MainsTestStore")} />
       <Customlistitem icon={<ScheduleIcon />} name="Scheduled Test Store" onClick={() => handleClick("ScheduledTestStore")} />
       <Customlistitem icon={<ForumRoundedIcon />} name="Discussion" onClick={() => handleClick("Discussion")} />
-      <Customlistitem icon={<TrendingUpIcon />} name="Progress Card" onClick={() => handleClick("ProgressCard")} />
+      <Customlistitem icon={<TrendingUpIcon />} name="Progress Card" onClick={() => handleClick("ProgressCardMain")} />
       <Customlistitem icon={<ArchiveIcon />} name="Archives" onClick={() => handleClick("Archives")} />
       <Customlistitem icon={<SettingsIcon />} name="Settings" onClick={() => handleClick("Settings")} />
      <ListItem sx={{paddingLeft:'20px',border: "1px solid black", width:'100%', borderbottom:'none'}}>#433, Second Floor<br/> 13th Main, M.C Layout<br/> Opp. Vijayanagar Post Office<br/> Vijayanagar<br/> Bangalore - 560040</ListItem>

@@ -1,8 +1,7 @@
 import Homepage from "../homepage/Homepage";
 const Dashboard = () => {
-    console.log("Reached dashboard");
     return(
-        <duv><Homepage /></duv>
+        <div><Homepage /></div>
     )
 }
 export default Dashboard;
