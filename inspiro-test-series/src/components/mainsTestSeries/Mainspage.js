@@ -14,12 +14,12 @@ const Mainspage = () => {
         </Stack>
 
         <Stack
-          sx={{ marginLeft: "240px", overflow: "auto" }}
+          sx={{ marginLeft: "280px", overflow: "auto" }}
           direction={"row"}
           justifyContent="space-evenly"
           flexWrap="wrap"
         >
-          {mainsTest[0].mains.map((mains) => (
+          {mainsTest.mains.map((mains) => (
             <Card
               variant="outlined"
               sx={{
@@ -68,10 +68,10 @@ const Mainspage = () => {
                     >
                       <a href={mains.details}>
                         <Button variant="contained" color="primary">
-                          View
+                          Schedule
                         </Button>
                       </a>
-                      <h4 style={{ paddingTop: "10px" }}>20 Tests</h4>
+                      <h4 style={{ paddingTop: "10px" }}>{mains.testCount+" Tests"}</h4>
                       <a href={mains.payHere}>
                         <Button variant="contained" color="success">
                           Buy

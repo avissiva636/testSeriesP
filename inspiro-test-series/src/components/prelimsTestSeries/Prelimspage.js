@@ -11,9 +11,8 @@ const Prelimspage = () => {
       <Navigationbar />
       <Stack direction={"row"}>
         <Stack sx={{position:"fixed", overflow:"auto"}}><Explorer /></Stack>
-        
-        <Stack sx={{ marginLeft: "240px", overflow:"auto" }} direction={"row"} justifyContent="space-evenly" flexWrap="wrap">
-          {prelimsTest[0].prelims.map((prelims) => (
+        <Stack sx={{ marginLeft: "280px", overflow:"auto" }} direction={"row"} justifyContent="space-evenly" flexWrap="wrap">
+          {prelimsTest.prelims.map((prelims) => (
             <Card
               variant="outlined"
               sx={{
@@ -62,10 +61,10 @@ const Prelimspage = () => {
                     >
                       <a href={prelims.details}>
                       <Button variant="contained" color="primary">
-                        View
+                        Schedule
                       </Button>
                       </a>
-                      <h4 style={{ paddingTop: "10px" }}>20 Tests</h4>
+                      <h4 style={{ paddingTop: "10px" }}>{prelims.testCount+" Tests"}</h4>
                       <a href={prelims.payHere}>
                       <Button variant="contained" color="success">
                         Buy
