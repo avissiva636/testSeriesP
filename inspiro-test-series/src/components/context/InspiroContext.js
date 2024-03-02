@@ -4,6 +4,10 @@ import {
   mainsTest,
   purchasedTest,
   prelimsQuestions,
+  progressCardDetails,
+  discussionCardDetailsPrelims,
+  discussionCardDetailsMains,
+  prelimsAnswers,
 } from "../context/data";
 
 const inspiroContext = createContext();
@@ -16,6 +20,10 @@ export const InspiroContext = ({ children }) => {
         mainsTest,
         purchasedTest,
         prelimsQuestions,
+        progressCardDetails,
+        discussionCardDetailsPrelims,
+        discussionCardDetailsMains,
+        prelimsAnswers
       }}
     >
       {children}

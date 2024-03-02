@@ -27,7 +27,7 @@ const navigate = useNavigate();
       <Customlistitem icon={<FileCopyIcon />} name="Prelims Test Store" onClick={() => handleClick("PrelimsTestStore")} />
       <Customlistitem icon={<FileCopyIcon />} name="Mains Test Store" onClick={() => handleClick("MainsTestStore")} />
       <Customlistitem icon={<ScheduleIcon />} name="Scheduled Test Store" onClick={() => handleClick("ScheduledTestStore")} />
-      <Customlistitem icon={<ForumRoundedIcon />} name="Discussion" onClick={() => handleClick("Discussion")} />
+      <Customlistitem icon={<ForumRoundedIcon />} name="Discussion" onClick={() => handleClick("DiscussionMainPage")} />
       <Customlistitem icon={<TrendingUpIcon />} name="Progress Card" onClick={() => handleClick("ProgressCardMain")} />
       <Customlistitem icon={<ArchiveIcon />} name="Archives" onClick={() => handleClick("Archives")} />
       <Customlistitem icon={<SettingsIcon />} name="Settings" onClick={() => handleClick("Settings")} />

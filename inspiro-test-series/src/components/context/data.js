@@ -153,7 +153,8 @@ export const prelimsQuestions = {
   questions: [
     {
       qno: 1,
-      question: "What is the capital of Australia?",
+      question:         "Section 2(79) of the Code on Social Security, 2020 illustrates on Social Security Organisations. It include (a) the Central Board of Trustees of Employees' Provident Fund constituted under section 4; (b) the Employees' State Insurance Corporation constituted under section 5; (c) the National Social Security Board for Unorganised Workers constituted under section 6; (d) the State Unorganised Workers' Social Security Board constituted under section 6; (e) the State Building and other Construction Workers' Welfare Boards constituted under section 7; and (f) any other organisation or special purpose vehicle declared to be the social security organisation by the Central Government.  ಸಾಮಾಜಿಕ ಭದ್ರತೆಯ ಸಂಹಿತೆಯ ಸೆಕ್ಷನ್ 2(79) 2020 ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆಗಳ ಕುರಿತು ವಿವರಿಸುತ್ತದೆ . ಇದು (ಎ) ಸೆಕ್ಷನ್ 4 ರ ಅಡಿಯಲ್ಲಿ ರಚಿತವಾದ ನೌಕರರ ಭವಿಷ್ಯ ನಿಧಿಯ ಕೇಂದ್ರೀಯ ಮಂಡಳಿಯ ಟ್ರಸ್ಟಿಗಳನ್ನು ಒಳಗೊಂಡಿದೆ; (ಬಿ) ಸೆಕ್ಷನ್ 5 ರ ಅಡಿಯಲ್ಲಿ ಸ್ಥಾಪಿಸಲಾದ ನೌಕರರ ರಾಜ್ಯ ವಿಮಾ ನಿಗಮ; (ಸಿ) ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರಿಗಾಗಿ ರಾಷ್ಟ್ರೀಯ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯನ್ನು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಡಿ) ರಾಜ್ಯ ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಇ) ವಿಭಾಗ 7 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾದ ರಾಜ್ಯ ಕಟ್ಟಡ ಮತ್ತು ಇತರ ನಿರ್ಮಾಣ ಕಾರ್ಮಿಕರ ಕಲ್ಯಾಣ ಮಂಡಳಿಗಳು; ಮತ್ತು (ಎಫ್) ಕೇಂದ್ರ ಸರ್ಕಾರದಿಂದ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆ ಎಂದು ಘೋಷಿಸಲಾದ ಯಾವುದೇ ಇತರ ಸಂಸ್ಥೆ ಅಥವಾ ವಿಶೇಷ ಉದ್ದೇಶದ ಸಂಸ್ಥೆ.",
+
       options: {
         option1: "Sydney",
         option2: "Melbourne",
@@ -303,6 +304,78 @@ export const prelimsQuestions = {
     },
   ],
 };
+
+export const prelimsAnswers = {
+  Answer: [
+    {
+      qno: 1,
+      question:         "Section 2(79) of the Code on Social Security, 2020 illustrates on Social Security Organisations. It include (a) the Central Board of Trustees of Employees' Provident Fund constituted under section 4; (b) the Employees' State Insurance Corporation constituted under section 5; (c) the National Social Security Board for Unorganised Workers constituted under section 6; (d) the State Unorganised Workers' Social Security Board constituted under section 6; (e) the State Building and other Construction Workers' Welfare Boards constituted under section 7; and (f) any other organisation or special purpose vehicle declared to be the social security organisation by the Central Government.  ಸಾಮಾಜಿಕ ಭದ್ರತೆಯ ಸಂಹಿತೆಯ ಸೆಕ್ಷನ್ 2(79) 2020 ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆಗಳ ಕುರಿತು ವಿವರಿಸುತ್ತದೆ . ಇದು (ಎ) ಸೆಕ್ಷನ್ 4 ರ ಅಡಿಯಲ್ಲಿ ರಚಿತವಾದ ನೌಕರರ ಭವಿಷ್ಯ ನಿಧಿಯ ಕೇಂದ್ರೀಯ ಮಂಡಳಿಯ ಟ್ರಸ್ಟಿಗಳನ್ನು ಒಳಗೊಂಡಿದೆ; (ಬಿ) ಸೆಕ್ಷನ್ 5 ರ ಅಡಿಯಲ್ಲಿ ಸ್ಥಾಪಿಸಲಾದ ನೌಕರರ ರಾಜ್ಯ ವಿಮಾ ನಿಗಮ; (ಸಿ) ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರಿಗಾಗಿ ರಾಷ್ಟ್ರೀಯ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯನ್ನು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಡಿ) ರಾಜ್ಯ ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಇ) ವಿಭಾಗ 7 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾದ ರಾಜ್ಯ ಕಟ್ಟಡ ಮತ್ತು ಇತರ ನಿರ್ಮಾಣ ಕಾರ್ಮಿಕರ ಕಲ್ಯಾಣ ಮಂಡಳಿಗಳು; ಮತ್ತು (ಎಫ್) ಕೇಂದ್ರ ಸರ್ಕಾರದಿಂದ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆ ಎಂದು ಘೋಷಿಸಲಾದ ಯಾವುದೇ ಇತರ ಸಂಸ್ಥೆ ಅಥವಾ ವಿಶೇಷ ಉದ್ದೇಶದ ಸಂಸ್ಥೆ.",
+      
+      options: {
+        option1: "Sydney",
+        option2: "Melbourne",
+        option3: "Canberra",
+        option4: "Brisbane",
+      },
+      cOption: 2,
+      explanation:
+        "Section 2(79) of the Code on Social Security, 2020 illustrates on Social Security Organisations. It include (a) the Central Board of Trustees of Employees' Provident Fund constituted under section 4; (b) the Employees' State Insurance Corporation constituted under section 5; (c) the National Social Security Board for Unorganised Workers constituted under section 6; (d) the State Unorganised Workers' Social Security Board constituted under section 6; (e) the State Building and other Construction Workers' Welfare Boards constituted under section 7; and (f) any other organisation or special purpose vehicle declared to be the social security organisation by the Central Government.  ಸಾಮಾಜಿಕ ಭದ್ರತೆಯ ಸಂಹಿತೆಯ ಸೆಕ್ಷನ್ 2(79) 2020 ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆಗಳ ಕುರಿತು ವಿವರಿಸುತ್ತದೆ . ಇದು (ಎ) ಸೆಕ್ಷನ್ 4 ರ ಅಡಿಯಲ್ಲಿ ರಚಿತವಾದ ನೌಕರರ ಭವಿಷ್ಯ ನಿಧಿಯ ಕೇಂದ್ರೀಯ ಮಂಡಳಿಯ ಟ್ರಸ್ಟಿಗಳನ್ನು ಒಳಗೊಂಡಿದೆ; (ಬಿ) ಸೆಕ್ಷನ್ 5 ರ ಅಡಿಯಲ್ಲಿ ಸ್ಥಾಪಿಸಲಾದ ನೌಕರರ ರಾಜ್ಯ ವಿಮಾ ನಿಗಮ; (ಸಿ) ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರಿಗಾಗಿ ರಾಷ್ಟ್ರೀಯ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯನ್ನು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಡಿ) ರಾಜ್ಯ ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಇ) ವಿಭಾಗ 7 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾದ ರಾಜ್ಯ ಕಟ್ಟಡ ಮತ್ತು ಇತರ ನಿರ್ಮಾಣ ಕಾರ್ಮಿಕರ ಕಲ್ಯಾಣ ಮಂಡಳಿಗಳು; ಮತ್ತು (ಎಫ್) ಕೇಂದ್ರ ಸರ್ಕಾರದಿಂದ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆ ಎಂದು ಘೋಷಿಸಲಾದ ಯಾವುದೇ ಇತರ ಸಂಸ್ಥೆ ಅಥವಾ ವಿಶೇಷ ಉದ್ದೇಶದ ಸಂಸ್ಥೆ.",
+    },
+    {
+      qno: 2,
+      question: "What is the capital of Australia?",
+      options: {
+        option1: "Sydney",
+        option2: "Melbourne",
+        option3: "Canberra",
+        option4: "Brisbane",
+      },
+      cOption: 1,
+      explanation:
+        "Section 2(79) of the Code on Social Security, 2020 illustrates on Social Security Organisations. It include (a) the Central Board of Trustees of Employees' Provident Fund constituted under section 4; (b) the Employees' State Insurance Corporation constituted under section 5; (c) the National Social Security Board for Unorganised Workers constituted under section 6; (d) the State Unorganised Workers' Social Security Board constituted under section 6; (e) the State Building and other Construction Workers' Welfare Boards constituted under section 7; and (f) any other organisation or special purpose vehicle declared to be the social security organisation by the Central Government.  ಸಾಮಾಜಿಕ ಭದ್ರತೆಯ ಸಂಹಿತೆಯ ಸೆಕ್ಷನ್ 2(79) 2020 ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆಗಳ ಕುರಿತು ವಿವರಿಸುತ್ತದೆ . ಇದು (ಎ) ಸೆಕ್ಷನ್ 4 ರ ಅಡಿಯಲ್ಲಿ ರಚಿತವಾದ ನೌಕರರ ಭವಿಷ್ಯ ನಿಧಿಯ ಕೇಂದ್ರೀಯ ಮಂಡಳಿಯ ಟ್ರಸ್ಟಿಗಳನ್ನು ಒಳಗೊಂಡಿದೆ; (ಬಿ) ಸೆಕ್ಷನ್ 5 ರ ಅಡಿಯಲ್ಲಿ ಸ್ಥಾಪಿಸಲಾದ ನೌಕರರ ರಾಜ್ಯ ವಿಮಾ ನಿಗಮ; (ಸಿ) ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರಿಗಾಗಿ ರಾಷ್ಟ್ರೀಯ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯನ್ನು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಡಿ) ರಾಜ್ಯ ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಇ) ವಿಭಾಗ 7 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾದ ರಾಜ್ಯ ಕಟ್ಟಡ ಮತ್ತು ಇತರ ನಿರ್ಮಾಣ ಕಾರ್ಮಿಕರ ಕಲ್ಯಾಣ ಮಂಡಳಿಗಳು; ಮತ್ತು (ಎಫ್) ಕೇಂದ್ರ ಸರ್ಕಾರದಿಂದ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆ ಎಂದು ಘೋಷಿಸಲಾದ ಯಾವುದೇ ಇತರ ಸಂಸ್ಥೆ ಅಥವಾ ವಿಶೇಷ ಉದ್ದೇಶದ ಸಂಸ್ಥೆ.",
+    },
+    {
+      qno: 3,
+      question: "What is the capital of Australia?",
+      options: {
+        option1: "Sydney",
+        option2: "Melbourne",
+        option3: "Canberra",
+        option4: "Brisbane",
+      },
+      cOption: 4,
+      explanation:
+        "Section 2(79) of the Code on Social Security, 2020 illustrates on Social Security Organisations. It include (a) the Central Board of Trustees of Employees' Provident Fund constituted under section 4; (b) the Employees' State Insurance Corporation constituted under section 5; (c) the National Social Security Board for Unorganised Workers constituted under section 6; (d) the State Unorganised Workers' Social Security Board constituted under section 6; (e) the State Building and other Construction Workers' Welfare Boards constituted under section 7; and (f) any other organisation or special purpose vehicle declared to be the social security organisation by the Central Government.  ಸಾಮಾಜಿಕ ಭದ್ರತೆಯ ಸಂಹಿತೆಯ ಸೆಕ್ಷನ್ 2(79) 2020 ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆಗಳ ಕುರಿತು ವಿವರಿಸುತ್ತದೆ . ಇದು (ಎ) ಸೆಕ್ಷನ್ 4 ರ ಅಡಿಯಲ್ಲಿ ರಚಿತವಾದ ನೌಕರರ ಭವಿಷ್ಯ ನಿಧಿಯ ಕೇಂದ್ರೀಯ ಮಂಡಳಿಯ ಟ್ರಸ್ಟಿಗಳನ್ನು ಒಳಗೊಂಡಿದೆ; (ಬಿ) ಸೆಕ್ಷನ್ 5 ರ ಅಡಿಯಲ್ಲಿ ಸ್ಥಾಪಿಸಲಾದ ನೌಕರರ ರಾಜ್ಯ ವಿಮಾ ನಿಗಮ; (ಸಿ) ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರಿಗಾಗಿ ರಾಷ್ಟ್ರೀಯ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯನ್ನು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಡಿ) ರಾಜ್ಯ ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಇ) ವಿಭಾಗ 7 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾದ ರಾಜ್ಯ ಕಟ್ಟಡ ಮತ್ತು ಇತರ ನಿರ್ಮಾಣ ಕಾರ್ಮಿಕರ ಕಲ್ಯಾಣ ಮಂಡಳಿಗಳು; ಮತ್ತು (ಎಫ್) ಕೇಂದ್ರ ಸರ್ಕಾರದಿಂದ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆ ಎಂದು ಘೋಷಿಸಲಾದ ಯಾವುದೇ ಇತರ ಸಂಸ್ಥೆ ಅಥವಾ ವಿಶೇಷ ಉದ್ದೇಶದ ಸಂಸ್ಥೆ.",
+    },
+    {
+      qno: 4,
+      question: "What is the capital of Australia?",
+      options: {
+        option1: "Sydney",
+        option2: "Melbourne",
+        option3: "Canberra",
+        option4: "Brisbane",
+      },
+      cOption: 3,
+      explanation:
+        "Section 2(79) of the Code on Social Security, 2020 illustrates on Social Security Organisations. It include (a) the Central Board of Trustees of Employees' Provident Fund constituted under section 4; (b) the Employees' State Insurance Corporation constituted under section 5; (c) the National Social Security Board for Unorganised Workers constituted under section 6; (d) the State Unorganised Workers' Social Security Board constituted under section 6; (e) the State Building and other Construction Workers' Welfare Boards constituted under section 7; and (f) any other organisation or special purpose vehicle declared to be the social security organisation by the Central Government.  ಸಾಮಾಜಿಕ ಭದ್ರತೆಯ ಸಂಹಿತೆಯ ಸೆಕ್ಷನ್ 2(79) 2020 ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆಗಳ ಕುರಿತು ವಿವರಿಸುತ್ತದೆ . ಇದು (ಎ) ಸೆಕ್ಷನ್ 4 ರ ಅಡಿಯಲ್ಲಿ ರಚಿತವಾದ ನೌಕರರ ಭವಿಷ್ಯ ನಿಧಿಯ ಕೇಂದ್ರೀಯ ಮಂಡಳಿಯ ಟ್ರಸ್ಟಿಗಳನ್ನು ಒಳಗೊಂಡಿದೆ; (ಬಿ) ಸೆಕ್ಷನ್ 5 ರ ಅಡಿಯಲ್ಲಿ ಸ್ಥಾಪಿಸಲಾದ ನೌಕರರ ರಾಜ್ಯ ವಿಮಾ ನಿಗಮ; (ಸಿ) ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರಿಗಾಗಿ ರಾಷ್ಟ್ರೀಯ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯನ್ನು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಡಿ) ರಾಜ್ಯ ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಇ) ವಿಭಾಗ 7 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾದ ರಾಜ್ಯ ಕಟ್ಟಡ ಮತ್ತು ಇತರ ನಿರ್ಮಾಣ ಕಾರ್ಮಿಕರ ಕಲ್ಯಾಣ ಮಂಡಳಿಗಳು; ಮತ್ತು (ಎಫ್) ಕೇಂದ್ರ ಸರ್ಕಾರದಿಂದ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆ ಎಂದು ಘೋಷಿಸಲಾದ ಯಾವುದೇ ಇತರ ಸಂಸ್ಥೆ ಅಥವಾ ವಿಶೇಷ ಉದ್ದೇಶದ ಸಂಸ್ಥೆ.",
+    },
+    {
+      qno: 5,
+      question: "What is the capital of Australia?",
+      options: {
+        option1: "Sydney",
+        option2: "Melbourne",
+        option3: "Canberra",
+        option4: "Brisbane",
+      },
+      cOption: 4,
+      explanation:
+        "Section 2(79) of the Code on Social Security, 2020 illustrates on Social Security Organisations. It include (a) the Central Board of Trustees of Employees' Provident Fund constituted under section 4; (b) the Employees' State Insurance Corporation constituted under section 5; (c) the National Social Security Board for Unorganised Workers constituted under section 6; (d) the State Unorganised Workers' Social Security Board constituted under section 6; (e) the State Building and other Construction Workers' Welfare Boards constituted under section 7; and (f) any other organisation or special purpose vehicle declared to be the social security organisation by the Central Government.  ಸಾಮಾಜಿಕ ಭದ್ರತೆಯ ಸಂಹಿತೆಯ ಸೆಕ್ಷನ್ 2(79) 2020 ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆಗಳ ಕುರಿತು ವಿವರಿಸುತ್ತದೆ . ಇದು (ಎ) ಸೆಕ್ಷನ್ 4 ರ ಅಡಿಯಲ್ಲಿ ರಚಿತವಾದ ನೌಕರರ ಭವಿಷ್ಯ ನಿಧಿಯ ಕೇಂದ್ರೀಯ ಮಂಡಳಿಯ ಟ್ರಸ್ಟಿಗಳನ್ನು ಒಳಗೊಂಡಿದೆ; (ಬಿ) ಸೆಕ್ಷನ್ 5 ರ ಅಡಿಯಲ್ಲಿ ಸ್ಥಾಪಿಸಲಾದ ನೌಕರರ ರಾಜ್ಯ ವಿಮಾ ನಿಗಮ; (ಸಿ) ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರಿಗಾಗಿ ರಾಷ್ಟ್ರೀಯ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯನ್ನು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಡಿ) ರಾಜ್ಯ ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಇ) ವಿಭಾಗ 7 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾದ ರಾಜ್ಯ ಕಟ್ಟಡ ಮತ್ತು ಇತರ ನಿರ್ಮಾಣ ಕಾರ್ಮಿಕರ ಕಲ್ಯಾಣ ಮಂಡಳಿಗಳು; ಮತ್ತು (ಎಫ್) ಕೇಂದ್ರ ಸರ್ಕಾರದಿಂದ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆ ಎಂದು ಘೋಷಿಸಲಾದ ಯಾವುದೇ ಇತರ ಸಂಸ್ಥೆ ಅಥವಾ ವಿಶೇಷ ಉದ್ದೇಶದ ಸಂಸ್ಥೆ.",
+    },
+  ],
+};
+
 export const mainsQuestions = {
   questions: [{}],
 };
@@ -311,11 +384,57 @@ export const progressCardDetails = {
   qPaper: [
     {
       title: "Geography Lesson 1",
-      description:"KAS subject wise prelims test series",
-      nQuestions:"100",
-      cAnswer:"70",
-      wAnswer:"20",
-      Marks:"80",
+      description: "KAS subject wise prelims test series",
+      nQuestions: "100",
+      cAnswer: "70",
+      wAnswer: "20",
+      Marks: "80",
+    },
+    {
+      title: "Geography Lesson 2",
+      description: "KAS subject wise prelims test series",
+      nQuestions: "100",
+      cAnswer: "60",
+      wAnswer: "10",
+      Marks: "95",
     },
   ],
 };
+
+export const discussionCardDetailsPrelims = {
+  qPaper: [
+    {
+      title: "Geography Lesson 1",
+      description: "KAS subject wise prelims test series",
+      subject: "Geography",
+      nQuestions: "100",
+      timeAlloted: "120",
+    },
+    {
+      title: "Geography Lesson 2",
+      description: "KAS subject wise prelims test series",
+      subject: "History",
+      nQuestions: "100",
+      timeAlloted: "120",
+    },
+  ],
+};
+
+export const discussionCardDetailsMains = {
+  qPaper: [
+    {
+      title: "History Lesson 1",
+      description: "KAS subject wise Mains test series",
+      subject: "Geography",
+      nQuestions: "3",
+      timeAlloted: "180",
+    },
+    {
+      title: "Economy Lesson 2",
+      description: "KAS subject wise Maind test series",
+      subject: "History",
+      nQuestions: "5",
+      timeAlloted: "240",
+    },
+  ],
+}

@@ -11,6 +11,8 @@ import InstructionPage from "./components/purchasedTestSeries/InstructionPage";
 import TestPage from "./components/examPage/TestPage";
 import ProgressCard from "./components/progresscard/ProgressCard";
 import ProgressCardMain from "./components/progresscard/ProgressCardMain.js";
+import DiscussionMainPage from "./components/discussionPage/DiscussionMainPage.js";
+import DiscussionCard from "./components/discussionPage/DiscussionCard.js";
 
 
 function App() {
@@ -28,6 +30,9 @@ function App() {
             <Route path="/InstructionPage" element={<InstructionPage />} />
             <Route path="/TestPage" element={<TestPage />}/>
             <Route path="/ProgressCardMain" element={<ProgressCardMain />}/>
+            <Route path="/ProgressCard" element={<ProgressCard />}/>
+            <Route path="/DiscussionMainPage" element={<DiscussionMainPage />} />
+            <Route path="/DiscussionCard" element={<DiscussionCard />} />
           </Routes>
         </InspiroContext>
       </Router>
