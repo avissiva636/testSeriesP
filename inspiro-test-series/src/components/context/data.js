@@ -380,7 +380,7 @@ export const mainsQuestions = {
   questions: [{}],
 };
 
-export const progressCardDetails = {
+export const progressCardDetailsPrelims = {
   qPaper: [
     {
       title: "Geography Lesson 1",
@@ -400,6 +400,19 @@ export const progressCardDetails = {
     },
   ],
 };
+
+export const progressCardDetailsMains = {
+  qPaper: [
+    {
+      title: "History Lesson 1",
+      description: "KAS subject wise Mains test series",
+    },
+    {
+      title: "Economy Lesson 2",
+      description: "KAS subject wise Mains test series",
+    },
+  ],
+}
 
 export const discussionCardDetailsPrelims = {
   qPaper: [
