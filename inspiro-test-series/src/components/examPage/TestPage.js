@@ -25,17 +25,6 @@ const TestPage = () => {
   const [markedQuestions, setMarkedQuestions] = useState([]);
   const [timeLeft, setTimeLeft] = useState(testDetails.time * 60); // Convert minutes to seconds
 
-  // useEffect(() => {
-  //   const startTime = localStorage.getItem("testStartTime");
-  //   if (!startTime) {
-  //     localStorage.setItem("testStartTime", Date.now());
-  //   } else {
-  //     const elapsedTimeInSeconds = Math.floor((Date.now() - startTime) / 1000);
-  //     const remainingTime = timeLeft - elapsedTimeInSeconds;
-  //     setTimeLeft(remainingTime > 0 ? remainingTime : 0);
-  //   }
-  // }, []);
-
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prevTimeLeft) => {
@@ -284,8 +273,8 @@ const TestPage = () => {
                             border: "1px solid #ccc",
                             padding: "8px",
                             margin: "5px",
-                            width: "16px",
-                            height: "16px",
+                            width: "10px",
+                            height: "10px",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
