@@ -12,6 +12,8 @@ import {
   prelimsAnswers,
   archives,
   archiveQuestions,
+  scheduled,
+  scheduledQuestions,
 } from "../context/data";
 
 const inspiroContext = createContext();
@@ -32,6 +34,8 @@ export const InspiroContext = ({ children }) => {
         prelimsAnswers,
         archives,
         archiveQuestions,
+        scheduled,
+        scheduledQuestions,
       }}
     >
       {children}

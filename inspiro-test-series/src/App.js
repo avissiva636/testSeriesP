@@ -15,6 +15,7 @@ import DiscussionMainPage from "./components/discussionPage/DiscussionMainPage.j
 import DiscussionCard from "./components/discussionPage/DiscussionCard.js";
 import ArchivesMainPage from "./components/archives/ArchivesMainPage.js";
 import PreviousYearsQP from "./components/previousQP/PreviousYearsQP.js";
+import ScheduledTest from "./components/scheduledTest/ScheduledTest.js";
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
             <Route path="/PrelimsTestStore" element={<Prelimspage />} />
             <Route path="/MainsTestStore" element={<Mainspage />} />
             <Route path="/Purchasedtestseries" element={<Purchasedtestseries />} />
-            <Route path="/Purchasedtestseries" element={<Purchasedtestseries />} />
+            <Route path="/ScheduledTestStore" element={<ScheduledTest />} />
             <Route path="PreviousYearsQP" element={<PreviousYearsQP />} />
             <Route path="/ViewTest" element={<ViewTest />} />
             <Route path="/InstructionPage" element={<InstructionPage />} />

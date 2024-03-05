@@ -509,3 +509,51 @@ export const archiveQuestions = {
     },
   ],
 };
+
+export const scheduled = {
+  question: [
+    {
+      qno: 1,
+      title: "Scheduled Lesson 1",
+      description: "KAS subject wise prelims test series",
+      time: 120,
+      instruction: "Some instructions about test",
+      nQuestion: 10,
+    },
+    {
+      qno: 2,
+      title: "Scheduled Lesson 2",
+      description: "KAS subject wise prelims test series",
+      time: 120,
+      instruction: "Some instructions about test 2",
+      nQuestion: 10,
+    },
+  ],
+};
+
+export const scheduledQuestions = {
+  questions: [
+    {
+      qno: 1,
+      question:
+        "Section 1 2(79) of the Code on Social Security, 2020 illustrates on Social Security Organisations. It include (a) the Central Board of Trustees of Employees' Provident Fund constituted under section 4; (b) the Employees' State Insurance Corporation constituted under section 5; (c) the National Social Security Board for Unorganised Workers constituted under section 6; (d) the State Unorganised Workers' Social Security Board constituted under section 6; (e) the State Building and other Construction Workers' Welfare Boards constituted under section 7; and (f) any other organisation or special purpose vehicle declared to be the social security organisation by the Central Government.  ಸಾಮಾಜಿಕ ಭದ್ರತೆಯ ಸಂಹಿತೆಯ ಸೆಕ್ಷನ್ 2(79) 2020 ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆಗಳ ಕುರಿತು ವಿವರಿಸುತ್ತದೆ . ಇದು (ಎ) ಸೆಕ್ಷನ್ 4 ರ ಅಡಿಯಲ್ಲಿ ರಚಿತವಾದ ನೌಕರರ ಭವಿಷ್ಯ ನಿಧಿಯ ಕೇಂದ್ರೀಯ ಮಂಡಳಿಯ ಟ್ರಸ್ಟಿಗಳನ್ನು ಒಳಗೊಂಡಿದೆ; (ಬಿ) ಸೆಕ್ಷನ್ 5 ರ ಅಡಿಯಲ್ಲಿ ಸ್ಥಾಪಿಸಲಾದ ನೌಕರರ ರಾಜ್ಯ ವಿಮಾ ನಿಗಮ; (ಸಿ) ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರಿಗಾಗಿ ರಾಷ್ಟ್ರೀಯ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯನ್ನು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಡಿ) ರಾಜ್ಯ ಅಸಂಘಟಿತ ಕಾರ್ಮಿಕರ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಮಂಡಳಿಯು ವಿಭಾಗ 6 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾಗಿದೆ; (ಇ) ವಿಭಾಗ 7 ರ ಅಡಿಯಲ್ಲಿ ರಚಿಸಲಾದ ರಾಜ್ಯ ಕಟ್ಟಡ ಮತ್ತು ಇತರ ನಿರ್ಮಾಣ ಕಾರ್ಮಿಕರ ಕಲ್ಯಾಣ ಮಂಡಳಿಗಳು; ಮತ್ತು (ಎಫ್) ಕೇಂದ್ರ ಸರ್ಕಾರದಿಂದ ಸಾಮಾಜಿಕ ಭದ್ರತಾ ಸಂಸ್ಥೆ ಎಂದು ಘೋಷಿಸಲಾದ ಯಾವುದೇ ಇತರ ಸಂಸ್ಥೆ ಅಥವಾ ವಿಶೇಷ ಉದ್ದೇಶದ ಸಂಸ್ಥೆ.",
+
+      options: {
+        option1: "Sydney",
+        option2: "Melbourne",
+        option3: "Canberra",
+        option4: "Brisbane",
+      },
+    },
+    {
+      qno: 2,
+      question: "Who 1 is the author of 'To Kill a Mockingbird'?",
+      options: {
+        option1: "Harper Lee",
+        option2: "J.K. Rowling",
+        option3: "Stephen King",
+        option4: "Charles Dickens",
+      },
+    },
+  ],
+};
