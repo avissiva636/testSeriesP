@@ -18,6 +18,7 @@ const TestPage = () => {
   const navigate = useNavigate();
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  // const prelimsQuestions = archiveQuestions;
   const { prelimsQuestions } = useInspiroCrud();
   const question = prelimsQuestions.questions[currentQuestionIndex];
   const option = prelimsQuestions.questions[currentQuestionIndex].options;

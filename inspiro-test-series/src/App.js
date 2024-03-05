@@ -13,6 +13,8 @@ import ProgressCard from "./components/progresscard/ProgressCard";
 import ProgressCardMain from "./components/progresscard/ProgressCardMain.js";
 import DiscussionMainPage from "./components/discussionPage/DiscussionMainPage.js";
 import DiscussionCard from "./components/discussionPage/DiscussionCard.js";
+import ArchivesMainPage from "./components/archives/ArchivesMainPage.js";
+import PreviousYearsQP from "./components/previousQP/PreviousYearsQP.js";
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
             <Route path="/PrelimsTestStore" element={<Prelimspage />} />
             <Route path="/MainsTestStore" element={<Mainspage />} />
             <Route path="/Purchasedtestseries" element={<Purchasedtestseries />} />
+            <Route path="/Purchasedtestseries" element={<Purchasedtestseries />} />
+            <Route path="PreviousYearsQP" element={<PreviousYearsQP />} />
             <Route path="/ViewTest" element={<ViewTest />} />
             <Route path="/InstructionPage" element={<InstructionPage />} />
             <Route path="/TestPage" element={<TestPage />}/>
@@ -33,6 +37,7 @@ function App() {
             <Route path="/ProgressCard" element={<ProgressCard />}/>
             <Route path="/DiscussionMainPage" element={<DiscussionMainPage />} />
             <Route path="/DiscussionCard" element={<DiscussionCard />} />
+            <Route path="/ArchivesMainPage" element={<ArchivesMainPage />} />
           </Routes>
         </InspiroContext>
       </Router>

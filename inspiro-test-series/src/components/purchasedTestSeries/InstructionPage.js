@@ -20,6 +20,7 @@ const InstructionPage = () => {
 
   const location = useLocation();
   const questionDetails = location.state?.data;
+  const archiveQuestions = location.state?.archiveQuestions;
   
   return (
     <Stack>
@@ -97,7 +98,7 @@ const InstructionPage = () => {
                         <Link
                           to={"/TestPage"}
                           state={{
-                            data: questionDetails,
+                            data: questionDetails, archiveQuestions: archiveQuestions,
                           }}
                           style={{ textDecoration: "none", color: "#ffffff" }}
                         >
