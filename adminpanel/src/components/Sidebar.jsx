@@ -1,8 +1,8 @@
-import { Box, Collapse, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, keyframes, useTheme } from '@mui/material';
+import { Box, Collapse, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, useTheme } from '@mui/material';
 import React, { useEffect, useMemo, useReducer, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import FlexBetween from './FlexBetween';
-import { AdminPanelSettingsOutlined, CalendarMonthOutlined, ChevronLeft, ChevronRightOutlined, ExpandLess, ExpandMore, Groups2Outlined, HomeOutlined, PieChartOutlined, PointOfSaleOutlined, PublicOutlined, ReceiptLongOutlined, SettingsOutlined, ShoppingCartOutlined, StarBorder, TodayOutlined, TrendingUpOutlined } from '@mui/icons-material';
+import { ChevronLeft, ExpandLess, ExpandMore, HomeOutlined, SettingsOutlined } from '@mui/icons-material';
 import profileImage from '../assets/profile.jpeg';
 
 const navItems = [
