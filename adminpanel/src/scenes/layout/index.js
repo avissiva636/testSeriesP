@@ -1,11 +1,10 @@
 import { Box, useMediaQuery } from '@mui/material'
 import React, { useState } from 'react'
-// import Navbar from "components/Navbar"
+import Navbar from "components/Navbar"
 import { Outlet } from 'react-router-dom'
 import Sidebar from 'components/Sidebar'
 import { useSelector } from 'react-redux'
 // import { useGetUserQuery } from 'state/api'
-import Tester from '../../components/Tester'
 
 const Layout = () => {
   const isNonMobile = useMediaQuery("(min-width: 600px)");
@@ -24,15 +23,14 @@ const Layout = () => {
         drawerWidth="250px"
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
-      />
-      {/* <Tester /> */}
+      />      
 
       <Box flexGrow={1}>
-        {/* <Navbar
-          user={data || {}}
+        <Navbar
+          // user={data || {}}
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
-        /> */}
+        />
         <Outlet />
       </Box>
     </Box>
