@@ -7,6 +7,7 @@ import Dashboard from "scenes/dashboard";
 import Layout from "scenes/layout";
 import { selectCurrentMode } from "state/stateSlice";
 import { themeSettings } from "theme";
+import AddSubjects from "scenes/subjects/AddSubjects";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -20,6 +21,8 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="home" element={<Dashboard />} />
             <Route path="addprelimsseries" element={<AddPrelimsSeries />} />
+
+            <Route path="addsubjects" element={<AddSubjects />} />
             {/* public routes */}
             {/* <Route index element={<Public />} />
             <Route path="login" element={<Login />} /> */}
