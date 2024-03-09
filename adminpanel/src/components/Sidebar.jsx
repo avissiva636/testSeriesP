@@ -173,8 +173,7 @@ const Sidebar = ({
   const [toggleState, toggleDispatch] = useReducer(toggleReducer, initialReducerItems);
   // Function to get the visibility of a certain name
   const getToggleVisibility = useMemo(() => {
-    return (name) => {
-      console.log(`visiblity return ${name}`)
+    return (name) => {      
       const item = toggleState.find(item => item.name === name);
       return item ? item.visible : false; // Default to false if name not found
     };
