@@ -1,10 +1,9 @@
-import { Box, Collapse, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, keyframes, useTheme } from '@mui/material';
-import React, { useEffect, useReducer, useState } from 'react'
+import { Box, Collapse, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, useTheme } from '@mui/material';
+import React, { useEffect, useMemo, useReducer, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import FlexBetween from './FlexBetween';
-import { AdminPanelSettingsOutlined, CalendarMonthOutlined, ChevronLeft, ChevronRightOutlined, ExpandLess, ExpandMore, Groups2Outlined, HomeOutlined, PieChartOutlined, PointOfSaleOutlined, PublicOutlined, ReceiptLongOutlined, SettingsOutlined, ShoppingCartOutlined, StarBorder, TodayOutlined, TrendingUpOutlined } from '@mui/icons-material';
+import { ChevronLeft, ExpandLess, ExpandMore, HomeOutlined, SettingsOutlined } from '@mui/icons-material';
 import profileImage from '../assets/profile.jpeg';
-import useToggle from 'hooks/useToggle';
 
 const navItems = [
   {
@@ -123,11 +122,39 @@ const navItems = [
 
 ]
 
+const toggleReducerActions = {
+  ADD_NAV: "Add Nav Item",
+  TOGGLE_NAV: "Toggle Nav Item"
+}
 
+function toggleReducer(toggleState, action) {
+  switch (action.type) {
+    case toggleReducerActions.ADD_NAV:
+      return [...toggleState, newToggleItem(action.payload.name)]
+    case toggleReducerActions.TOGGLE_NAV:
+      return toggleState.map(todo => {
+        if (todo.name === action.payload.name) {
+          return { ...todo, visible: !todo.visible }
+        }
+        return todo;
+      })
+  }
+}
 
+const initialReducerItems = [
+  { name: 'home', visible: false },
+  { name: 'prelims series', visible: false },
+  { name: 'mains series', visible: false },
+  { name: 'scheduled series', visible: false },
+  { name: 'previous paper', visible: false },
+  { name: 'question paper outlines', visible: false },
+  { name: 'subjects', visible: false },
+  { name: 'courses', visible: false },
+  { name: 'batches', visible: false },
+];
 
-function LocalToggle(params) {
-  return useToggle(false);
+function newToggleItem(name) {
+  return { name: name, visible: false }
 }
 
 const Sidebar = ({
@@ -143,11 +170,19 @@ const Sidebar = ({
   const navigate = useNavigate();
   const theme = useTheme();
 
+  const [toggleState, toggleDispatch] = useReducer(toggleReducer, initialReducerItems);
+  // Function to get the visibility of a certain name
+  const getToggleVisibility = useMemo(() => {
+    return (name) => {      
+      const item = toggleState.find(item => item.name === name);
+      return item ? item.visible : false; // Default to false if name not found
+    };
+  }, [toggleState])
+
+
   useEffect(() => {
     setActive(pathname.substring(1));
   }, [pathname]);
-
-
 
   return (
     <Box component="nav">
@@ -187,9 +222,8 @@ const Sidebar = ({
             < List >
 
               {
-                navItems.map(({ text, icon, data }) => {
-                  const lcText = text.toLocaleLowerCase();
-                  const [navHead, toggleNavHead] = LocalToggle(false);
+                navItems.map(({ text, icon, data }, index) => {
+                  const lcText = text.toLowerCase();
 
                   return (
                     !data ? ([
@@ -228,9 +262,19 @@ const Sidebar = ({
                     ) :
                       ([
                         // DROP DOWN MENU
-                        <ListItem key={`${text}-3`} disablePadding>
+                        <ListItem key={`${text}-3`} disablePadding
+                          sx={{
+                            marginBottom: '-2px',
+                            marginTop: '-2px'
+                          }}
+                        >
                           <ListItemButton
-                            onClick={toggleNavHead}
+                            onClick={() => {
+                              toggleDispatch({
+                                type: toggleReducerActions.TOGGLE_NAV,
+                                payload: { name: lcText }
+                              })
+                            }}
                             sx={{
                               backgroundColor: active === lcText ? theme.palette.secondary[300] : "transparent",
                               color:
@@ -254,7 +298,7 @@ const Sidebar = ({
                               {icon} {/* icon */}
                             </ListItemIcon>
                             <ListItemText primary={text} /> {/* Heding */}
-                            {navHead ? (
+                            {getToggleVisibility(lcText) ? (
                               <ExpandLess />
                             ) : (
                               <ExpandMore />
@@ -263,11 +307,12 @@ const Sidebar = ({
                         </ListItem>,
 
                         // DROP DOWN ITEMS
-                        data && (<Collapse key={`${text}-4`} in={navHead} timeout="auto" unmountOnExit>
+                        data && (<Collapse key={`${text}-4`} in={getToggleVisibility(lcText)} timeout="auto" unmountOnExit>
                           <List component="div" disablePadding
                             sx={{
                               ml: '5rem',
                               backgroundColor: theme.palette.background.alt,
+                              paddingBottom: '5px'
                             }}
                           >
                             {/* second loop */}
@@ -285,6 +330,7 @@ const Sidebar = ({
                                     active === innerLcText
                                       ? theme.palette.primary[600]
                                       : theme.palette.primary[200],
+                                  paddingBottom: '2px'
                                 }}
                               >
                                 <ListItemText primary={dataChunk.text} />
@@ -293,12 +339,10 @@ const Sidebar = ({
                           </List>
                         </Collapse>
                         ),
-                        <Divider key={`${text}-5`} />
+                        index !== navItems.length - 1 && <Divider key={`${text}-5`} />
                       ])
                   )
                 })
-
-
               }
             </List>
           </Box>
