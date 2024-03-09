@@ -187,7 +187,7 @@ const Sidebar = ({
             < List >
 
               {
-                navItems.map(({ text, icon, data }) => {
+                navItems.map(({ text, icon, data }, index) => {
                   const lcText = text.toLocaleLowerCase();
                   const [navHead, toggleNavHead] = LocalToggle(false);
 
@@ -228,7 +228,12 @@ const Sidebar = ({
                     ) :
                       ([
                         // DROP DOWN MENU
-                        <ListItem key={`${text}-3`} disablePadding>
+                        <ListItem key={`${text}-3`} disablePadding
+                          sx={{
+                            marginBottom: '-2px',
+                            marginTop: '-2px'
+                          }}
+                        >
                           <ListItemButton
                             onClick={toggleNavHead}
                             sx={{
@@ -268,6 +273,7 @@ const Sidebar = ({
                             sx={{
                               ml: '5rem',
                               backgroundColor: theme.palette.background.alt,
+                              paddingBottom: '5px'
                             }}
                           >
                             {/* second loop */}
@@ -285,6 +291,7 @@ const Sidebar = ({
                                     active === innerLcText
                                       ? theme.palette.primary[600]
                                       : theme.palette.primary[200],
+                                  paddingBottom: '2px'
                                 }}
                               >
                                 <ListItemText primary={dataChunk.text} />
@@ -293,12 +300,10 @@ const Sidebar = ({
                           </List>
                         </Collapse>
                         ),
-                        <Divider key={`${text}-5`} />
+                        index !== navItems.length - 1 && <Divider key={`${text}-5`} />
                       ])
                   )
                 })
-
-
               }
             </List>
           </Box>
