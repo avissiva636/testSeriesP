@@ -9,12 +9,13 @@ const AddSubjects = () => {
     const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
 
     return (
-        <Box m="1.5rem 2.5rem" height={isNonMediumScreens?undefined:'80%'}>
+        <Box m="1.5rem 2.5rem" height={isNonMediumScreens ? undefined : '80%'}>
             <Header title="SUBJECT" subtitle="Add New Subject" />
 
-            <TwoFieldSubmition 
-                subject={subject} setSubject={setSubject}
-                subjectDes={subjectDes} setSubjectDes={setSubjectDes}                
+            <TwoFieldSubmition
+                fieldName="Subject"
+                field={subject} setfield={setSubject}
+                fieldDes={subjectDes} setFieldDes={setSubjectDes}
                 isNonMediumScreens={isNonMediumScreens}
             />
 
