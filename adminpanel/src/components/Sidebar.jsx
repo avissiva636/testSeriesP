@@ -150,6 +150,8 @@ function toggleReducer(toggleState, action) {
         }
         return todo;
       })
+    default:
+      return toggleState
   }
 }
 
