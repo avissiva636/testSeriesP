@@ -23,7 +23,7 @@ const Layout = () => {
         drawerWidth="250px"
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
-      />      
+      />
 
       <Box flexGrow={1}>
         <Navbar
@@ -31,7 +31,9 @@ const Layout = () => {
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />
-        <Outlet />
+        <Outlet
+          context={isNonMobile}
+        />
       </Box>
     </Box>
   )
