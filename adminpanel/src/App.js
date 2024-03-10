@@ -10,6 +10,7 @@ import { themeSettings } from "theme";
 import AddSubjects from "scenes/subjects/AddSubjects";
 import AddCourses from "scenes/courses/AddCourses";
 import ListSubjects from "scenes/subjects/ListSubjects";
+import ListCourses from "scenes/courses/ListCourses";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -28,6 +29,7 @@ function App() {
             <Route path="listsubjects" element={<ListSubjects />} />
 
             <Route path="addcourses" element={<AddCourses />} />
+            <Route path="listcourses" element={<ListCourses />} />
             {/* public routes */}
             {/* <Route index element={<Public />} />
             <Route path="login" element={<Login />} /> */}
