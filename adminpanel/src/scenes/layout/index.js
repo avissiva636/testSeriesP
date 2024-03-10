@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Navbar from "components/Navbar"
 import { Outlet } from 'react-router-dom'
 import Sidebar from 'components/Sidebar'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 // import { useGetUserQuery } from 'state/api'
 
 const Layout = () => {
@@ -23,7 +23,7 @@ const Layout = () => {
         drawerWidth="250px"
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
-      />      
+      />
 
       <Box flexGrow={1}>
         <Navbar
@@ -31,7 +31,9 @@ const Layout = () => {
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />
-        <Outlet />
+        <Outlet
+          context={isNonMobile}
+        />
       </Box>
     </Box>
   )

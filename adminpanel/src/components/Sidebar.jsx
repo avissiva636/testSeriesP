@@ -119,6 +119,18 @@ const navItems = [
       },
     ]
   },
+  {
+    text: "Students",
+    icon: <HomeOutlined />,
+    data: [
+      {
+        text: "Add Students",
+      },
+      {
+        text: "List Students",
+      },
+    ]
+  },
 
 ]
 
@@ -138,6 +150,8 @@ function toggleReducer(toggleState, action) {
         }
         return todo;
       })
+    default:
+      return toggleState
   }
 }
 
@@ -151,6 +165,7 @@ const initialReducerItems = [
   { name: 'subjects', visible: false },
   { name: 'courses', visible: false },
   { name: 'batches', visible: false },
+  { name: 'students', visible: false },
 ];
 
 function newToggleItem(name) {
@@ -173,7 +188,7 @@ const Sidebar = ({
   const [toggleState, toggleDispatch] = useReducer(toggleReducer, initialReducerItems);
   // Function to get the visibility of a certain name
   const getToggleVisibility = useMemo(() => {
-    return (name) => {      
+    return (name) => {
       const item = toggleState.find(item => item.name === name);
       return item ? item.visible : false; // Default to false if name not found
     };

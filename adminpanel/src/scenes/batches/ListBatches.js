@@ -3,8 +3,8 @@ import { makeStyles } from '@mui/styles'
 import { DataGrid } from '@mui/x-data-grid'
 import Header from 'components/Header'
 import React, { useState } from 'react'
-import { subject as subjectData } from 'data'
-import {TwoFieldDGC as DataGridCustomToolbar} from 'components/TwoFieldDGC'
+import { Batch as batchData } from 'data'
+import { TwoFieldDGC as DataGridCustomToolbar } from 'components/TwoFieldDGC'
 import { CreateRounded, DeleteRounded } from '@mui/icons-material'
 import FlexBetween from 'components/FlexBetween'
 
@@ -30,9 +30,9 @@ const useStyles = makeStyles(() => {
     };
 });
 
-const ListSubjects = () => {
+const ListBatches = () => {
     const theme = useTheme();
-    // const data = subjectData;
+    // const data = batchData;
 
 
     const [search, setSearch] = useState("");
@@ -40,19 +40,19 @@ const ListSubjects = () => {
     const [searchInput, setSearchInput] = useState("");
     const [searchResult, setSearchResult] = useState("");
 
-    const data = !search.length ? subjectData : searchResult;
+    const data = !search.length ? batchData : searchResult;
 
     const searchHandler = (searchTerm) => {
         setSearch(searchTerm);
         if (search !== "") {
-            const newDataList = subjectData.filter((SubjectDataChunk) => {
+            const newDataList = batchData.filter((batchDataChunk) => {
 
-                return Object.values(SubjectDataChunk).join(" ").toLocaleLowerCase().includes(search.toLocaleLowerCase());
+                return Object.values(batchDataChunk).join(" ").toLocaleLowerCase().includes(search.toLocaleLowerCase());
             })
             setSearchResult(newDataList);
         }
         else {
-            setSearchResult(subjectData);
+            setSearchResult(batchData);
         }
 
     };
@@ -62,12 +62,12 @@ const ListSubjects = () => {
         pageSize: 6,
     });
 
-    const editClick = ({ id, title, description }) => {
-        console.log("Editing", id, title, description);
+    const editClick = ({ id, course, description }) => {
+        console.log("Editing", id, course, description);
     };
 
-    const deleteClick = ({ id, title, description }) => {
-        console.log("Deleting", id, title, description);
+    const deleteClick = ({ id, course, description }) => {
+        console.log("Deleting", id, course, description);
     }
 
     const columns = [
@@ -77,8 +77,13 @@ const ListSubjects = () => {
             flex: 0.5,
         },
         {
-            field: "title",
-            headerName: "TITLE",
+            field: "course",
+            headerName: "COURSE",
+            flex: 1.5,
+        },
+        {
+            field: "batch",
+            headerName: "BATCH",
             flex: 1.5,
         },
         {
@@ -88,7 +93,7 @@ const ListSubjects = () => {
         },
         {
             field: 'actions',
-            headerName: 'Actions',
+            headerName: 'ACTIONS',
             flex: 1,
             headerAlign: 'center',
             align: 'center',
@@ -98,7 +103,7 @@ const ListSubjects = () => {
                     <IconButton
                         onClick={() => editClick({
                             id: params.row.id,
-                            title: params.row.title,
+                            course: params.row.course,
                             description: params.row.description
                         })}
                         sx={{
@@ -110,7 +115,7 @@ const ListSubjects = () => {
                     <IconButton
                         onClick={() => deleteClick({
                             id: params.row.id,
-                            title: params.row.title,
+                            course: params.row.course,
                             description: params.row.description
                         })}
                         sx={{
@@ -136,7 +141,7 @@ const ListSubjects = () => {
 
     return (
         <Box m="1.5rem 2.5rem">
-            <Header title="SUBJECTS" subtitle="Entire list of subjects" />
+            <Header title="BATCHES" subtitle="Entire list of batches" />
 
             <Box height="68vh"
                 sx={{
@@ -192,4 +197,4 @@ const ListSubjects = () => {
     )
 }
 
-export default ListSubjects
+export default ListBatches

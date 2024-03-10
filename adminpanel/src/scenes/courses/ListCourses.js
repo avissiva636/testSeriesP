@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => {
     };
 });
 
-const ListSubjects = () => {
+const ListCourses = () => {
     const theme = useTheme();
     // const data = subjectData;
 
@@ -136,7 +136,7 @@ const ListSubjects = () => {
 
     return (
         <Box m="1.5rem 2.5rem">
-            <Header title="SUBJECTS" subtitle="Entire list of subjects" />
+            <Header title="COURSES" subtitle="Entire list of courses" />
 
             <Box height="68vh"
                 sx={{
@@ -192,4 +192,4 @@ const ListSubjects = () => {
     )
 }
 
-export default ListSubjects
+export default ListCourses

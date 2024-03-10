@@ -1,5 +1,4 @@
 import React from 'react'
-import FlexBetween from './FlexBetween';
 const { Box, useTheme, Typography, Divider, Link } = require("@mui/material");
 
 const DashboardCard = ({ text = "sixer", icon, number = "dsf", viewAll }) => {
