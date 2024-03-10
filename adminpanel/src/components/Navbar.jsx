@@ -1,8 +1,8 @@
-import { AppBar, Box, Button, IconButton, InputBase, Menu, MenuItem, Toolbar, Typography, useTheme } from '@mui/material';
+import { AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar, Typography, useTheme } from '@mui/material';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import FlexBetween from './FlexBetween';
-import { ArrowDropDownOutlined, DarkModeOutlined, LightModeOutlined, Menu as MenuIcon, Search, SettingsOutlined, } from '@mui/icons-material';
+import { ArrowDropDownOutlined, DarkModeOutlined, LightModeOutlined, Menu as MenuIcon, SettingsOutlined, } from '@mui/icons-material';
 import { setMode } from 'state/stateSlice';
 import profileImage from '../assets/profile.jpeg';
 
@@ -25,12 +25,12 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     >
         <Toolbar sx={{ justifyContent: "space-between" }}>
             {/* LEFT SIDE */}
-            <FlexBetween flexGrow={1} sx={{justifyContent:"center"}}>
+            <FlexBetween flexGrow={1} sx={{ justifyContent: "center" }}>
                 {!isSidebarOpen && (<IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                     <MenuIcon />
                 </IconButton>)}
-                
-                <FlexBetween                    
+
+                <FlexBetween
                     p="0.1rem 0.5rem"
                 >
                     <Typography variant='h3' sx={{
