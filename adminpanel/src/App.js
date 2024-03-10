@@ -11,6 +11,8 @@ import AddSubjects from "scenes/subjects/AddSubjects";
 import AddCourses from "scenes/courses/AddCourses";
 import ListSubjects from "scenes/subjects/ListSubjects";
 import ListCourses from "scenes/courses/ListCourses";
+import AddBatches from "scenes/batches/AddBatches";
+import ListBatches from "scenes/batches/ListBatches";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -30,6 +32,9 @@ function App() {
 
             <Route path="addcourses" element={<AddCourses />} />
             <Route path="listcourses" element={<ListCourses />} />
+
+            <Route path="addbatches" element={<AddBatches/>}/>
+            <Route path="listbatches" element={<ListBatches/>}/>
             {/* public routes */}
             {/* <Route index element={<Public />} />
             <Route path="login" element={<Login />} /> */}
