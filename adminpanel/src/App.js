@@ -8,6 +8,8 @@ import Layout from "scenes/layout";
 import { selectCurrentMode } from "state/stateSlice";
 import { themeSettings } from "theme";
 import AddSubjects from "scenes/subjects/AddSubjects";
+import AddCourses from "scenes/courses/AddCourses";
+import ListSubjects from "scenes/subjects/ListSubjects";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -23,6 +25,9 @@ function App() {
             <Route path="addprelimsseries" element={<AddPrelimsSeries />} />
 
             <Route path="addsubjects" element={<AddSubjects />} />
+            <Route path="listsubjects" element={<ListSubjects />} />
+
+            <Route path="addcourses" element={<AddCourses />} />
             {/* public routes */}
             {/* <Route index element={<Public />} />
             <Route path="login" element={<Login />} /> */}

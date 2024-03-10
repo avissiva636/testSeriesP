@@ -2,15 +2,15 @@ import { Box, Button, TextField, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import FlexBetween from './FlexBetween';
 
-const TwoFieldSubmition = ({ subject, setSubject, subjectDes, setSubjectDes, isNonMediumScreens }) => {
+const TwoFieldSubmition = ({ fieldName, field, setfield, fieldDes, setFieldDes, isNonMediumScreens }) => {
   const theme = useTheme();
 
-  const handleReset = ()=>{
-    setSubject('');
-    setSubjectDes('');
+  const handleReset = () => {
+    setfield('');
+    setFieldDes('');
   }
 
-  const handleSubmit = ()=>{
+  const handleSubmit = () => {
     alert("button clicked");
   }
 
@@ -22,12 +22,12 @@ const TwoFieldSubmition = ({ subject, setSubject, subjectDes, setSubjectDes, isN
         backgroundColor: theme.palette.background.alt
       }}>
       <Box p={'1rem 2rem'}>
-        <Typography variant='h4' >Subject Name:</Typography>
+        <Typography variant='h4' >{fieldName} Name:</Typography>
         <TextField
-          label="Enter Subject Name"
+          label={`Enter ${fieldName} Name`}
           fullWidth
-          onChange={(e) => setSubject(e.target.value)}
-          value={subject}
+          onChange={(e) => setfield(e.target.value)}
+          value={field}
           variant='standard'
           sx={{ mt: "1rem", mb: "0.5rem" }}
           InputProps={{ style: { fontSize: '20px' } }}
@@ -35,12 +35,12 @@ const TwoFieldSubmition = ({ subject, setSubject, subjectDes, setSubjectDes, isN
       </Box>
 
       <Box p={'1rem 2rem'}>
-        <Typography variant='h4' >Subject Description:</Typography>
+        <Typography variant='h4' >{fieldName} Description:</Typography>
         <TextField
-          label="Enter Subject Description"
+          label={`Enter ${fieldName} Description`}
           fullWidth
-          onChange={(e) => setSubjectDes(e.target.value)}
-          value={subjectDes}
+          onChange={(e) => setFieldDes(e.target.value)}
+          value={fieldDes}
           variant='standard'
           sx={{ mt: "1rem", mb: "0.5rem" }}
           InputProps={{ style: { fontSize: '20px' } }}
