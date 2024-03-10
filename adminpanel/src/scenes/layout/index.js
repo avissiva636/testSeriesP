@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Navbar from "components/Navbar"
 import { Outlet } from 'react-router-dom'
 import Sidebar from 'components/Sidebar'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 // import { useGetUserQuery } from 'state/api'
 
 const Layout = () => {
