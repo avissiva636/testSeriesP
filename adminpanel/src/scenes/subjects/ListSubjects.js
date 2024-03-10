@@ -35,7 +35,6 @@ const ListSubjects = () => {
     // const data = subjectData;
 
 
-
     const [search, setSearch] = useState("");
 
     const [searchInput, setSearchInput] = useState("");
@@ -125,9 +124,6 @@ const ListSubjects = () => {
         },
     ]
 
-
-
-
     // COLOR DEFINITION Object
     const classes = useStyles();
 
@@ -137,8 +133,6 @@ const ListSubjects = () => {
             ? classes.evenRow
             : classes.oddRow;
     };
-
-
 
     return (
         <Box m="1.5rem 2.5rem">
