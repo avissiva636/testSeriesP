@@ -3,11 +3,16 @@ import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
 import { Button, Card, Stack, Typography } from "@mui/material";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ArchiveIcon from "@mui/icons-material/Archive";
+import { useNavigate } from "react-router-dom";
 
 const Welcomepage = () => {
+  const navigate = useNavigate();
+  const handleClick = (name) => {
+    navigate(`/${name}`);
+  };
   return (
     <Stack
-      spacing={0}
+      spacing={2}
       direction={"column"}
       sx={{ overflow: "auto", alignItems: "center" }}
     >
@@ -51,6 +56,7 @@ const Welcomepage = () => {
                   color: "black",
                   "&:hover": { backgroundColor: "#ffffff" },
                 }}
+                onClick={() => handleClick("MainsTestStore")}
               >
                 View
               </Button>
@@ -79,6 +85,7 @@ const Welcomepage = () => {
                   color: "black",
                   "&:hover": { backgroundColor: "#ffffff" },
                 }}
+                onClick={() => handleClick("PrelimsTestStore")}
               >
                 View
               </Button>
@@ -108,6 +115,7 @@ const Welcomepage = () => {
                   color: "black",
                   "&:hover": { backgroundColor: "#ffffff" },
                 }}
+                onClick={() => handleClick("PurchasedTestSeries")}
               >
                 View
               </Button>
@@ -137,6 +145,7 @@ const Welcomepage = () => {
                   color: "black",
                   "&:hover": { backgroundColor: "#ffffff" },
                 }}
+                onClick={() => handleClick("DiscussionMainPage")}
               >
                 View
               </Button>
@@ -166,6 +175,7 @@ const Welcomepage = () => {
                   color: "black",
                   "&:hover": { backgroundColor: "#ffffff" },
                 }}
+                onClick={() => handleClick("ProgressCardMain")}
               >
                 View
               </Button>
@@ -195,6 +205,7 @@ const Welcomepage = () => {
                   color: "black",
                   "&:hover": { backgroundColor: "#ffffff" },
                 }}
+                onClick={() => handleClick("ArchivesMainPage")}
               >
                 View
               </Button>
