@@ -15,6 +15,7 @@ import ListCourses from "scenes/courses/ListCourses";
 import AddBatches from "scenes/batches/AddBatches";
 import ListBatches from "scenes/batches/ListBatches";
 import AddMainsSeries from "scenes/mains/AddMainsSeries";
+import ListMainsSeries from "scenes/mains/ListMainsSeries";
 import AddScheduledSeries from "scenes/scheduled/AddScheduledSeries";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Route path="listprelimsseries" element={<ListPrelimsSeries />} />
 
             <Route path="addmainsseries" element={<AddMainsSeries />} />
+            <Route path="listmainsseries" element={<ListMainsSeries />} />
 
             <Route path="addscheduledseries" element={<AddScheduledSeries />} />
 
