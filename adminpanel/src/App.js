@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import AddPrelimsSeries from "scenes/prelims/AddPrelimsSeries";
-import ListPrelimsSeries from "scenes/prelimse/ListPrelimsSeries";
+import ListPrelimsSeries from "scenes/prelims/ListPrelimsSeries";
 import Dashboard from "scenes/dashboard";
 import Layout from "scenes/layout";
 import { selectCurrentMode } from "state/stateSlice";
@@ -15,6 +15,7 @@ import ListCourses from "scenes/courses/ListCourses";
 import AddBatches from "scenes/batches/AddBatches";
 import ListBatches from "scenes/batches/ListBatches";
 import AddMainsSeries from "scenes/mains/AddMainsSeries";
+import AddScheduledSeries from "scenes/scheduled/AddScheduledSeries";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -31,6 +32,8 @@ function App() {
             <Route path="listprelimsseries" element={<ListPrelimsSeries />} />
 
             <Route path="addmainsseries" element={<AddMainsSeries />} />
+
+            <Route path="addscheduledseries" element={<AddScheduledSeries />} />
 
             <Route path="addsubjects" element={<AddSubjects />} />
             <Route path="listsubjects" element={<ListSubjects />} />
