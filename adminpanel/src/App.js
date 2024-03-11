@@ -2,7 +2,8 @@ import { createTheme, ThemeProvider, CssBaseline } from "@mui/material"
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import AddPrelimsSeries from "scenes/addprelimsseries";
+import AddPrelimsSeries from "scenes/prelims/AddPrelimsSeries";
+import ListPrelimsSeries from "scenes/prelimse/ListPrelimsSeries";
 import Dashboard from "scenes/dashboard";
 import Layout from "scenes/layout";
 import { selectCurrentMode } from "state/stateSlice";
@@ -13,6 +14,7 @@ import ListSubjects from "scenes/subjects/ListSubjects";
 import ListCourses from "scenes/courses/ListCourses";
 import AddBatches from "scenes/batches/AddBatches";
 import ListBatches from "scenes/batches/ListBatches";
+import AddMainsSeries from "scenes/mains/AddMainsSeries";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -26,6 +28,9 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="home" element={<Dashboard />} />
             <Route path="addprelimsseries" element={<AddPrelimsSeries />} />
+            <Route path="listprelimsseries" element={<ListPrelimsSeries />} />
+
+            <Route path="addmainsseries" element={<AddMainsSeries />} />
 
             <Route path="addsubjects" element={<AddSubjects />} />
             <Route path="listsubjects" element={<ListSubjects />} />
@@ -33,8 +38,8 @@ function App() {
             <Route path="addcourses" element={<AddCourses />} />
             <Route path="listcourses" element={<ListCourses />} />
 
-            <Route path="addbatches" element={<AddBatches/>}/>
-            <Route path="listbatches" element={<ListBatches/>}/>
+            <Route path="addbatches" element={<AddBatches />} />
+            <Route path="listbatches" element={<ListBatches />} />
             {/* public routes */}
             {/* <Route index element={<Public />} />
             <Route path="login" element={<Login />} /> */}
