@@ -17,6 +17,7 @@ import ListBatches from "scenes/batches/ListBatches";
 import AddMainsSeries from "scenes/mains/AddMainsSeries";
 import ListMainsSeries from "scenes/mains/ListMainsSeries";
 import AddScheduledSeries from "scenes/scheduled/AddScheduledSeries";
+import ListScheduledSeries from "scenes/scheduled/ListScheduledSeries";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -36,6 +37,7 @@ function App() {
             <Route path="listmainsseries" element={<ListMainsSeries />} />
 
             <Route path="addscheduledseries" element={<AddScheduledSeries />} />
+            <Route path="listscheduledseries" element={<ListScheduledSeries />} />
 
             <Route path="addsubjects" element={<AddSubjects />} />
             <Route path="listsubjects" element={<ListSubjects />} />
