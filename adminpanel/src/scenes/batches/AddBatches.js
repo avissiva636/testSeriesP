@@ -31,12 +31,11 @@ const AddBatches = () => {
           mt: isNonMobile ? undefined : '20%',
           backgroundColor: theme.palette.background.alt
         }}>
-        <Box p={'1rem 2rem'}>
+        <Box p={'1rem 2rem'} mt={'2rem'}>
           <Typography variant='h4' >Course:</Typography>
           <TextField
             id="batchCourse"
-            select
-            label="Select"
+            select            
             fullWidth
             defaultValue="Lorem Ipsum"
             variant="standard"
