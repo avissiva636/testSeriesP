@@ -15,6 +15,7 @@ import Navigationbar from "../homepage/Navigationbar";
 import Explorer from "../homepage/Explorer";
 import { useNavigate } from "react-router-dom";
 import { useInspiroCrud } from "../context/InspiroContext";
+import Appbar from "../homepage/Appbar";
 
 const DiscussionMainPage = () => {
   const { discussionCardDetailsPrelims, discussionCardDetailsMains } = useInspiroCrud();
@@ -27,23 +28,25 @@ const DiscussionMainPage = () => {
     
   }
   return (
-    <Stack direction="column" spacing={8}>
-      <Navigationbar />
+    <Stack direction="row" spacing={8}>
+      {/* <Navigationbar />
       <Stack direction="row" spacing={4} sx={{ backgroundColor: "#fafafa" }}>
         <Stack sx={{ position: "", overflow: "auto" }}>
           <Explorer />
-        </Stack>
+        </Stack> */}
+        <Appbar />
         <Stack>
           {discussionCardDetailsPrelims.qPaper.map((data) => (
             <Card
               variant="outlined"
               sx={{
                 width: "100vh",
-                minHeight: "200px",
-                height: "auto",
+                minHeight: discussionCardDetailsPrelims.qPaper.length < 2 ? "380px" : "auto",
+                height: discussionCardDetailsPrelims.qPaper.length < 2 ? "200px" : "auto",
                 textAlign: "center",
                 margin: "10px",
                 borderColor: "ButtonShadow",
+                marginTop:"100px"
               }}
             >
               <Grid sx={{ marginTop: "10px" }}>
@@ -156,7 +159,7 @@ const DiscussionMainPage = () => {
             </Card>
           ))}
         </Stack>
-      </Stack>
+      {/* </Stack> */}
     </Stack>
   );
 };

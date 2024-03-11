@@ -3,25 +3,29 @@ import { Button, Card, Divider, Grid, Stack } from "@mui/material";
 import { useInspiroCrud } from "../context/InspiroContext";
 import Explorer from "../homepage/Explorer";
 import Navigationbar from "../homepage/Navigationbar";
+import Appbar from "../homepage/Appbar";
 
 const Prelimspage = () => {
   const { prelimsTest } = useInspiroCrud();
   return (
-    <Stack direction="column" spacing={8}>
-      <Navigationbar />
-      <Stack direction={"row"}>
-        <Stack sx={{position:"fixed", overflow:"auto"}}><Explorer /></Stack>
-        <Stack sx={{ marginLeft: "280px", overflow:"auto" }} direction={"row"} justifyContent="space-evenly" flexWrap="wrap">
+    <Stack direction="row" spacing={8}>
+      {/* <Navigationbar /> */}
+      {/* <Stack direction={""}> */}
+      <Appbar />
+        {/* <Stack sx={{position:"fixed", overflow:"auto"}}><Explorer /></Stack> */}
+        <Stack sx={{ marginLeft: "0px", overflow:"auto" }} direction={"row"} justifyContent="space-evenly" flexWrap="wrap">
           {prelimsTest.prelims.map((prelims) => (
             <Card
               variant="outlined"
               sx={{
                 width: "400px",
-                minHeight: "200px",
-                height: "auto",
+                minHeight: prelimsTest.prelims.length < 4 ? "280px" : "auto",
+                height: prelimsTest.prelims.length < 4 ? "200px" : "auto", 
                 textAlign: "center",
                 margin: "10px",
                 borderColor: "ButtonShadow",
+                marginTop:"80px",
+                
               }}
             >
               <Grid direction={"column"} spacing={1}>
@@ -57,6 +61,7 @@ const Prelimspage = () => {
                       sx={{
                         padding: "10px 30px 0px 30px",
                         justifyContent: "space-between",
+                        marginBottom:"10px"
                       }}
                     >
                       <a href={prelims.details}>
@@ -76,7 +81,7 @@ const Prelimspage = () => {
             </Card>
           ))}
         </Stack>
-      </Stack>
+      {/* </Stack> */}
     </Stack>
   );
 };

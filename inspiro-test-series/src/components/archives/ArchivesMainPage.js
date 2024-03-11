@@ -3,6 +3,7 @@ import { useInspiroCrud } from "../context/InspiroContext";
 import Navigationbar from "../homepage/Navigationbar";
 import Explorer from "../homepage/Explorer";
 import { Link } from "react-router-dom";
+import Appbar from "../homepage/Appbar";
 
 const ArchivesMainPage = () => {
   const { archives, archiveQuestions } = useInspiroCrud();
@@ -10,12 +11,13 @@ const ArchivesMainPage = () => {
   console.log(questionDetails)
   return (
     <Stack>
-      <Stack direction="column" spacing={8}>
-        <Navigationbar />
+      <Stack direction="row" spacing={8}>
+        {/* <Navigationbar />
         <Stack direction={"row"} sx={{ backgroundColor: "#fafafa" }}>
           <Stack sx={{ position: "fixed", overflow: "auto" }}>
             <Explorer />
-          </Stack>
+          </Stack> */}
+          <Appbar />
           <Stack
             sx={{ marginLeft: "280px" }}
             direction={"row"}
@@ -27,11 +29,12 @@ const ArchivesMainPage = () => {
                 direction={"column"}
                 sx={{
                   width: "500px",
-                  minHeight: "250px",
-                  height: "auto",
+                  minHeight: questionDetails.length < 3 ? "300px" : "auto",
+                  height: questionDetails.length < 3 ? "200px" : "auto",
                   textAlign: "center",
                   margin: "10px",
                   borderColor: "ButtonShadow",
+                  marginTop:"100px"
                 }}
               >
                 <Grid direction={"column"}>
@@ -89,7 +92,7 @@ const ArchivesMainPage = () => {
             ))}
           </Stack>
         </Stack>
-      </Stack>
+      {/* </Stack> */}
     </Stack>
   );
 };

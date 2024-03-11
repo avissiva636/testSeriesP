@@ -1,10 +1,9 @@
 import { Button, Card, Grid, Stack } from "@mui/material";
 import { useInspiroCrud } from "../context/InspiroContext";
-import Navigationbar from "../homepage/Navigationbar";
-import Explorer from "../homepage/Explorer";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Link } from "react-router-dom";
+import Appbar from "../homepage/Appbar";
 
 const Purchasedtestseries = () => {
   const { purchasedTest } = useInspiroCrud();
@@ -13,13 +12,14 @@ const Purchasedtestseries = () => {
 
   return (
     <Stack direction="column" spacing={8}>
-      <Navigationbar />
+      {/* <Navigationbar /> */}
       <Stack direction={"row"}>
-        <Stack sx={{ position: "fixed", overflow: "auto" }}>
+      <Appbar />
+        {/* <Stack sx={{ position: "fixed", overflow: "auto" }}>
           <Explorer />
-        </Stack>
+        </Stack> */}
         <Stack
-          sx={{ marginLeft: "280px", overflow: "auto" }}
+          sx={{ marginLeft: "40px", overflow: "auto", marginTop:"100px" }}
           direction={"row"}
           justifyContent="space-evenly"
           flexWrap="wrap"
@@ -28,9 +28,10 @@ const Purchasedtestseries = () => {
             <Card
               variant="outlined"
               sx={{
-                width: "400px",
-                minHeight: "200px",
-                height: "auto",
+                // maxWidth: "400px",
+                width:"auto",
+                height: "300px",
+                minHeight: "300px",
                 textAlign: "center",
                 margin: "10px",
                 borderColor: "ButtonShadow",
@@ -56,7 +57,7 @@ const Purchasedtestseries = () => {
                         height: "35px",
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "space-evenly",
+                        justifyContent: "space-evenly"
                       }}
                     >
                       <TaskAltIcon />

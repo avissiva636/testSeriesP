@@ -1,24 +1,40 @@
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
-import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
+import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
 import { Button, Card, Stack, Typography } from "@mui/material";
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import ArchiveIcon from '@mui/icons-material/Archive';
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import ArchiveIcon from "@mui/icons-material/Archive";
 
 const Welcomepage = () => {
   return (
-    <Stack spacing={0} direction={"column"} sx={{marginLeft:"400px", overflow:"auto"}} >
-      <Stack>{/*To set the position from left side */}
-        <Typography variant="h4" alignItems={"center"} sx={{ marginLeft: "300px" }}>
+    <Stack
+      spacing={0}
+      direction={"column"}
+      sx={{ overflow: "auto", alignItems: "center" }}
+    >
+      <Stack>
+        {/*To set the position from left side */}
+        <Typography
+          variant="h4"
+          alignItems={"center"}
+          sx={{ marginTop: "100px" }}
+        >
           Welcome Jagan to the Online Examination Portal
         </Typography>
       </Stack>
-      <Stack spacing={0} direction={"row"} flexWrap={"wrap"} justifyContent={"space-evenly"} sx={{marginLeft:"240px", marginTop:"20px"}} overflow={"auto"}>
+      <Stack
+        spacing={0}
+        direction={"row"}
+        flexWrap={"wrap"}
+        justifyContent={"space-evenly"}
+        sx={{ marginTop: "50px" }}
+        overflow={"auto"}
+      >
         <Card
           variant="outlined"
           sx={{
             minWidth: "300px",
             minHeight: "300px",
-            marginTop:"20px",
+            marginTop: "20px",
             backgroundColor: "#3498db",
             textAlign: "center",
             color: "#ffffff",
@@ -46,7 +62,7 @@ const Welcomepage = () => {
           sx={{
             minWidth: "300px",
             minHeight: "300px",
-            marginTop:"20px",
+            marginTop: "20px",
             backgroundColor: "#cb6231",
             textAlign: "center",
             color: "#ffffff",
@@ -74,7 +90,7 @@ const Welcomepage = () => {
           sx={{
             minWidth: "300px",
             minHeight: "300px",
-            marginTop:"20px",
+            marginTop: "20px",
             backgroundColor: "#62cb31",
             textAlign: "center",
             color: "#ffffff",
@@ -102,7 +118,7 @@ const Welcomepage = () => {
           variant="outlined"
           sx={{
             minWidth: "300px",
-            marginTop:"20px",
+            marginTop: "20px",
             minHeight: "300px",
             backgroundColor: "#3498db",
             textAlign: "center",
@@ -132,7 +148,7 @@ const Welcomepage = () => {
           sx={{
             minWidth: "300px",
             minHeight: "300px",
-            marginTop:"20px",
+            marginTop: "20px",
             backgroundColor: "#ffb606",
             textAlign: "center",
             color: "#ffffff",
@@ -161,7 +177,7 @@ const Welcomepage = () => {
           sx={{
             minWidth: "300px",
             minHeight: "300px",
-            marginTop:"20px", 
+            marginTop: "20px",
             backgroundColor: "#9b59b6",
             textAlign: "center",
             color: "#ffffff",
