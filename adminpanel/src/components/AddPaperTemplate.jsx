@@ -16,7 +16,6 @@ const AddPaperTemplate = ({ isNonMobile, seriesName,
     const [selectedValue, setSelectedValue] = useState('Free');
 
     const handleFileChange = (event) => {
-        // Get the selected file from the event
         const file = event.target.files[0];
         setSelectedFile(file);
     };
@@ -72,19 +71,16 @@ const AddPaperTemplate = ({ isNonMobile, seriesName,
                     id="batchCourse"
                     select
                     fullWidth
-                    // defaultValue="Free"
                     value={selectedValue}
                     onChange={(e) => setSelectedValue(e.target.value)}
                     variant="standard"
                 >
-                    {/* {courseData.map((course) => ( */}
                     <MenuItem key="Free" value={"Free"}>
                         Free
                     </MenuItem>
                     <MenuItem key="Paid" value={"Paid"}>
                         Paid
                     </MenuItem>
-                    {/* ))} */}
                 </TextField>
             </Box>
 
@@ -115,7 +111,6 @@ const AddPaperTemplate = ({ isNonMobile, seriesName,
                 </Button>
                 {selectedFile && selectedFile.name}
             </Box>
-
 
             <Box p={'1rem 2rem'}>
                 <Typography variant='h5' >{`Payment Link:`}</Typography>
