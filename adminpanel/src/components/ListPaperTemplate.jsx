@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles'
 import FlexBetween from 'components/FlexBetween';
 // import { PrelimsList as subjectData } from 'data'
 import { DataGrid } from '@mui/x-data-grid';
-import DataGridCustomToolbar from 'components/DataGridCustomToolbar';
+import { TwoFieldDGC as DataGridCustomToolbar } from 'components/TwoFieldDGC'
 
 // DESIDE COLOR FOR EVEN & ODD ROWS
 const useStyles = makeStyles(() => {
