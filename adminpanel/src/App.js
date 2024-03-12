@@ -24,6 +24,9 @@ import ListMainsSeries from "scenes/mains/ListMainsSeries";
 import AddScheduledSeries from "scenes/scheduled/AddScheduledSeries";
 import EditScheduledSeries from "scenes/scheduled/EditScheduledSeries";
 import ListScheduledSeries from "scenes/scheduled/ListScheduledSeries";
+import AddQPOutline from "scenes/qpoutline/AddQPOutline";
+import EditQpOutline from "scenes/qpoutline/EditQpOutline";
+import ListQpOutline from "scenes/qpoutline/ListQpOutline";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -47,6 +50,10 @@ function App() {
             <Route path="addscheduledseries" element={<AddScheduledSeries />} />
             <Route path="editscheduledseries/:id" element={<EditScheduledSeries />} />
             <Route path="listscheduledseries" element={<ListScheduledSeries />} />
+
+            <Route path="addoutline" element={<AddQPOutline />} />
+            <Route path="editoutline/:id" element={<EditQpOutline />} />
+            <Route path="listoutline" element={<ListQpOutline />} />
 
             <Route path="addsubjects" element={<AddSubjects />} />
             <Route path="editsubjects/:id" element={<EditSubjects />} />
