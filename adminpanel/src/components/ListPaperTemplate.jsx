@@ -6,6 +6,7 @@ import FlexBetween from 'components/FlexBetween';
 // import { PrelimsList as subjectData } from 'data'
 import { DataGrid } from '@mui/x-data-grid';
 import { TwoFieldDGC as DataGridCustomToolbar } from 'components/TwoFieldDGC'
+import { Link } from 'react-router-dom';
 
 // DESIDE COLOR FOR EVEN & ODD ROWS
 const useStyles = makeStyles(() => {
@@ -28,7 +29,7 @@ const useStyles = makeStyles(() => {
     };
 });
 
-const ListPaperTemplate = ({paperData}) => {
+const ListPaperTemplate = ({ paperData, paperName }) => {
     const theme = useTheme();
     // const data = paperData;
 
@@ -133,18 +134,25 @@ const ListPaperTemplate = ({paperData}) => {
             headerAlign: 'center',
             align: 'center',
             sortable: false,
-            renderCell: (params) => (
-                <FlexBetween gap={'1rem'}>
+            renderCell: (params) => {
+                const queryString = new URLSearchParams({
+                    id: encodeURIComponent(params.row.id),
+                    title: encodeURIComponent(params.row.title),
+                    description: encodeURIComponent(params.row.description),                    
+                }).toString();
+
+                return (<FlexBetween gap={'1rem'}>
                     <IconButton
-                        onClick={() => editClick({
-                            id: params.row.id,
-                            title: params.row.title,
-                            description: params.row.description
-                        })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
-                        <CreateRounded />
+                        <Link to={`/edit${paperName}series/${params.row.id}?${queryString}`}
+                            style={{
+                                color: 'inherit',
+                                textDecoration: 'none'
+                            }}>
+                            <CreateRounded />
+                        </Link>
                     </IconButton>
 
                     <IconButton
@@ -158,8 +166,8 @@ const ListPaperTemplate = ({paperData}) => {
                         }}>
                         <DeleteRounded />
                     </IconButton>
-                </FlexBetween>
-            )
+                </FlexBetween>)
+            }
         },
     ]
 
@@ -225,7 +233,7 @@ const ListPaperTemplate = ({paperData}) => {
 
                 slots={{ toolbar: DataGridCustomToolbar }}
                 slotProps={{
-                    toolbar: { search,  searchHandler }
+                    toolbar: { search, searchHandler }
                 }}
 
                 getRowClassName={getRowClassName}
