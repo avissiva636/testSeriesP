@@ -11,6 +11,7 @@ import { themeSettings } from "theme";
 import AddSubjects from "scenes/subjects/AddSubjects";
 import EditSubjects from "scenes/subjects/EditSubjectsSub";
 import AddCourses from "scenes/courses/AddCourses";
+import EditCourses from "scenes/courses/EditCoursesSub";
 import ListSubjects from "scenes/subjects/ListSubjects";
 import ListCourses from "scenes/courses/ListCourses";
 import AddBatches from "scenes/batches/AddBatches";
@@ -45,6 +46,7 @@ function App() {
             <Route path="listsubjects" element={<ListSubjects />} />
 
             <Route path="addcourses" element={<AddCourses />} />
+            <Route path="editcourses/:id" element={<EditCourses />} />
             <Route path="listcourses" element={<ListCourses />} />
 
             <Route path="addbatches" element={<AddBatches />} />
