@@ -24,6 +24,7 @@ import AddMainsSeries from "scenes/mains/AddMainsSeries";
 import EditMainsSeries from "scenes/mains/EditMainsSeries";
 import ListMainsSeries from "scenes/mains/ListMainsSeries";
 import SellMainsSeries from "scenes/mains/SellMainsSeries";
+import SalesMainsSeries from "scenes/mains/SalesMainsSeries";
 import AddScheduledSeries from "scenes/scheduled/AddScheduledSeries";
 import EditScheduledSeries from "scenes/scheduled/EditScheduledSeries";
 import ListScheduledSeries from "scenes/scheduled/ListScheduledSeries";
@@ -52,6 +53,7 @@ function App() {
             <Route path="editmainsseries/:id" element={<EditMainsSeries />} />
             <Route path="listmainsseries" element={<ListMainsSeries />} />
             <Route path="sellmainsseries" element={<SellMainsSeries />} />
+            <Route path="salesmainsseries" element={<SalesMainsSeries />} />
 
             <Route path="addscheduledseries" element={<AddScheduledSeries />} />
             <Route path="editscheduledseries/:id" element={<EditScheduledSeries />} />
