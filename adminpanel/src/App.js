@@ -15,6 +15,7 @@ import EditCourses from "scenes/courses/EditCoursesSub";
 import ListSubjects from "scenes/subjects/ListSubjects";
 import ListCourses from "scenes/courses/ListCourses";
 import AddBatches from "scenes/batches/AddBatches";
+import EditBatch from "scenes/batches/EditBatchsSub";
 import ListBatches from "scenes/batches/ListBatches";
 import AddMainsSeries from "scenes/mains/AddMainsSeries";
 import ListMainsSeries from "scenes/mains/ListMainsSeries";
@@ -50,6 +51,7 @@ function App() {
             <Route path="listcourses" element={<ListCourses />} />
 
             <Route path="addbatches" element={<AddBatches />} />
+            <Route path="editbatch/:id" element={<EditBatch />} />
             <Route path="listbatches" element={<ListBatches />} />
             {/* public routes */}
             {/* <Route index element={<Public />} />
