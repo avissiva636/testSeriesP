@@ -190,3 +190,16 @@ export const PrelimsList = [
     "paid": "Free"
   }
 ]
+
+export const Outline = [
+  {"id": 1, "title": "Item 1", "description": "Description for Item 1", "NoOptions": 5, "NoQuestions": 3},
+  {"id": 2, "title": "Item 2", "description": "Description for Item 2", "NoOptions": 8, "NoQuestions": 6},
+  {"id": 3, "title": "Item 3", "description": "Description for Item 3", "NoOptions": 0, "NoQuestions": 2},
+  {"id": 4, "title": "Item 4", "description": "Description for Item 4", "NoOptions": 3, "NoQuestions": 1},
+  {"id": 5, "title": "Item 5", "description": "Description for Item 5", "NoOptions": 12, "NoQuestions": 9},
+  {"id": 6, "title": "Item 6", "description": "Description for Item 6", "NoOptions": 0, "NoQuestions": 0},
+  {"id": 7, "title": "Item 7", "description": "Description for Item 7", "NoOptions": 7, "NoQuestions": 5},
+  {"id": 8, "title": "Item 8", "description": "Description for Item 8", "NoOptions": 2, "NoQuestions": 2},
+  {"id": 9, "title": "Item 9", "description": "Description for Item 9", "NoOptions": 0, "NoQuestions": 0},
+  {"id": 10, "title": "Item 10", "description": "Description for Item 10", "NoOptions": 4, "NoQuestions": 3}
+]
