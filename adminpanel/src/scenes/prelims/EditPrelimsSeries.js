@@ -9,7 +9,7 @@ const EditPrelimsSeries = () => {
     const isNonMobile = useOutletContext();
     const [searchParams] = useSearchParams();
 
-    const id = searchParams.get('id');
+    // const id = searchParams.get('id');
     const title = searchParams.get('title');
     const description = searchParams.get('description');
 
