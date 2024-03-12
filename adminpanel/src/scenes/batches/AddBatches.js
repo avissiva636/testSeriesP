@@ -35,9 +35,9 @@ const AddBatches = () => {
           <Typography variant='h4' >Course:</Typography>
           <TextField
             id="batchCourse"
-            select            
+            select
             fullWidth
-            defaultValue="Lorem Ipsum"
+            defaultValue={courseData[0].title}
             variant="standard"
           >
             {courseData.map((course) => (
