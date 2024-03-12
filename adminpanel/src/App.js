@@ -5,6 +5,8 @@ import { Route, Routes } from "react-router-dom";
 import AddPrelimsSeries from "scenes/prelims/AddPrelimsSeries";
 import EditPrelimsSeries from "scenes/prelims/EditPrelimsSeries";
 import ListPrelimsSeries from "scenes/prelims/ListPrelimsSeries";
+import SellPrelimsSeries from "scenes/prelims/SellPrelimsSeries";
+import SalesPrelimsSeries from "scenes/prelims/SalesPrelimsSeries";
 import Dashboard from "scenes/dashboard";
 import Layout from "scenes/layout";
 import { selectCurrentMode } from "state/stateSlice";
@@ -46,6 +48,8 @@ function App() {
             <Route path="addmainsseries" element={<AddMainsSeries />} />
             <Route path="editmainsseries/:id" element={<EditMainsSeries />} />
             <Route path="listmainsseries" element={<ListMainsSeries />} />
+            <Route path="sellprelimsseries" element={<SellPrelimsSeries />} />
+            <Route path="salesprelimsseries" element={<SalesPrelimsSeries />} />
 
             <Route path="addscheduledseries" element={<AddScheduledSeries />} />
             <Route path="editscheduledseries/:id" element={<EditScheduledSeries />} />
