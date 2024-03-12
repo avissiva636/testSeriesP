@@ -9,6 +9,7 @@ import Layout from "scenes/layout";
 import { selectCurrentMode } from "state/stateSlice";
 import { themeSettings } from "theme";
 import AddSubjects from "scenes/subjects/AddSubjects";
+import EditSubjects from "scenes/subjects/EditSubjectsSub";
 import AddCourses from "scenes/courses/AddCourses";
 import ListSubjects from "scenes/subjects/ListSubjects";
 import ListCourses from "scenes/courses/ListCourses";
@@ -40,6 +41,7 @@ function App() {
             <Route path="listscheduledseries" element={<ListScheduledSeries />} />
 
             <Route path="addsubjects" element={<AddSubjects />} />
+            <Route path="editsubjects/:id" element={<EditSubjects />} />
             <Route path="listsubjects" element={<ListSubjects />} />
 
             <Route path="addcourses" element={<AddCourses />} />
