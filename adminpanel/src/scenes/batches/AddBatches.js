@@ -1,4 +1,4 @@
-import { Box, Button, MenuItem, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Button, MenuItem, TextField, Typography, useTheme } from '@mui/material'
 import FlexBetween from 'components/FlexBetween';
 import Header from 'components/Header'
 import React, { useState } from 'react'
@@ -35,9 +35,9 @@ const AddBatches = () => {
           <Typography variant='h4' >Course:</Typography>
           <TextField
             id="batchCourse"
-            select            
+            select
             fullWidth
-            defaultValue="Lorem Ipsum"
+            defaultValue={courseData[0].title}
             variant="standard"
           >
             {courseData.map((course) => (

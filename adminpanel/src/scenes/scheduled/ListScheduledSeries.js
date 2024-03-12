@@ -12,7 +12,7 @@ const ListScheduledSeries = () => {
         <Box m="1.5rem 2.5rem" height={isNonMobile ? undefined : '80%'}>
             <Header title="SCHEDULED" subtitle="List Scheduled" />
 
-            <ListPaperTemplate paperData={prelimsData} />
+            <ListPaperTemplate paperName="scheduled" paperData={prelimsData} />
 
         </Box>
     )

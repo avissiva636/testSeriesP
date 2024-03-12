@@ -4,9 +4,10 @@ import { DataGrid } from '@mui/x-data-grid'
 import Header from 'components/Header'
 import React, { useState } from 'react'
 import { subject as subjectData } from 'data'
-import {TwoFieldDGC as DataGridCustomToolbar} from 'components/TwoFieldDGC'
+import { TwoFieldDGC as DataGridCustomToolbar } from 'components/TwoFieldDGC'
 import { CreateRounded, DeleteRounded } from '@mui/icons-material'
 import FlexBetween from 'components/FlexBetween'
+import { Link } from 'react-router-dom'
 
 
 // DESIDE COLOR FOR EVEN & ODD ROWS
@@ -62,10 +63,6 @@ const ListCourses = () => {
         pageSize: 6,
     });
 
-    const editClick = ({ id, title, description }) => {
-        console.log("Editing", id, title, description);
-    };
-
     const deleteClick = ({ id, title, description }) => {
         console.log("Deleting", id, title, description);
     }
@@ -93,18 +90,26 @@ const ListCourses = () => {
             headerAlign: 'center',
             align: 'center',
             sortable: false,
-            renderCell: (params) => (
-                <FlexBetween gap={'1rem'}>
+            renderCell: (params) => {
+
+                const queryString = new URLSearchParams({
+                    id: encodeURIComponent(params.row.id),
+                    title: encodeURIComponent(params.row.title),
+                    description: encodeURIComponent(params.row.description)
+                }).toString();
+
+                return (<FlexBetween gap={'1rem'}>
                     <IconButton
-                        onClick={() => editClick({
-                            id: params.row.id,
-                            title: params.row.title,
-                            description: params.row.description
-                        })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
-                        <CreateRounded />
+                        <Link to={`/editcourses/${params.row.id}?${queryString}`}
+                            style={{
+                                color: 'inherit',
+                                textDecoration: 'none'
+                            }}>
+                            <CreateRounded />
+                        </Link>
                     </IconButton>
 
                     <IconButton
@@ -119,8 +124,8 @@ const ListCourses = () => {
                         <DeleteRounded />
                     </IconButton>
                     {/* <span>Edit {params.row.id} - {params.row.title}</span> */}
-                </FlexBetween>
-            )
+                </FlexBetween>)
+            }
         },
     ]
 
