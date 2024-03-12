@@ -20,7 +20,7 @@ const EditSubjectsSub = () => {
     console.log(useLocation().state)
     return (
         <Box m="1.5rem 2.5rem" height={isNonMediumScreens ? undefined : '80%'}>
-            <Header title="SUBJECT" subtitle="Add New Subject" />
+            <Header title="SUBJECT" subtitle="Edit Subject" />
 
             <TwoFieldEdit
                 fieldName="Subject" fieldId={id}
