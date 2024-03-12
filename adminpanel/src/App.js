@@ -19,8 +19,10 @@ import AddBatches from "scenes/batches/AddBatches";
 import EditBatch from "scenes/batches/EditBatchsSub";
 import ListBatches from "scenes/batches/ListBatches";
 import AddMainsSeries from "scenes/mains/AddMainsSeries";
+import EditMainsSeries from "scenes/mains/EditMainsSeries";
 import ListMainsSeries from "scenes/mains/ListMainsSeries";
 import AddScheduledSeries from "scenes/scheduled/AddScheduledSeries";
+import EditScheduledSeries from "scenes/scheduled/EditScheduledSeries";
 import ListScheduledSeries from "scenes/scheduled/ListScheduledSeries";
 
 function App() {
@@ -39,9 +41,11 @@ function App() {
             <Route path="listprelimsseries" element={<ListPrelimsSeries />} />
 
             <Route path="addmainsseries" element={<AddMainsSeries />} />
+            <Route path="editmainsseries/:id" element={<EditMainsSeries />} />
             <Route path="listmainsseries" element={<ListMainsSeries />} />
 
             <Route path="addscheduledseries" element={<AddScheduledSeries />} />
+            <Route path="editscheduledseries/:id" element={<EditScheduledSeries />} />
             <Route path="listscheduledseries" element={<ListScheduledSeries />} />
 
             <Route path="addsubjects" element={<AddSubjects />} />
