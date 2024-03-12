@@ -7,6 +7,7 @@ import { Batch as batchData } from 'data'
 import { TwoFieldDGC as DataGridCustomToolbar } from 'components/TwoFieldDGC'
 import { CreateRounded, DeleteRounded } from '@mui/icons-material'
 import FlexBetween from 'components/FlexBetween'
+import { Link } from 'react-router-dom'
 
 
 // DESIDE COLOR FOR EVEN & ODD ROWS
@@ -62,10 +63,6 @@ const ListBatches = () => {
         pageSize: 6,
     });
 
-    const editClick = ({ id, course, description }) => {
-        console.log("Editing", id, course, description);
-    };
-
     const deleteClick = ({ id, course, description }) => {
         console.log("Deleting", id, course, description);
     }
@@ -98,18 +95,26 @@ const ListBatches = () => {
             headerAlign: 'center',
             align: 'center',
             sortable: false,
-            renderCell: (params) => (
-                <FlexBetween gap={'1rem'}>
+            renderCell: (params) => {
+                const queryString = new URLSearchParams({
+                    id: encodeURIComponent(params.row.id),
+                    course: encodeURIComponent(params.row.course),
+                    batch: encodeURIComponent(params.row.batch),
+                    description: encodeURIComponent(params.row.description)
+                }).toString();
+
+                return (<FlexBetween gap={'1rem'}>
                     <IconButton
-                        onClick={() => editClick({
-                            id: params.row.id,
-                            course: params.row.course,
-                            description: params.row.description
-                        })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
-                        <CreateRounded />
+                        <Link to={`/editbatch/${params.row.id}?${queryString}`}
+                            style={{
+                                color: 'inherit',
+                                textDecoration: 'none'
+                            }}>
+                            <CreateRounded />
+                        </Link>
                     </IconButton>
 
                     <IconButton
@@ -124,8 +129,8 @@ const ListBatches = () => {
                         <DeleteRounded />
                     </IconButton>
                     {/* <span>Edit {params.row.id} - {params.row.title}</span> */}
-                </FlexBetween>
-            )
+                </FlexBetween>)
+            }
         },
     ]
 
