@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import AddPrelimsSeries from "scenes/prelims/AddPrelimsSeries";
+import EditPrelimsSeries from "scenes/prelims/EditPrelimsSeries";
 import ListPrelimsSeries from "scenes/prelims/ListPrelimsSeries";
 import Dashboard from "scenes/dashboard";
 import Layout from "scenes/layout";
@@ -34,6 +35,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="home" element={<Dashboard />} />
             <Route path="addprelimsseries" element={<AddPrelimsSeries />} />
+            <Route path="editprelimsseries/:id" element={<EditPrelimsSeries />} />
             <Route path="listprelimsseries" element={<ListPrelimsSeries />} />
 
             <Route path="addmainsseries" element={<AddMainsSeries />} />
