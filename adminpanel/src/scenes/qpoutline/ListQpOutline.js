@@ -3,7 +3,6 @@ import { CreateRounded, DeleteRounded } from '@mui/icons-material';
 import { Box, IconButton, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles'
 import Header from 'components/Header';
-import ListPaperTemplate from 'components/ListPaperTemplate';
 import { TwoFieldDGC as DataGridCustomToolbar } from 'components/TwoFieldDGC';
 import { Outline as paperData } from 'data'
 
@@ -37,8 +36,7 @@ const ListQpOutline = () => {
 
     const theme = useTheme();
     // const data = paperData;
-
-    const paperName = "mains";
+    
     const [search, setSearch] = useState("");
     const [searchResult, setSearchResult] = useState("");
 
@@ -63,10 +61,6 @@ const ListQpOutline = () => {
         page: 0,
         pageSize: 10,
     });
-
-    const editClick = ({ id, title, description }) => {
-        console.log("Editing", id, title, description);
-    };
 
     const deleteClick = ({ id, title, description }) => {
         console.log("Deleting", id, title, description);
