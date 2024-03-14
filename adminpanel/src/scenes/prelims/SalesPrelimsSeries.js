@@ -16,7 +16,7 @@ const SalesPrelimsSeries = () => {
       <Header title="PRELIMS" subtitle="Prelims Sale List" />
 
       <SalesPaperTemplate seriesName="prelims"
-        series={salePrelims} setSeries={setSalePrelims}
+        userName={salePrelims} setUserName={setSalePrelims}
         paperData={salesPrelims}
       />
     </Box>
