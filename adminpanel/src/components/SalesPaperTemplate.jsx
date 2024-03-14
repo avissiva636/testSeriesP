@@ -40,11 +40,6 @@ const SalesPaperTemplate = ({ seriesName, userName, setUserName, paperData }) =>
     const [endDate, setEndDate] = useState(new Date());
     const theme = useTheme();
 
-    const [search, setSearch] = useState("");
-    const [searchResult, setSearchResult] = useState("");
-
-    const data = !search.length ? paperData : searchResult;
-
     const [paginationModel, setPaginationModel] = useState({
         page: 0,
         pageSize: 10,
@@ -312,14 +307,14 @@ const SalesPaperTemplate = ({ seriesName, userName, setUserName, paperData }) =>
             >
                 <DataGrid
                     // loading={isLoading || !data}
-                    loading={!data}
+                    loading={!paperData}
                     getRowId={(row) => row.sino}
-                    rows={(data) || []}
+                    rows={(paperData) || []}
                     columns={columns}
 
                     autoHeight={true}
                     rowHeight={70}
-                    rowCount={(data && (data.length || 20)) || 0}
+                    rowCount={(paperData && (paperData.length || 20)) || 0}
 
                     paginationModel={paginationModel}
                     onPaginationModelChange={setPaginationModel}
