@@ -32,6 +32,7 @@ import AddBatches from "scenes/batches/AddBatches";
 import EditBatch from "scenes/batches/EditBatchsSub";
 import ListBatches from "scenes/batches/ListBatches";
 import AddStudents from "scenes/students/AddStudents";
+import EditStudents from "scenes/students/EditStudents";
 import ListStudents from "scenes/students/ListStudents";
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
             <Route path="listbatches" element={<ListBatches />} />
 
             <Route path="addstudents" element={<AddStudents />} />
+            <Route path="editstudents" element={<EditStudents />} />
             <Route path="liststudents" element={<ListStudents />} />
             {/* public routes */}
             {/* <Route index element={<Public />} />
