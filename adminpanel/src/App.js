@@ -19,6 +19,7 @@ import SalesMainsSeries from "scenes/mains/SalesMainsSeries";
 import AddScheduledSeries from "scenes/scheduled/AddScheduledSeries";
 import EditScheduledSeries from "scenes/scheduled/EditScheduledSeries";
 import ListScheduledSeries from "scenes/scheduled/ListScheduledSeries";
+import EnrollScheduledSeries from "scenes/scheduled/EnrollScheduledSeries";
 import AddQPOutline from "scenes/qpoutline/AddQPOutline";
 import EditQpOutline from "scenes/qpoutline/EditQpOutline";
 import ListQpOutline from "scenes/qpoutline/ListQpOutline";
@@ -61,6 +62,7 @@ function App() {
             <Route path="addscheduledseries" element={<AddScheduledSeries />} />
             <Route path="editscheduledseries/:id" element={<EditScheduledSeries />} />
             <Route path="listscheduledseries" element={<ListScheduledSeries />} />
+            <Route path="enrolledscheduledseries" element={<EnrollScheduledSeries />} />
 
             <Route path="addoutline" element={<AddQPOutline />} />
             <Route path="editoutline/:id" element={<EditQpOutline />} />
