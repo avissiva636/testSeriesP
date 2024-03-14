@@ -79,7 +79,7 @@ function App() {
             <Route path="listbatches" element={<ListBatches />} />
 
             <Route path="addstudents" element={<AddStudents />} />
-            <Route path="editstudents" element={<EditStudents />} />
+            <Route path="editstudents/:id" element={<EditStudents />} />
             <Route path="liststudents" element={<ListStudents />} />
             {/* public routes */}
             {/* <Route index element={<Public />} />
