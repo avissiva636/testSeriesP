@@ -32,6 +32,7 @@ import AddBatches from "scenes/batches/AddBatches";
 import EditBatch from "scenes/batches/EditBatchsSub";
 import ListBatches from "scenes/batches/ListBatches";
 import AddStudents from "scenes/students/AddStudents";
+import ListStudents from "scenes/students/ListStudents";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -77,6 +78,7 @@ function App() {
             <Route path="listbatches" element={<ListBatches />} />
 
             <Route path="addstudents" element={<AddStudents />} />
+            <Route path="liststudents" element={<ListStudents />} />
             {/* public routes */}
             {/* <Route index element={<Public />} />
             <Route path="login" element={<Login />} /> */}
