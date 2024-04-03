@@ -2,5 +2,8 @@ module.exports = {
     connectDb: require("./dbConnection"),
     employeeModel: require("./models/Employee"),
     userModel: require("./models/User"),
-    adminModel: require("./models/Admin")
+    adminModel: require("./models/Admin"),
+    SubjecthModel:require("./models/Subject"),
+    CourseModel:require("./models/Course"),
+    BatchModel:require("./models/Batch"),
 };
