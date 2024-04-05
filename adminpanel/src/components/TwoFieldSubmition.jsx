@@ -2,16 +2,12 @@ import { Box, Button, TextField, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import FlexBetween from './FlexBetween';
 
-const TwoFieldSubmition = ({ fieldName, field, setfield, fieldDes, setFieldDes, isNonMediumScreens }) => {
+const TwoFieldSubmition = ({ fieldName, field, setfield, fieldDes, setFieldDes, isNonMediumScreens,handleSubmit }) => {
   const theme = useTheme();
 
   const handleReset = () => {
     setfield('');
     setFieldDes('');
-  }
-
-  const handleSubmit = () => {
-    alert("button clicked");
   }
 
   return (

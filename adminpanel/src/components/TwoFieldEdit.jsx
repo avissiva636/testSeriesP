@@ -2,16 +2,12 @@ import { Box, Button, TextField, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import FlexBetween from './FlexBetween';
 
-const TwoFieldEdit = ({ fieldName, field, setfield, fieldDes, setFieldDes, isNonMediumScreens }) => {
+const TwoFieldEdit = ({ fieldName, field, setfield, fieldDes, setFieldDes, isNonMediumScreens,handleUpdate }) => {
     const theme = useTheme();
 
     const handleReset = () => {
         setfield('');
         setFieldDes('');
-    }
-
-    const handleUpdate = () => {
-        alert("button clicked");
     }
 
     return (
