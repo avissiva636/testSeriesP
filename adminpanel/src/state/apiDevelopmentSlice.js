@@ -5,15 +5,42 @@ export const api = createApi({
         baseUrl: process.env.REACT_APP_BASE_URL
     }),
     reducerPath: "adminApi",
-    tagTypes: ["User"],
+    tagTypes: ["Subject"],
     endpoints: (build) => ({
-        getUser: build.query({
-            query: (id) => `general/user/${id}`,
-            providesTags: ["User"]
+        getSubjects: build.query({
+            query: (id) => `/admin/subject`,
+            providesTags: ["Subject"]
+        }),
+
+        createSubject: build.mutation({
+            query: (createSubjectData) => ({
+                url: `/admin/subject`,
+                method: "POST",
+                body: { ...createSubjectData }
+            }),
+            invalidatesTags: ["Subject"]
+        }),
+        updateSubject: build.mutation({
+            query: ({ subjectId, updateSubjectData }) => ({
+                url: `/admin/subject/${subjectId}`,
+                method: "PUT",
+                body: { ...updateSubjectData }
+            }),
+            invalidatesTags: ["Subject"]
+        }),
+        deleteSubject: build.mutation({
+            query: (subjectId) => ({
+                url: `/admin/subject/${subjectId}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["Subject"]
         }),
     }),
 });
 
 export const {
-    useGetUserQuery,
+    useGetSubjectsQuery,
+    useCreateSubjectMutation,
+    useUpdateSubjectMutation,
+    useDeleteSubjectMutation,
 } = api;
