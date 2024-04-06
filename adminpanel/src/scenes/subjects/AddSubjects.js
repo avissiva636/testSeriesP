@@ -15,7 +15,7 @@ const AddSubjects = () => {
         e.preventDefault();
 
         try {
-            await createSubject({ namee: subject, description: subjectDes }).unwrap();
+            await createSubject({ name: subject, description: subjectDes }).unwrap();
             setSubject('');
             setSubjectDes('');
             
