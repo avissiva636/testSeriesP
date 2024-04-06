@@ -8,7 +8,7 @@ export const api = createApi({
     tagTypes: ["Subject", "Course"],
     endpoints: (build) => ({
         getCourses: build.query({
-            query: (id) => `/admin/course`,
+            query: () => `/admin/course`,
             providesTags: ["Course"]
         }),
         createCourse: build.mutation({
@@ -36,7 +36,7 @@ export const api = createApi({
         }),
 
         getSubjects: build.query({
-            query: (id) => `/admin/subject`,
+            query: () => `/admin/subject`,
             providesTags: ["Subject"]
         }),
         createSubject: build.mutation({
