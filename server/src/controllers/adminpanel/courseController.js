@@ -53,4 +53,41 @@ const createCourse = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { getCourses, getCourse, createCourse };
+//@desc update the Course
+//@route PUT /admin/course
+//access private
+const updateCourse = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+
+    const { name, description } = req.body;
+
+    if (!name || !description) {
+        res.status(400);
+        throw new Error("All fields are mandatory");
+    }
+
+    const updateCourse = await Course.findByIdAndUpdate(id, { name, description }, { new: true });
+
+    if (updateCourse) {
+        res.status(200).json(updateCourse);
+    } else {
+        res.status(400).json({ "message": "Course not updated" });
+    }
+});
+
+//@desc delete the Course
+//@route DELETE admin/course
+//access private
+const deleteCourse = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+
+    const deleteCourse = await Course.findByIdAndDelete(id);
+
+    if (deleteCourse) {
+        res.status(204).end();
+    } else {
+        res.status(400).json({ "message": "Course not deleted" });
+    }
+});
+
+module.exports = { getCourses, getCourse, createCourse, updateCourse, deleteCourse };
