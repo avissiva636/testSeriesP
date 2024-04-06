@@ -5,13 +5,40 @@ export const api = createApi({
         baseUrl: process.env.REACT_APP_BASE_URL
     }),
     reducerPath: "adminApi",
-    tagTypes: ["Subject"],
+    tagTypes: ["Subject", "Course"],
     endpoints: (build) => ({
+        getCourses: build.query({
+            query: (id) => `/admin/course`,
+            providesTags: ["Course"]
+        }),
+        createCourse: build.mutation({
+            query: (createCourseData) => ({
+                url: `/admin/course`,
+                method: "POST",
+                body: { ...createCourseData }
+            }),
+            invalidatesTags: ["Course"]
+        }),
+        updateCourse: build.mutation({
+            query: ({ courseId, updateCourseData }) => ({
+                url: `/admin/Course/${courseId}`,
+                method: "PUT",
+                body: { ...updateCourseData }
+            }),
+            invalidatesTags: ["Course"]
+        }),
+        deleteCourse: build.mutation({
+            query: (courseId) => ({
+                url: `/admin/Course/${courseId}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["Course"]
+        }),
+
         getSubjects: build.query({
             query: (id) => `/admin/subject`,
             providesTags: ["Subject"]
         }),
-
         createSubject: build.mutation({
             query: (createSubjectData) => ({
                 url: `/admin/subject`,
@@ -39,6 +66,11 @@ export const api = createApi({
 });
 
 export const {
+    useGetCoursesQuery,
+    useCreateCourseMutation,
+    useUpdateCourseMutation,
+    useDeleteCourseMutation,
+
     useGetSubjectsQuery,
     useCreateSubjectMutation,
     useUpdateSubjectMutation,
