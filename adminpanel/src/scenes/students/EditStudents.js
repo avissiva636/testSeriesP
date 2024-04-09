@@ -10,11 +10,11 @@ const EditStudents = () => {
     const isNonMobile = useOutletContext();
     const [searchParams] = useSearchParams();
 
-    const urlUsername = searchParams.get('username');    
+    const urlUsername = searchParams.get('username');
     const urlName = searchParams.get('name');
     const urlMobileno = searchParams.get('mobileno');
     const urlEmailid = searchParams.get('emailid');
-    const urlStatus = searchParams.get('status');    
+    const urlStatus = searchParams.get('status');
 
     const theme = useTheme();
 
@@ -101,6 +101,9 @@ const EditStudents = () => {
                             </MenuItem>
                             <MenuItem key="Female" value={"Female"}>
                                 Female
+                            </MenuItem>
+                            <MenuItem key="Others" value={"Others"}>
+                                Others
                             </MenuItem>
                         </TextField>
                     </Box>

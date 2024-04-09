@@ -94,6 +94,9 @@ const AddStudents = () => {
                             <MenuItem key="Female" value={"Female"}>
                                 Female
                             </MenuItem>
+                            <MenuItem key="Others" value={"Others"}>
+                                Others
+                            </MenuItem>
                         </TextField>
                     </Box>
                 </FlexBetween>
