@@ -10,6 +10,11 @@ const studentSchema = new Schema({
         type: Number,
         required: [true, "please add the Age"]
     },
+    sex: {
+        type: String,
+        required: [true, "please add the sex"],
+        enum: ["Male", "Female", "Others"],
+    },
     userName: {
         type: String,
         required: [true, "please add the User Name"]
