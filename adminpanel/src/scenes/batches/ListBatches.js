@@ -3,11 +3,12 @@ import { makeStyles } from '@mui/styles'
 import { DataGrid } from '@mui/x-data-grid'
 import Header from 'components/Header'
 import React, { useState } from 'react'
-import { Batch as batchData } from 'data'
+// import { Batch as batchData } from 'data'
 import { TwoFieldDGC as DataGridCustomToolbar } from 'components/TwoFieldDGC'
 import { CreateRounded, DeleteRounded } from '@mui/icons-material'
 import FlexBetween from 'components/FlexBetween'
 import { Link } from 'react-router-dom'
+import { useDeleteBatchMutation, useGetBatchesQuery } from 'state/apiDevelopmentSlice'
 
 
 // DESIDE COLOR FOR EVEN & ODD ROWS
@@ -34,8 +35,9 @@ const useStyles = makeStyles(() => {
 const ListBatches = () => {
     const theme = useTheme();
     // const data = batchData;
-
-
+    const { isLoading, data: batchData } = useGetBatchesQuery();
+    const [deleteBatch] = useDeleteBatchMutation();
+    
     const [search, setSearch] = useState("");
 
     const [searchInput, setSearchInput] = useState("");
@@ -63,13 +65,17 @@ const ListBatches = () => {
         pageSize: 6,
     });
 
-    const deleteClick = ({ id, course, description }) => {
-        console.log("Deleting", id, course, description);
+    const deleteClick = async ({ id, title }) => {
+        const confirmation = window.confirm(`Are you sure you want to delete ${title}?`);
+
+        if (confirmation) {
+            await deleteBatch(id);
+        }
     }
 
     const columns = [
         {
-            field: "id",
+            field: "sno",
             headerName: "ID",
             flex: 0.5,
         },
@@ -77,9 +83,10 @@ const ListBatches = () => {
             field: "course",
             headerName: "COURSE",
             flex: 1.5,
+            valueGetter: (params) => params.row.course.name,
         },
         {
-            field: "batch",
+            field: "name",
             headerName: "BATCH",
             flex: 1.5,
         },
@@ -97,9 +104,9 @@ const ListBatches = () => {
             sortable: false,
             renderCell: (params) => {
                 const queryString = new URLSearchParams({
-                    id: encodeURIComponent(params.row.id),
-                    course: encodeURIComponent(params.row.course),
-                    batch: encodeURIComponent(params.row.batch),
+                    id: encodeURIComponent(params.row._id),
+                    course: encodeURIComponent(params.row.course._id),
+                    batch: encodeURIComponent(params.row.name),
                     description: encodeURIComponent(params.row.description)
                 }).toString();
 
@@ -108,7 +115,7 @@ const ListBatches = () => {
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
-                        <Link to={`/editbatch/${params.row.id}?${queryString}`}
+                        <Link to={`/editbatch/${params.row._id}?${queryString}`}
                             style={{
                                 color: 'inherit',
                                 textDecoration: 'none'
@@ -119,9 +126,8 @@ const ListBatches = () => {
 
                     <IconButton
                         onClick={() => deleteClick({
-                            id: params.row.id,
-                            course: params.row.course,
-                            description: params.row.description
+                            id: params.row._id,
+                            title: params.row.name,
                         })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
@@ -177,13 +183,13 @@ const ListBatches = () => {
                 }}
             >
                 <DataGrid
-                    // loading={isLoading || !data}
-                    loading={!data}
-                    getRowId={(row) => row.id}
+                    loading={isLoading || !data}
+                    // loading={!data}
+                    getRowId={(row) => row._id}
                     rows={(data) || []}
                     columns={columns}
 
-                    rowCount={(data && (data.length || 20)) || 0}
+                    rowCount={(data && (data.length || 0)) || 0}
 
                     paginationModel={paginationModel}
                     onPaginationModelChange={setPaginationModel}

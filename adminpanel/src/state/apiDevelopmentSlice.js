@@ -5,7 +5,7 @@ export const api = createApi({
         baseUrl: process.env.REACT_APP_BASE_URL
     }),
     reducerPath: "adminApi",
-    tagTypes: ["Subject", "Course"],
+    tagTypes: ["Subject", "Course", "Batch"],
     endpoints: (build) => ({
         getCourses: build.query({
             query: () => `/admin/course`,
@@ -62,6 +62,34 @@ export const api = createApi({
             }),
             invalidatesTags: ["Subject"]
         }),
+
+        getBatches: build.query({
+            query: () => `/admin/batch`,
+            providesTags: ["Batch"]
+        }),
+        createBatch: build.mutation({
+            query: (createBatchData) => ({
+                url: `/admin/batch`,
+                method: "POST",
+                body: { ...createBatchData }
+            }),
+            invalidatesTags: ["Batch"]
+        }),
+        updateBatch: build.mutation({
+            query: ({ batchId, updateBatchData }) => ({
+                url: `/admin/batch/${batchId}`,
+                method: "PUT",
+                body: { ...updateBatchData }
+            }),
+            invalidatesTags: ["Batch"]
+        }),
+        deleteBatch: build.mutation({
+            query: (batchId) => ({
+                url: `/admin/batch/${batchId}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["Batch"]
+        }),
     }),
 });
 
@@ -75,4 +103,9 @@ export const {
     useCreateSubjectMutation,
     useUpdateSubjectMutation,
     useDeleteSubjectMutation,
+
+    useGetBatchesQuery,
+    useCreateBatchMutation,
+    useUpdateBatchMutation,
+    useDeleteBatchMutation
 } = api;

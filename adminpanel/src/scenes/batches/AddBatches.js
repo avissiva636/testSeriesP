@@ -3,7 +3,8 @@ import FlexBetween from 'components/FlexBetween';
 import Header from 'components/Header'
 import React, { useState } from 'react'
 import { useOutletContext } from 'react-router-dom';
-import { subject as courseData } from 'data';
+// import { subject as courseData } from 'data';
+import { useCreateBatchMutation, useGetCoursesQuery } from 'state/apiDevelopmentSlice';
 
 const AddBatches = () => {
   const isNonMobile = useOutletContext();
@@ -11,14 +12,31 @@ const AddBatches = () => {
 
   const [batch, setBatch] = useState('');
   const [batchDes, setBatchDes] = useState('');
+  const [selectedCourse, setSelectedCourse] = useState('');
+
+  const [createBatch] = useCreateBatchMutation();
+  const { isLoading, data: courseData } = useGetCoursesQuery();
 
   const handleReset = () => {
+    setSelectedCourse(courseData[0]._id);
     setBatch('');
     setBatchDes('');
   }
 
-  const handleSubmit = () => {
-    alert("button clicked");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await createBatch({ course: selectedCourse, name: batch, description: batchDes }).unwrap();
+      setSelectedCourse(courseData[0]._id);
+      setBatch('');
+      setBatchDes('');
+
+    } catch (error) {
+      if (error.status === 400) {
+        alert("Give proper data");
+      }
+    }
   }
 
   return (
@@ -37,15 +55,19 @@ const AddBatches = () => {
             id="batchCourse"
             select
             fullWidth
-            defaultValue={courseData[0].title}
+            value={selectedCourse}
+            onChange={(e) => setSelectedCourse(e.target.value)}
+            // defaultValue={courseData[0].title}
             variant="standard"
-          >
-            {courseData.map((course) => (
-              <MenuItem key={course.id} value={course.title}>
-                {course.title}
-              </MenuItem>
-            ))}
-          </TextField>
+            children={
+              !isLoading ? courseData && courseData.map((course) => (
+                <MenuItem key={course._id} value={course._id}>
+                  {course.name}
+                </MenuItem>
+              )) : <MenuItem value="">Select a course</MenuItem>
+            }
+          />
+          {/* </TextField> */}
         </Box>
 
         <Box p={'1rem 2rem'}>
