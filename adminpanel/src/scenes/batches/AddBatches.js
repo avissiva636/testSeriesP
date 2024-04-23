@@ -60,7 +60,7 @@ const AddBatches = () => {
             // defaultValue={courseData[0].title}
             variant="standard"
             children={
-              !isLoading ? courseData && courseData.map((course) => (
+              !isLoading && courseData ? courseData.map((course) => (
                 <MenuItem key={course._id} value={course._id}>
                   {course.name}
                 </MenuItem>
