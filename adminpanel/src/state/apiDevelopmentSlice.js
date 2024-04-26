@@ -5,7 +5,7 @@ export const api = createApi({
         baseUrl: process.env.REACT_APP_BASE_URL
     }),
     reducerPath: "adminApi",
-    tagTypes: ["Subject", "Course", "Batch"],
+    tagTypes: ["Subject", "Course", "Batch", "Student"],
     endpoints: (build) => ({
         getCourses: build.query({
             query: () => `/admin/course`,
@@ -90,6 +90,44 @@ export const api = createApi({
             }),
             invalidatesTags: ["Batch"]
         }),
+
+        getStudent: build.query({
+            query: ({ sid }) => ({
+                url: `/admin/student/${sid}`,
+                method: "GET"
+            })
+        }),
+        getStudents: build.query({
+            query: ({ page, pageSize, sort, search }) => ({
+                url: `/admin/student`,
+                method: "GET",
+                params: { page, pageSize, sort, search },
+            }),
+            providesTags: ["Student"]
+        }),
+        createStudent: build.mutation({
+            query: (createStudentData) => ({
+                url: `/admin/student`,
+                method: "POST",
+                body: { ...createStudentData }
+            }),
+            invalidatesTags: ["Student"]
+        }),
+        updateStudent: build.mutation({
+            query: ({ studentId, updateStudentData }) => ({
+                url: `/admin/student/${studentId}`,
+                method: "PUT",
+                body: { ...updateStudentData }
+            }),
+            invalidatesTags: ["Student"]
+        }),
+        deleteStudent: build.mutation({
+            query: (studentId) => ({
+                url: `/admin/student/${studentId}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["Student"]
+        }),
     }),
 });
 
@@ -107,5 +145,11 @@ export const {
     useGetBatchesQuery,
     useCreateBatchMutation,
     useUpdateBatchMutation,
-    useDeleteBatchMutation
+    useDeleteBatchMutation,
+
+    useGetStudentQuery,
+    useGetStudentsQuery,
+    useCreateStudentMutation,
+    useUpdateStudentMutation,
+    useDeleteStudentMutation
 } = api;
