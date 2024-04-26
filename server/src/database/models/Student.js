@@ -23,7 +23,7 @@ const studentSchema = new Schema({
         type: String,
         required: [true, "please add the Password"]
     },
-    Course: {
+    course: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Course",
     },
@@ -47,6 +47,8 @@ const studentSchema = new Schema({
         enum: ["pending", "approved", "reject", "lock"],
         default: "pending"
     },
-})
+},
+    { timestamps: true }
+);
 
 module.exports = mongoose.model('Student', studentSchema);
