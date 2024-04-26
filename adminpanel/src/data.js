@@ -192,14 +192,60 @@ export const PrelimsList = [
 ]
 
 export const Outline = [
-  {"id": 1, "title": "Item 1", "description": "Description for Item 1", "NoOptions": 5, "NoQuestions": 3},
-  {"id": 2, "title": "Item 2", "description": "Description for Item 2", "NoOptions": 8, "NoQuestions": 6},
-  {"id": 3, "title": "Item 3", "description": "Description for Item 3", "NoOptions": 0, "NoQuestions": 2},
-  {"id": 4, "title": "Item 4", "description": "Description for Item 4", "NoOptions": 3, "NoQuestions": 1},
-  {"id": 5, "title": "Item 5", "description": "Description for Item 5", "NoOptions": 12, "NoQuestions": 9},
-  {"id": 6, "title": "Item 6", "description": "Description for Item 6", "NoOptions": 0, "NoQuestions": 0},
-  {"id": 7, "title": "Item 7", "description": "Description for Item 7", "NoOptions": 7, "NoQuestions": 5},
-  {"id": 8, "title": "Item 8", "description": "Description for Item 8", "NoOptions": 2, "NoQuestions": 2},
-  {"id": 9, "title": "Item 9", "description": "Description for Item 9", "NoOptions": 0, "NoQuestions": 0},
-  {"id": 10, "title": "Item 10", "description": "Description for Item 10", "NoOptions": 4, "NoQuestions": 3}
+  { "id": 1, "title": "Item 1", "description": "Description for Item 1", "NoOptions": 5, "NoQuestions": 3 },
+  { "id": 2, "title": "Item 2", "description": "Description for Item 2", "NoOptions": 8, "NoQuestions": 6 },
+  { "id": 3, "title": "Item 3", "description": "Description for Item 3", "NoOptions": 0, "NoQuestions": 2 },
+  { "id": 4, "title": "Item 4", "description": "Description for Item 4", "NoOptions": 3, "NoQuestions": 1 },
+  { "id": 5, "title": "Item 5", "description": "Description for Item 5", "NoOptions": 12, "NoQuestions": 9 },
+  { "id": 6, "title": "Item 6", "description": "Description for Item 6", "NoOptions": 0, "NoQuestions": 0 },
+  { "id": 7, "title": "Item 7", "description": "Description for Item 7", "NoOptions": 7, "NoQuestions": 5 },
+  { "id": 8, "title": "Item 8", "description": "Description for Item 8", "NoOptions": 2, "NoQuestions": 2 },
+  { "id": 9, "title": "Item 9", "description": "Description for Item 9", "NoOptions": 0, "NoQuestions": 0 },
+  { "id": 10, "title": "Item 10", "description": "Description for Item 10", "NoOptions": 4, "NoQuestions": 3 }
+]
+
+export const salesPrelims = [
+  { "sino": 1, "username": "user123", "name": "John Doe", "series": "Series A Example", "amount": "$100", "time": "2024-03-13" },
+  { "sino": 2, "username": "user456", "name": "Jane Smith", "series": "Series B Illustration", "amount": "$150", "time": "2024-03-14" },
+  { "sino": 3, "username": "user789", "name": "Alice Johnson", "series": "Series C Demonstration", "amount": "$200", "time": "2024-03-15" },
+  { "sino": 4, "username": "user321", "name": "Bob Brown", "series": "Series D Sample", "amount": "$250", "time": "2024-03-16" },
+  { "sino": 5, "username": "user654", "name": "Emily Davis", "series": "Series E Explanation", "amount": "$300", "time": "2024-03-17" },
+  { "sino": 6, "username": "user987", "name": "Michael Wilson", "series": "Series F Overview", "amount": "$350", "time": "2024-03-18" },
+  { "sino": 7, "username": "user234", "name": "Sarah Taylor", "series": "Series G Introduction", "amount": "$400", "time": "2024-03-19" },
+  { "sino": 8, "username": "user567", "name": "David Martinez", "series": "Series H Overview", "amount": "$450", "time": "2024-03-20" },
+  { "sino": 9, "username": "user890", "name": "Jessica Garcia", "series": "Series I Explanation", "amount": "$500", "time": "2024-03-21" },
+  { "sino": 10, "username": "user432", "name": "Matthew Rodriguez", "series": "Series J Demonstration", "amount": "$550", "time": "2024-03-22" },
+  { "sino": 11, "username": "user765", "name": "Olivia Lopez", "series": "Series K Example", "amount": "$600", "time": "2024-03-23" },
+  { "sino": 12, "username": "user098", "name": "Ethan Perez", "series": "Series L Illustration", "amount": "$650", "time": "2024-03-24" },
+  { "sino": 13, "username": "user345", "name": "Sophia Hernandez", "series": "Series M Sample", "amount": "$700", "time": "2024-03-25" },
+  { "sino": 14, "username": "user678", "name": "James Gonzalez", "series": "Series N Overview", "amount": "$750", "time": "2024-03-26" },
+  { "sino": 15, "username": "user901", "name": "Benjamin Wilson", "series": "Series O Introduction", "amount": "$800", "time": "2024-03-27" },
+  { "sino": 16, "username": "user234", "name": "Lily Campbell", "series": "Series P Overview", "amount": "$850", "time": "2024-03-28" },
+  { "sino": 17, "username": "user567", "name": "Samuel Parker", "series": "Series Q Example", "amount": "$900", "time": "2024-03-29" },
+  { "sino": 18, "username": "user890", "name": "Chloe Evans", "series": "Series R Explanation", "amount": "$950", "time": "2024-03-30" },
+  { "sino": 19, "username": "user123", "name": "Daniel Reed", "series": "Series S Demonstration", "amount": "$1000", "time": "2024-03-31" },
+  { "sino": 20, "username": "user456", "name": "Grace Cook", "series": "Series T Example", "amount": "$1050", "time": "2024-04-01" }
+]
+
+export const students = [
+  { "si": 1, "username": "user123", "userid": "u123", "name": "John Doe", "mobileno": "1234567890", "emailid": "john@example.com", "status": "Approved", "regtime": "2024-03-13" },
+  { "si": 2, "username": "user456", "userid": "u456", "name": "Jane Smith", "mobileno": "2345678901", "emailid": "jane@example.com", "status": "Pending", "regtime": "2024-03-14" },
+  { "si": 3, "username": "user789", "userid": "u789", "name": "Alice Johnson", "mobileno": "3456789012", "emailid": "alice@example.com", "status": "Blocked", "regtime": "2024-03-15" },
+  { "si": 4, "username": "user321", "userid": "u321", "name": "Bob Brown", "mobileno": "4567890123", "emailid": "bob@example.com", "status": "Approved", "regtime": "2024-03-16" },
+  { "si": 5, "username": "user654", "userid": "u654", "name": "Emily Davis", "mobileno": "5678901234", "emailid": "emily@example.com", "status": "Pending", "regtime": "2024-03-17" },
+  { "si": 6, "username": "user987", "userid": "u987", "name": "Michael Wilson", "mobileno": "6789012345", "emailid": "michael@example.com", "status": "Blocked", "regtime": "2024-03-18" },
+  { "si": 7, "username": "user234", "userid": "u234", "name": "Sarah Taylor", "mobileno": "7890123456", "emailid": "sarah@example.com", "status": "Approved", "regtime": "2024-03-19" },
+  { "si": 8, "username": "user567", "userid": "u567", "name": "David Martinez", "mobileno": "8901234567", "emailid": "david@example.com", "status": "Pending", "regtime": "2024-03-20" },
+  { "si": 9, "username": "user890", "userid": "u890", "name": "Jessica Garcia", "mobileno": "9012345678", "emailid": "jessica@example.com", "status": "Blocked", "regtime": "2024-03-21" },
+  { "si": 10, "username": "user432", "userid": "u432", "name": "Matthew Rodriguez", "mobileno": "0123456789", "emailid": "matthew@example.com", "status": "Approved", "regtime": "2024-03-22" },
+  { "si": 11, "username": "user765", "userid": "u765", "name": "Olivia Lopez", "mobileno": "1234567890", "emailid": "olivia@example.com", "status": "Pending", "regtime": "2024-03-23" },
+  { "si": 12, "username": "user098", "userid": "u098", "name": "Ethan Perez", "mobileno": "2345678901", "emailid": "ethan@example.com", "status": "Blocked", "regtime": "2024-03-24" },
+  { "si": 13, "username": "user345", "userid": "u345", "name": "Sophia Hernandez", "mobileno": "3456789012", "emailid": "sophia@example.com", "status": "Approved", "regtime": "2024-03-25" },
+  { "si": 14, "username": "user678", "userid": "u678", "name": "James Gonzalez", "mobileno": "4567890123", "emailid": "james@example.com", "status": "Pending", "regtime": "2024-03-26" },
+  { "si": 15, "username": "user901", "userid": "u901", "name": "Benjamin Wilson", "mobileno": "5678901234", "emailid": "benjamin@example.com", "status": "Blocked", "regtime": "2024-03-27" },
+  { "si": 16, "username": "user234", "userid": "u234", "name": "Lily Campbell", "mobileno": "6789012345", "emailid": "lily@example.com", "status": "Approved", "regtime": "2024-03-28" },
+  { "si": 17, "username": "user567", "userid": "u567", "name": "Samuel Parker", "mobileno": "7890123456", "emailid": "samuel@example.com", "status": "Pending", "regtime": "2024-03-29" },
+  { "si": 18, "username": "user890", "userid": "u890", "name": "Chloe Evans", "mobileno": "8901234567", "emailid": "chloe@example.com", "status": "Blocked", "regtime": "2024-03-30" },
+  { "si": 19, "username": "user123", "userid": "u123", "name": "Daniel Reed", "mobileno": "9012345678", "emailid": "daniel@example.com", "status": "Approved", "regtime": "2024-03-31" },
+  { "si": 20, "username": "user456", "userid": "u456", "name": "Grace Cook", "mobileno": "0123456789", "emailid": "grace@example.com", "status": "Pending", "regtime": "2024-04-01" }
 ]

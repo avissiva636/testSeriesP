@@ -3,11 +3,12 @@ import { makeStyles } from '@mui/styles'
 import { DataGrid } from '@mui/x-data-grid'
 import Header from 'components/Header'
 import React, { useState } from 'react'
-import { subject as subjectData } from 'data'
+// import { subject as subjectData } from 'data'
 import { TwoFieldDGC as DataGridCustomToolbar } from 'components/TwoFieldDGC'
 import { CreateRounded, DeleteRounded } from '@mui/icons-material'
 import FlexBetween from 'components/FlexBetween'
 import { Link } from 'react-router-dom'
+import { useDeleteSubjectMutation, useGetSubjectsQuery } from 'state/apiDevelopmentSlice'
 
 
 // DESIDE COLOR FOR EVEN & ODD ROWS
@@ -34,6 +35,8 @@ const useStyles = makeStyles(() => {
 const ListSubjects = () => {
     const theme = useTheme();
     // const data = subjectData;
+    const { isLoading, data: subjectData } = useGetSubjectsQuery();
+    const [deleteSubject] = useDeleteSubjectMutation();
 
 
     const [search, setSearch] = useState("");
@@ -63,18 +66,23 @@ const ListSubjects = () => {
         pageSize: 6,
     });
 
-    const deleteClick = ({ id, title, description }) => {
-        console.log("Deleting", id, title, description);
+    const deleteClick = async ({ id, title }) => {
+
+        const confirmation = window.confirm(`Are you sure you want to delete ${title}?`);
+
+        if (confirmation) {
+            await deleteSubject(id);
+        }
     }
 
     const columns = [
         {
-            field: "id",
+            field: "sno",
             headerName: "ID",
             flex: 0.5,
         },
         {
-            field: "title",
+            field: "name",
             headerName: "TITLE",
             flex: 1.5,
         },
@@ -90,11 +98,11 @@ const ListSubjects = () => {
             headerAlign: 'center',
             align: 'center',
             sortable: false,
-            renderCell: (params) => {               
+            renderCell: (params) => {
 
                 const queryString = new URLSearchParams({
-                    id: encodeURIComponent(params.row.id),
-                    title: encodeURIComponent(params.row.title),
+                    id: encodeURIComponent(params.row._id),
+                    title: encodeURIComponent(params.row.name),
                     description: encodeURIComponent(params.row.description)
                 }).toString();
 
@@ -103,7 +111,7 @@ const ListSubjects = () => {
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
-                        <Link to={`/editsubjects/${params.row.id}?${queryString}`}
+                        <Link to={`/editsubjects/${params.row._id}?${queryString}`}
                             style={{
                                 color: 'inherit',
                                 textDecoration: 'none'
@@ -114,9 +122,8 @@ const ListSubjects = () => {
 
                     <IconButton
                         onClick={() => deleteClick({
-                            id: params.row.id,
-                            title: params.row.title,
-                            description: params.row.description
+                            id: params.row._id,
+                            title: params.row.name,
                         })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
@@ -171,13 +178,13 @@ const ListSubjects = () => {
                 }}
             >
                 <DataGrid
-                    // loading={isLoading || !data}
-                    loading={!data}
-                    getRowId={(row) => row.id}
+                    loading={isLoading || !data}
+                    // loading={!data}
+                    getRowId={(row) => row._id}
                     rows={(data) || []}
                     columns={columns}
 
-                    rowCount={(data && (data.length || 20)) || 0}
+                    rowCount={(data && (data.length || 0)) || 0}
 
                     paginationModel={paginationModel}
                     onPaginationModelChange={setPaginationModel}

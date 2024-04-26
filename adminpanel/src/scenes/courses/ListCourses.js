@@ -3,11 +3,12 @@ import { makeStyles } from '@mui/styles'
 import { DataGrid } from '@mui/x-data-grid'
 import Header from 'components/Header'
 import React, { useState } from 'react'
-import { subject as subjectData } from 'data'
+// import { subject as subjectData } from 'data'
 import { TwoFieldDGC as DataGridCustomToolbar } from 'components/TwoFieldDGC'
 import { CreateRounded, DeleteRounded } from '@mui/icons-material'
 import FlexBetween from 'components/FlexBetween'
 import { Link } from 'react-router-dom'
+import { useDeleteCourseMutation, useGetCoursesQuery } from 'state/apiDevelopmentSlice'
 
 
 // DESIDE COLOR FOR EVEN & ODD ROWS
@@ -34,26 +35,27 @@ const useStyles = makeStyles(() => {
 const ListCourses = () => {
     const theme = useTheme();
     // const data = subjectData;
-
+    const { isLoading, data: courseData } = useGetCoursesQuery();
+    const [deleteCourse] = useDeleteCourseMutation();
 
     const [search, setSearch] = useState("");
 
     const [searchInput, setSearchInput] = useState("");
     const [searchResult, setSearchResult] = useState("");
 
-    const data = !search.length ? subjectData : searchResult;
+    const data = !search.length ? courseData : searchResult;
 
     const searchHandler = (searchTerm) => {
         setSearch(searchTerm);
         if (search !== "") {
-            const newDataList = subjectData.filter((SubjectDataChunk) => {
+            const newDataList = courseData.filter((courseDataChunk) => {
 
-                return Object.values(SubjectDataChunk).join(" ").toLocaleLowerCase().includes(search.toLocaleLowerCase());
+                return Object.values(courseDataChunk).join(" ").toLocaleLowerCase().includes(search.toLocaleLowerCase());
             })
             setSearchResult(newDataList);
         }
         else {
-            setSearchResult(subjectData);
+            setSearchResult(courseData);
         }
 
     };
@@ -63,18 +65,23 @@ const ListCourses = () => {
         pageSize: 6,
     });
 
-    const deleteClick = ({ id, title, description }) => {
-        console.log("Deleting", id, title, description);
+    const deleteClick = async ({ id, title }) => {
+
+        const confirmation = window.confirm(`Are you sure you want to delete ${title}?`);
+
+        if (confirmation) {
+            await deleteCourse(id);
+        }
     }
 
     const columns = [
         {
-            field: "id",
+            field: "sno",
             headerName: "ID",
             flex: 0.5,
         },
         {
-            field: "title",
+            field: "name",
             headerName: "TITLE",
             flex: 1.5,
         },
@@ -93,8 +100,8 @@ const ListCourses = () => {
             renderCell: (params) => {
 
                 const queryString = new URLSearchParams({
-                    id: encodeURIComponent(params.row.id),
-                    title: encodeURIComponent(params.row.title),
+                    id: encodeURIComponent(params.row._id),
+                    title: encodeURIComponent(params.row.name),
                     description: encodeURIComponent(params.row.description)
                 }).toString();
 
@@ -103,7 +110,7 @@ const ListCourses = () => {
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
-                        <Link to={`/editcourses/${params.row.id}?${queryString}`}
+                        <Link to={`/editcourses/${params.row._id}?${queryString}`}
                             style={{
                                 color: 'inherit',
                                 textDecoration: 'none'
@@ -114,9 +121,8 @@ const ListCourses = () => {
 
                     <IconButton
                         onClick={() => deleteClick({
-                            id: params.row.id,
-                            title: params.row.title,
-                            description: params.row.description
+                            id: params.row._id,
+                            title: params.row.name,
                         })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
@@ -172,13 +178,13 @@ const ListCourses = () => {
                 }}
             >
                 <DataGrid
-                    // loading={isLoading || !data}
-                    loading={!data}
-                    getRowId={(row) => row.id}
+                    loading={isLoading || !data}
+                    // loading={!data}
+                    getRowId={(row) => row._id}
                     rows={(data) || []}
                     columns={columns}
 
-                    rowCount={(data && (data.length || 20)) || 0}
+                    rowCount={(data && (data.length || 0)) || 0}
 
                     paginationModel={paginationModel}
                     onPaginationModelChange={setPaginationModel}
