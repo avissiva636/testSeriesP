@@ -7,28 +7,28 @@ const errorHandler = (err, req, res, next) => {
     switch (statusCode) {
         case constants.VALIDATION_ERROR:
             res.json({ title: "Validation Failed", message: err.message });
-            logEvents(`Validation Failed|||${err.message}|||stackTrace: ${err.stack} `,"err");
+            logEvents(`Validation Failed|||${err.message}|||stackTrace: ${err.stack} `, "err");
             break;
         case constants.NOT_FOUND:
             res.json({ title: "Not Found", message: err.message });
-            logEvents(`Not Found|||${err.message}`,"err");
+            logEvents(`Not Found|||${err.message}`, "err");
             break;
         case constants.UNAUTHORIZED:
             res.json({ title: "Unauthorized", message: err.message });
-            logEvents(`Unauthorized|||${err.message}`,"err");
+            logEvents(`Unauthorized|||${err.message}`, "err");
             break;
         case constants.FORBIDDEN:
             res.json({ title: "Forbidden", message: err.message });
-            logEvents(`Forbidden|||${err.message}`,"err");
+            logEvents(`Forbidden|||${err.message}`, "err");
             break;
         case constants.SERVER_ERROR:
             res.json({ title: "Server Error", message: err.message });
-            logEvents(`Server Error|||${err.message}|||stackTrace: ${err.stack} `,"err");
+            logEvents(`Server Error|||${err.message}|||stackTrace: ${err.stack} `, "err");
             break;
         default:
-            if (err) {
-                console.log("Uncaught Error", err.message);
-                logEvents(`Uncaught Error|||${err.message}|||stackTrace: ${err.stack} `,"err");
+            if (err) {                
+                logEvents(`Uncaught Error|||${err.message}|||stackTrace: ${err.stack} `, "err");
+                res.json({ title: "Uncaught Error", message: err.message });
             }
             console.log("No Error, All good !");
             break;

@@ -52,4 +52,41 @@ const createSubject = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { getSubjects, getSubject, createSubject };
+//@desc update the Subject
+//@route PUT admin/subject
+//access private
+const updateSubject = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+
+    const { name, description } = req.body;
+
+    if (!name || !description) {
+        res.status(400);
+        throw new Error("All fields are mandatory");
+    }
+
+    const updateSubject = await Subject.findByIdAndUpdate(id, { name, description }, { new: true });
+
+    if (updateSubject) {
+        res.status(200).json(updateSubject);
+    } else {
+        res.status(400).json({ "message": "Subject not updated" });
+    }
+});
+
+//@desc delete the Subject
+//@route DELETE admin/subject
+//access private
+const deleteSubject = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+
+    const deleteSubject = await Subject.findByIdAndDelete(id);
+
+    if (deleteSubject) {
+        res.status(204).end();
+    } else {
+        res.status(400).json({ "message": "Subject not deleted" });
+    }
+});
+
+module.exports = { getSubjects, getSubject, createSubject, updateSubject, deleteSubject };

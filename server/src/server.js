@@ -39,6 +39,7 @@ const initializeServer = async () => {
     app.use('/admin/subject', require('./routes/api/adminpanel/subjectRoutes'));
     app.use('/admin/course', require('./routes/api/adminpanel/courseRoutes'));
     app.use('/admin/batch', require('./routes/api/adminpanel/batchRoutes'));
+    app.use('/admin/student', require('./routes/api/adminpanel/studentRoutes'));
 
     app.use('/refresh', require('./routes/refresh'));
     app.use('/logout', require('./routes/logout'));

@@ -1,0 +1,95 @@
+login 
+Request get->'user/userLogin',{uname,password}
+Response {message:'proceeded',uid,uname}
+____________
+
+prelimsTest
+Request get->'user/prelims/:uid',{uid,uname}
+{
+paid:[{title(sn), description, details(file link), question:[{qno,title,description,time,instruction,nQuestion}]}]}],
+prelims:[{title(sn), description, payHere(link), details(file link), fee}]
+}
+
+viewQuestionPaper
+Request get->'user/exam/prelims/:qno'
+Response:{questions:[{qno,question,options:{option1,option2,option3,option4}}]}
+
+Request POST->'user/exam/prelims/:qno' {{qno(questionPaperNumber),title(sn),sanswer[{qsn:sOption}]}}
+Response:{message:"proceeded"}
+
+ATIME=10min
+RTIME=1d
+name, email, password, age,sex, mobile
+
+
+mainsTest
+Request get->'user/mains/:uid',{uid,uname}
+{
+paid:[{title, description, details(file link), question:[{qno,title,description,time,instruction}]}],
+mains:[{title, description, payHere(link), details(file link), fee}]
+}
+
+viewQuestionPaper
+Request1 get->'user/exam/mains/:qno'
+Response: {questions:{htmlpage}}
+
+Request1 POST->'user/exam/mains/:qno', {qno(questionPaperNumber),title(sn),sanswer(picture)}
+Response:{message:"proceeded"}
+
+________________________________________
+purchased
+Request get->'user/purchased/:uid',{uid,uname}
+Response {
+prelims:[{title, description, details(file link), question:[{qno(questionPaperNumber),title,description,time,instruction,nQuestion}]}],
+mains:[{title, description, details(file link), question:[{qno(questionPaperNumber),title,description,time,instruction}]}]
+}
+
+viewQuestionPaper
+Request1 get->'user/exam/mains/:qno',{title}
+Response: {questions:{htmlpage}}
+
+Request1 POST->'user/exam/mains/:qno', {qno(questionPaperNumber),title(sn),sanswer(picture)}
+Response:{message:"proceeded"}
+__
+Request2 get->'user/exam/prelims/:qno',{title}
+Response:{questions:[{qno(questionPaperNumber),question,options:{option1,option2,option3,option4}}]}
+
+Request2 POST->'user/exam/prelims/:qno' {{qno(questionPaperNumber),title(sn),sanswer[{qsn:sOption}]}}
+Response:{message:"proceeded"}
+________________________________________
+scheduledTests
+{scheduledTest:[{title, desciption, RankList, Discussion}]}
+user/schedule/result/:uid
+____________
+
+Discussion
+completed test ORIGINAL ANSWER will appear here
+Request get->'user/discussion/:uid',
+{qPaper:[{title, description, subject, nQuestions, timeAlloted}]}
+
+startDiscussion
+Request get->'user/discussion/:uid',{uid,title}
+Response { aPaper:[qNumber,question,options:{option1,option2,option3,option4},cOption,explanation] }
+
+/user/progress
+
+____________
+ProgressCard
+completed test RESULT will appear here
+{qPaper:[{title,description,nQuestions, cAnswer, wAnswer, Marks}]}
+
+viewDetails
+Request get->'progressCard',title,uname
+Response {qAttended:[qno],questions:[qno,difficulty,analysis('true'/'false')]}
+
+{qPaper:[{eType(prelims/mains),sTitle, qno, qTitle, description, nQuestions, timeAlloted, attemptsCompleted}]}
+
+verify
+Request get->'Details/email/:uid',{uname}
+Response1: {message:"error message"}
+Response2: {message:"proceeded"}
+
+update
+Request put->'Details/:uid',{uname,name,age,sex,mobile}
+Response1: {message:"error message"}
+Response2: {message:"proceeded"}

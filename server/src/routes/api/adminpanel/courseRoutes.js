@@ -5,7 +5,9 @@ const courseController = require("../../../controllers/adminpanel/courseControll
 router.route("/").get(courseController.getCourses)
     .post(courseController.createCourse);
 
-router.get("/:id", courseController.getCourse);
+router.route("/:id").get(courseController.getCourse)
+    .put(courseController.updateCourse)
+    .delete(courseController.deleteCourse);
 
 
 module.exports = router;
