@@ -1,13 +1,13 @@
-import { Box, Button, Divider, IconButton, MenuItem, TextField, Typography, useTheme } from '@mui/material'
+import { Box, IconButton, useTheme } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import FlexBetween from 'components/FlexBetween';
 import Header from 'components/Header'
 import React, { useState } from 'react'
 import { Link, useOutletContext } from 'react-router-dom';
-import { students as studentsData } from 'data'
-import { CreateRounded, CurrencyRupeeOutlined, DeleteRounded } from '@mui/icons-material';
-import DatePicker from "react-datepicker";
+import { CreateRounded, DeleteRounded } from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
+import { useDeleteStudentMutation, useGetStudentsQuery } from 'state/apiDevelopmentSlice';
+import StudentListSearchComponent from 'components/StudentListSearchComponent';
 
 // DESIDE COLOR FOR EVEN & ODD ROWS
 const useStyles = makeStyles(() => {
@@ -31,53 +31,84 @@ const useStyles = makeStyles(() => {
 });
 
 const ListStudents = () => {
-    const isNonMobile = useOutletContext();
-
-    const seriesName = "prelims";
-    const [userName, setUserName] = useState();
-
-    const [startDate, setStartDate] = useState(() => {
-        const date = new Date();
-        date.setDate(date.getDate() - 30);
-        return date;
-    });
-    const [seriesList, setSeriesList] = useState("");
-    const [endDate, setEndDate] = useState(new Date());
     const theme = useTheme();
+    const isNonMobile = useOutletContext();
 
     const [paginationModel, setPaginationModel] = useState({
         page: 0,
         pageSize: 10,
     });
 
-    const editClick = ({ id, title, description }) => {
-        console.log("Editing", id, title, description);
+    const initialSearchValues = {
+        userName: "",
+        userId: "",
+        userEmail: "",
+        userStatus: ""
     };
+    const [searchStudent, setSearchStudent] = useState(initialSearchValues);
+    const [serverSearch, setServerSearch] = useState("");
+    const [studentSort, setStudentSort] = useState({});
 
-    const deleteClick = ({ id, title, description }) => {
-        console.log("Deleting", id, title, description);
+
+    const { isLoading, data: studentList } = useGetStudentsQuery({
+        page: paginationModel.page,
+        pageSize: paginationModel.pageSize,
+        sort: JSON.stringify(studentSort),
+        search: JSON.stringify(serverSearch)
+    });
+    const [deleteStudent] = useDeleteStudentMutation();
+
+
+    // const editClick = ({ id, title, description }) => {
+    //     console.log("Editing", id, title, description);
+    // };
+
+    const deleteClick = async ({ id, title }) => {
+        const confirmation = window.confirm(`Are you sure you want to delete ${title}?`);
+
+        if (confirmation) {
+            await deleteStudent(id);
+        }
+    }
+
+    //onChange of search elements
+    const handleSearchChange = (e) => {
+        const { name, value } = e.target;
+        setSearchStudent({ ...searchStudent, [name]: value })
+    }
+
+    //clicking search button
+    const handleSearchButton = (e) => {
+        e.preventDefault();
+        setServerSearch(searchStudent);
+        setSearchStudent(initialSearchValues);
     }
 
     const columns = [
         {
             field: "si",
             headerName: "SINO",
-            flex: 0.5,
+            flex: 0.4,
+            sortable: false,
+            renderCell: (params) => {
+                const rowIndex = params.api.getRowIndexRelativeToVisibleRows(params.row._id);
+                return rowIndex !== null && !isNaN(rowIndex) ? rowIndex + 1 : "...";
+            }
         },
+        // {
+        //     field: "userName",
+        //     headerName: "USERNAME",
+        //     flex: 1,
+        //     renderCell: function (params) {
+        //         return (
+        //             React.createElement('div', { style: { whiteSpace: 'normal', wordWrap: 'break-word' } }, params.value)
+        //         );
+        //     },
+        // },
         {
-            field: "username",
-            headerName: "USERNAME",
-            flex: 1,
-            renderCell: function (params) {
-                return (
-                    React.createElement('div', { style: { whiteSpace: 'normal', wordWrap: 'break-word' } }, params.value)
-                );
-            },
-        },
-        {
-            field: "userid",
+            field: "_id",
             headerName: "USERID",
-            flex: 1,
+            flex: 1.1,
             renderCell: function (params) {
                 return (
                     React.createElement('div', { style: { whiteSpace: 'normal', wordWrap: 'break-word' } }, params.value)
@@ -87,51 +118,68 @@ const ListStudents = () => {
         {
             field: "name",
             headerName: "NAME",
-            flex: 1,
+            flex: 0.9,
         },
         {
-            field: "mobileno",
+            field: "mobile",
             headerName: "MOBILENO",
             flex: 1,
+            sortable: false,
         },
         {
-            field: "emailid",
+            field: "email",
             headerName: "EMAILID",
             flex: 1,
             headerAlign: 'center',
             align: 'center',
-            sortable: false,
         },
         {
             field: "status",
             headerName: "STATUS",
-            flex: 1,
+            flex: 0.5,
             headerAlign: 'center',
             align: 'center',
-            sortable: false,
         },
         {
-            field: "regtime",
+            field: "createdAt",
             headerName: "REGTIME",
             flex: 1,
             headerAlign: 'center',
             align: 'center',
             sortable: false,
+            valueFormatter: (params) => {
+                const date = new Date(params.value);
+                const options = {
+                    timeZone: 'Asia/Kolkata',
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                };
+                return date.toLocaleDateString('en-IN', options);
+            }
         },
         {
             field: 'actions',
             headerName: 'Actions',
-            flex: 1,
+            flex: 0.9,
             headerAlign: 'center',
             align: 'center',
             sortable: false,
             renderCell: (params) => {
-                const queryString = new URLSearchParams({                    
-                    username: encodeURIComponent(params.row.username),                    
-                    name: encodeURIComponent(params.row.name),
-                    mobileno: encodeURIComponent(params.row.mobileno),
-                    emailid: encodeURIComponent(params.row.emailid),
-                    status: encodeURIComponent(params.row.status),                    
+                const queryString = new URLSearchParams({
+                    // name: encodeURIComponent(params.row.name),
+                    // age: encodeURIComponent(params.row.age),
+                    // sex: encodeURIComponent(params.row.sex),
+                    // username: encodeURIComponent(params.row.userName),
+                    // course:encodeURIComponent(params.row),    
+                    // batch:encodeURIComponent(params.row),                
+                    // emailid: encodeURIComponent(params.row.email),
+                    // mobileno: encodeURIComponent(params.row.mobile),
+                    // telephone: encodeURIComponent(params.row.telephone),
+                    // status: encodeURIComponent(params.row.status),
+                    userId: encodeURIComponent(params.row._id),
                 }).toString();
 
                 return (<FlexBetween gap={'1rem'}>
@@ -139,7 +187,7 @@ const ListStudents = () => {
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
-                        <Link to={`/editstudents/${params.row.si}?${queryString}`}
+                        <Link to={`/editstudents/${params.row._id}?${queryString}`}
                             style={{
                                 color: 'inherit',
                                 textDecoration: 'none'
@@ -150,9 +198,8 @@ const ListStudents = () => {
 
                     <IconButton
                         onClick={() => deleteClick({
-                            id: params.row.sino,
-                            title: params.row.username,
-                            description: params.row.name
+                            id: params.row._id,
+                            title: params.row.userName,
                         })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
@@ -183,135 +230,6 @@ const ListStudents = () => {
                 bgcolor: theme.palette.background.alt,
                 py: '1rem'
             }}>
-
-                {/* Outline Box */}
-                <FlexBetween sx={{
-                    border: `2px solid ${theme.palette.primary.main}`,
-                    mx: '1rem'
-                }}>
-
-                    {/* Prelims Username */}
-                    <TextField
-                        label={`${seriesName} Username`}
-                        onChange={(e) => setUserName(e.target.value)}
-                        value={userName}
-                        variant='outlined'
-                        sx={{ my: '0.5rem', ml: '0.5rem' }}
-
-                    />
-
-                    {/* DropdownList SeriesNames */}
-                    <TextField
-                        id={`${seriesName}SeriesList`}
-                        select
-                        value={seriesList || "SeriesName"}
-                        onChange={(e) => setSeriesList(e.target.value)}
-                        variant="outlined"
-                        sx={{ width: '15rem' }}
-                    >
-                        {!seriesList && <MenuItem id={`${seriesName}SeriesName`} value="SeriesName" disabled>SeriesName</MenuItem>}
-                        {/* {courseData.map((course) => (
-                            <MenuItem key={course.id} value={course.title}>
-                                {course.title}
-                            </MenuItem>
-                        ))} */}
-                    </TextField>
-
-                    {/* StatDate */}
-                    <Box>
-                        <DatePicker
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                            selectsStart
-                            startDate={startDate}
-                            endDate={endDate}
-                        />
-                    </Box>
-
-                    {/* EndDate */}
-                    <Box>
-                        <DatePicker
-                            selected={endDate}
-                            onChange={(date) => setEndDate(date)}
-                            selectsEnd
-                            startDate={startDate}
-                            endDate={endDate}
-                            minDate={startDate}
-                        />
-                    </Box>
-
-                    {/* Button to Search */}
-                    <Button variant="contained" color="success"
-                        size='large'
-                        // onClick={handleSubmit}
-                        sx={{ mr: '1rem', width: '120px' }}
-                    >
-                        Search
-                    </Button>
-                </FlexBetween>
-
-                <Divider sx={{ mt: '1rem' }} />
-                {/* Cards */}
-                <FlexBetween sx={{ mt: "1rem" }} gap={"1rem"}>
-
-                    {/* Total Sales card */}
-                    <Box
-                        display="flex"
-                        flexDirection="column"
-                        justifyContent="space-between"
-                        ml="1rem"
-                        p="1.25rem 1rem"
-                        flex="1 1 100%"
-                        backgroundColor={theme.palette.background.default}
-                    >
-                        <Typography variant='h4' sx={{
-                            color: theme.palette.secondary[300],
-                            display: 'flex',
-                            pl: '2rem'
-                        }}>
-                            Total Sales
-                        </Typography>
-                        <Typography variant='h4' sx={{
-                            color: theme.palette.secondary[300],
-                            display: 'flex',
-                            pl: '2rem'
-                        }}>
-                            14
-                            {/* Dynamic Number */}
-                        </Typography>
-                    </Box>
-
-                    {/* Total Revenue Card */}
-                    <Box
-                        display="flex"
-                        flexDirection="column"
-                        justifyContent="space-between"
-                        mr="1rem"
-                        p="1.25rem 1rem"
-                        flex="1 1 100%"
-                        backgroundColor={theme.palette.background.default}
-                    >
-                        <Typography variant='h4' sx={{
-                            color: theme.palette.secondary[300],
-                            display: 'flex',
-                            pl: '2rem'
-                        }}>
-                            Total Revenue
-                        </Typography>
-                        <Typography variant='h4' sx={{
-                            color: theme.palette.secondary[300],
-                            display: 'flex',
-                            pl: '2rem'
-                        }}>
-                            <CurrencyRupeeOutlined
-                                sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-                            /> 5,110
-                            {/* Dynamic Number */}
-                        </Typography>
-                    </Box>
-
-                </FlexBetween>
-                <Divider sx={{ mt: '1rem' }} />
 
                 <Box
                     sx={{
@@ -349,20 +267,26 @@ const ListStudents = () => {
                     }}
                 >
                     <DataGrid
-                        // loading={isLoading || !data}
-                        loading={!studentsData}
-                        getRowId={(row) => row.si}
-                        rows={(studentsData) || []}
+                        loading={isLoading || !studentList}
+                        getRowId={(row) => row._id}
+                        rows={(studentList && studentList.students) || []}
                         columns={columns}
+                        paginationModel={paginationModel}
+                        onPaginationModelChange={setPaginationModel}
+                        rowCount={(studentList && (studentList.total || 20)) || 0}
+                        pageSizeOptions={[5, 10, 15]}
+                        pagination
+                        paginationMode='server'
+                        sortingMode='server'
+                        onSortModelChange={(newSortModel) => setStudentSort(...newSortModel)}
+
+                        slots={{ toolbar: StudentListSearchComponent }}
+                        slotProps={{
+                            toolbar: { theme, searchStudent, handleSearchChange, handleSearchButton }
+                        }}
 
                         autoHeight={true}
                         rowHeight={70}
-                        rowCount={(studentsData && (studentsData.length || 20)) || 0}
-
-                        paginationModel={paginationModel}
-                        onPaginationModelChange={setPaginationModel}
-                        pageSizeOptions={[5, 10, 15]}
-
                         getRowClassName={getRowClassName}
                         disableRowSelectionOnClick
                     />
