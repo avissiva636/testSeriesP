@@ -39,8 +39,7 @@ const EditBatchsSub = () => {
             setBatch(updatedBatch.name);
             setBatchDes(updatedBatch.description);
             navigate('/listbatches', { replace: true });
-        } catch (error) {
-            console.log("errror", error);
+        } catch (error) {            
             if (error.status === 400) {
                 alert("Give proper data");
             }
