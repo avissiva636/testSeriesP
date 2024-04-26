@@ -3,25 +3,29 @@ import { Box, Button, MenuItem, TextField, Typography, useTheme } from '@mui/mat
 import Header from 'components/Header';
 import FlexBetween from 'components/FlexBetween';
 import { useOutletContext } from 'react-router-dom';
-import { subject as subjectData } from 'data';
+// import { subject as subjectData } from 'data';
+import { useCreateStudentMutation, useGetBatchesQuery, useGetCoursesQuery } from 'state/apiDevelopmentSlice';
 
 const AddStudents = () => {
     const isNonMobile = useOutletContext();
 
     const theme = useTheme();
 
-    const [name, setName] = useState();
-    const [age, setAge] = useState();
+    const [name, setName] = useState('');
+    const [age, setAge] = useState('');
     const [sex, setSex] = useState('Male');
-    const [userName, setUserName] = useState();
-    const [password, setPassword] = useState();
-    const [course, setCourse] = useState();
-    const [batch, setBatch] = useState();
-    const [email, setEmail] = useState();
-    const [mobile, setMobile] = useState();
-    const [telephone, setTelephone] = useState();
-    const [status, setStatus] = useState();
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const [course, setCourse] = useState('');
+    const [batch, setBatch] = useState('');
+    const [email, setEmail] = useState('');
+    const [mobile, setMobile] = useState('');
+    const [telephone, setTelephone] = useState('');
+    const [status, setStatus] = useState('pending');
 
+    const { isLoading: isCourseLoading, data: courseData } = useGetCoursesQuery();
+    const { isLoading: isBatchLoading, data: batchData } = useGetBatchesQuery();
+    const [createStudent] = useCreateStudentMutation();
 
     const handleReset = () => {
         setName('');
@@ -37,8 +41,22 @@ const AddStudents = () => {
         setTelephone('');
     }
 
-    const handleSubmit = () => {
-        alert("button clicked");
+    const handleSubmit = async () => {
+
+        if (!name || !age || !sex || !userName || !password ||
+            !email || !mobile || !status) {
+            alert("All fields are mandatory");
+            return;
+        }
+
+        try {
+            await createStudent({ name, age, sex, userName, password, course, batch, email, mobile, telephone, status }).unwrap();
+            handleReset();
+        } catch (error) {
+            if (error.status === 400) {
+                alert("Give proper data");
+            }
+        }
     }
 
     return (
@@ -76,6 +94,20 @@ const AddStudents = () => {
                             value={age}
                             variant='standard'
                             InputProps={{ style: { fontSize: '20px' } }}
+                            onKeyDown={(e) => {
+                                // Allow only numeric input
+                                const isNumericInput = ((e.key >= '0' && e.key <= '9') ||
+                                    e.key === 'Backspace' ||
+                                    e.key === 'Delete' ||
+                                    e.key === 'ArrowLeft' ||
+                                    e.key === 'ArrowRight' ||
+                                    e.key === 'Home' ||
+                                    e.key === 'End'
+                                );
+                                if (!isNumericInput) {
+                                    e.preventDefault();
+                                }
+                            }}
                         />
                     </Box>
                     <Box p={'1rem 2rem'} flexGrow={1}>
@@ -138,13 +170,15 @@ const AddStudents = () => {
                             value={course}
                             onChange={(e) => setCourse(e.target.value)}
                             variant="standard"
-                        >
-                            {subjectData.map((dataChunk) => (
-                                <MenuItem key={`course${dataChunk.id}`} value={dataChunk.title}>
-                                    {dataChunk.title}
-                                </MenuItem>
-                            ))}
-                        </TextField>
+                            children={
+                                !isCourseLoading && courseData ? courseData?.map((dataChunk) => (
+                                    <MenuItem key={`course${dataChunk._id}`} value={dataChunk._id}>
+                                        {dataChunk.name}
+                                    </MenuItem>
+                                )) : <MenuItem value="">Select a Course</MenuItem>
+                            }
+                        />
+
                     </Box>
                     <Box p={'1rem 2rem'} flexGrow={1}>
                         <Typography variant='h5' >Batch</Typography>
@@ -155,13 +189,14 @@ const AddStudents = () => {
                             value={batch}
                             onChange={(e) => setBatch(e.target.value)}
                             variant="standard"
-                        >
-                            {subjectData.map((dataChunk) => (
-                                <MenuItem key={`batch${dataChunk.id}`} value={dataChunk.title}>
-                                    {dataChunk.title}
-                                </MenuItem>
-                            ))}
-                        </TextField>
+                            children={
+                                !isBatchLoading && batchData ? batchData?.map((dataChunk) => (
+                                    <MenuItem key={`batch${dataChunk._id}`} value={dataChunk._id}>
+                                        {dataChunk.name}
+                                    </MenuItem>
+                                )) : <MenuItem value="">Select a Batch</MenuItem>
+                            }
+                        />
                     </Box>
                 </FlexBetween>
 
@@ -189,11 +224,17 @@ const AddStudents = () => {
                             onChange={(e) => setStatus(e.target.value)}
                             variant="standard"
                         >
-                            <MenuItem key="Free" value={"Free"}>
-                                Free
+                            <MenuItem key="pending" value={"pending"}>
+                                Pending
                             </MenuItem>
-                            <MenuItem key="Paid" value={"Paid"}>
-                                Paid
+                            <MenuItem key="approved" value={"approved"}>
+                                Approved
+                            </MenuItem>
+                            <MenuItem key="reject" value={"reject"}>
+                                Reject
+                            </MenuItem>
+                            <MenuItem key="lock" value={"lock"}>
+                                Lock
                             </MenuItem>
                         </TextField>
                     </Box>
@@ -210,6 +251,20 @@ const AddStudents = () => {
                             value={mobile}
                             variant='standard'
                             InputProps={{ style: { fontSize: '20px' } }}
+                            onKeyDown={(e) => {
+                                // Allow only numeric input
+                                const isNumericInput = ((e.key >= '0' && e.key <= '9') ||
+                                    e.key === 'Backspace' ||
+                                    e.key === 'Delete' ||
+                                    e.key === 'ArrowLeft' ||
+                                    e.key === 'ArrowRight' ||
+                                    e.key === 'Home' ||
+                                    e.key === 'End'
+                                );
+                                if (!isNumericInput) {
+                                    e.preventDefault();
+                                }
+                            }}
                         />
                     </Box>
                     <Box p={'1rem 2rem'} flexGrow={1}>
@@ -221,6 +276,20 @@ const AddStudents = () => {
                             value={telephone}
                             variant='standard'
                             InputProps={{ style: { fontSize: '20px' } }}
+                            onKeyDown={(e) => {
+                                // Allow only numeric input
+                                const isNumericInput = ((e.key >= '0' && e.key <= '9') ||
+                                    e.key === 'Backspace' ||
+                                    e.key === 'Delete' ||
+                                    e.key === 'ArrowLeft' ||
+                                    e.key === 'ArrowRight' ||
+                                    e.key === 'Home' ||
+                                    e.key === 'End'
+                                );
+                                if (!isNumericInput) {
+                                    e.preventDefault();
+                                }
+                            }}
                         />
                     </Box>
                 </FlexBetween>
