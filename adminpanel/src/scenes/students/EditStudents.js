@@ -92,7 +92,7 @@ const EditStudents = () => {
         <Box m="1.5rem 2.5rem" height={isNonMobile ? undefined : '80%'}>
             <Header title="STUDENTS" subtitle="Edit Students" />
 
-            {//isStudentLoading ? <p>Loading...</p> :
+            {isStudentLoading ? <p>Loading...</p> :
                 <Box m="1rem 2.5rem"
                     component={'form'}
                     sx={{
