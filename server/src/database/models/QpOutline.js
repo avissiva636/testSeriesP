@@ -30,9 +30,9 @@ const qpOutlineSchema = new Schema({
         type: Number,
         required: [true, "please add the no of questions"]
     },
-    alottedTime: {
+    allottedTime: {
         type: Number,
-        required: [true, "please add the alotted Time"]
+        required: [true, "please add the allotted Time"]
     },
     cMarks: {
         type: Number,
