@@ -26,9 +26,9 @@ const errorHandler = (err, req, res, next) => {
             logEvents(`Server Error|||${err.message}|||stackTrace: ${err.stack} `, "err");
             break;
         default:
-            if (err) {                
+            if (err) {
                 logEvents(`Uncaught Error|||${err.message}|||stackTrace: ${err.stack} `, "err");
-                res.json({ title: "Uncaught Error", message: err.message });
+                res.status(400).json({ title: "Uncaught Error", message: err.message });
             }
             console.log("No Error, All good !");
             break;
