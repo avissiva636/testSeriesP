@@ -38,8 +38,6 @@ const EditStudents = () => {
     useEffect(() => {
 
         if (!isStudentLoading && studentList) {
-            // console.log(studentList.course.name)
-            // console.log(studentList.batch.name)
             setName(studentList.name);
             setAge(studentList.age);
             setSex(studentList.sex);
