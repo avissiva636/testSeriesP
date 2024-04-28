@@ -4,11 +4,11 @@ import { Box, IconButton, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles'
 import Header from 'components/Header';
 import { TwoFieldDGC as DataGridCustomToolbar } from 'components/TwoFieldDGC';
-import { Outline as paperData } from 'data'
 
 import { Link, useOutletContext } from 'react-router-dom';
 import FlexBetween from 'components/FlexBetween';
 import { DataGrid } from '@mui/x-data-grid';
+import { useDeleteOutlineMutation, useGetOutlinesQuery } from 'state/apiDevelopmentSlice';
 
 // DESIDE COLOR FOR EVEN & ODD ROWS
 const useStyles = makeStyles(() => {
@@ -33,26 +33,27 @@ const useStyles = makeStyles(() => {
 
 const ListQpOutline = () => {
     const isNonMobile = useOutletContext();
-
     const theme = useTheme();
-    // const data = paperData;
-    
+
+    const { isLoading: isOutlineLoading, data: OutlineData } = useGetOutlinesQuery();
+    const [deleteOutline] = useDeleteOutlineMutation();
+
     const [search, setSearch] = useState("");
     const [searchResult, setSearchResult] = useState("");
 
-    const data = !search.length ? paperData : searchResult;
+    const data = !search.length ? OutlineData : searchResult;
 
     const searchHandler = (searchTerm) => {
         setSearch(searchTerm);
         if (search !== "") {
-            const newDataList = paperData.filter((paperDataChunk) => {
+            const newDataList = OutlineData.filter((OutlineDataChunk) => {
 
-                return Object.values(paperDataChunk).join(" ").toLocaleLowerCase().includes(search.toLocaleLowerCase());
+                return Object.values(OutlineDataChunk).join(" ").toLocaleLowerCase().includes(search.toLocaleLowerCase());
             })
             setSearchResult(newDataList);
         }
         else {
-            setSearchResult(paperData);
+            setSearchResult(OutlineData);
         }
 
     };
@@ -62,13 +63,17 @@ const ListQpOutline = () => {
         pageSize: 10,
     });
 
-    const deleteClick = ({ id, title, description }) => {
-        console.log("Deleting", id, title, description);
+    const deleteClick = async ({ id, title }) => {
+        const confirmation = window.confirm(`Are you sure you want to delete ${title}?`);
+
+        if (confirmation) {
+            await deleteOutline(id);
+        }
     }
 
     const columns = [
         {
-            field: "id",
+            field: "_id",
             headerName: "ID",
             flex: 0.5,
         },
@@ -93,12 +98,12 @@ const ListQpOutline = () => {
             },
         },
         {
-            field: "NoOptions",
+            field: "nOptions",
             headerName: "NO OTIONS",
             flex: 0.5,
         },
         {
-            field: "NoQuestions",
+            field: "nQuestions",
             headerName: "NO Questions",
             flex: 0.5,
         },
@@ -111,7 +116,7 @@ const ListQpOutline = () => {
             sortable: false,
             renderCell: (params) => {
                 const queryString = new URLSearchParams({
-                    id: encodeURIComponent(params.row.id),
+                    id: encodeURIComponent(params.row._id),
                 }).toString();
 
                 return (<FlexBetween gap={'1rem'}>
@@ -119,7 +124,7 @@ const ListQpOutline = () => {
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
-                        <Link to={`/editoutline/${params.row.id}?${queryString}`}
+                        <Link to={`/editoutline/${params.row._id}?${queryString}`}
                             style={{
                                 color: 'inherit',
                                 textDecoration: 'none'
@@ -130,9 +135,8 @@ const ListQpOutline = () => {
 
                     <IconButton
                         onClick={() => deleteClick({
-                            id: params.row.id,
+                            id: params.row._id,
                             title: params.row.title,
-                            description: params.row.description
                         })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
@@ -193,9 +197,8 @@ const ListQpOutline = () => {
                 }}
             >
                 <DataGrid
-                    // loading={isLoading || !data}
-                    loading={!data}
-                    getRowId={(row) => row.id}
+                    loading={isOutlineLoading || !OutlineData}
+                    getRowId={(row) => row._id}
                     rows={(data) || []}
                     columns={columns}
 

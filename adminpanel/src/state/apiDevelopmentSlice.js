@@ -5,7 +5,7 @@ export const api = createApi({
         baseUrl: process.env.REACT_APP_BASE_URL
     }),
     reducerPath: "adminApi",
-    tagTypes: ["Subject", "Course", "Batch", "Student"],
+    tagTypes: ["Subject", "Course", "Batch", "Student", "Outline"],
     endpoints: (build) => ({
         getCourses: build.query({
             query: () => `/admin/course`,
@@ -128,6 +128,40 @@ export const api = createApi({
             }),
             invalidatesTags: ["Student"]
         }),
+
+        getOutline: build.query({
+            query: ({ oid }) => ({
+                url: `/admin/qpoutline/${oid}`,
+                method: "GET"
+            })
+        }),
+        getOutlines: build.query({
+            query: () => `/admin/qpoutline`,
+            providesTags: ["Outline"]
+        }),
+        createOutline: build.mutation({
+            query: (createOutlineData) => ({
+                url: `/admin/qpoutline`,
+                method: "POST",
+                body: { ...createOutlineData }
+            }),
+            invalidatesTags: ["Outline"]
+        }),
+        updateOutline: build.mutation({
+            query: ({ outlineId, updateOutlineData }) => ({
+                url: `/admin/qpoutline/${outlineId}`,
+                method: "PUT",
+                body: { ...updateOutlineData }
+            }),
+            invalidatesTags: ["Outline"]
+        }),
+        deleteOutline: build.mutation({
+            query: (outlineId) => ({
+                url: `/admin/qpoutline/${outlineId}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["Outline"]
+        }),
     }),
 });
 
@@ -151,5 +185,11 @@ export const {
     useGetStudentsQuery,
     useCreateStudentMutation,
     useUpdateStudentMutation,
-    useDeleteStudentMutation
+    useDeleteStudentMutation,
+
+    useGetOutlineQuery,
+    useGetOutlinesQuery,
+    useCreateOutlineMutation,
+    useUpdateOutlineMutation,
+    useDeleteOutlineMutation
 } = api;
