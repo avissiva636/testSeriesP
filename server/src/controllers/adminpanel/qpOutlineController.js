@@ -51,9 +51,12 @@ const createQpOutline = asyncHandler(async (req, res) => {
     }
 
     const createdQp = await QpOutline.create({
-        title, description, course, batch, subject,
-        nOptions, nQuestions, allottedTime, cMarks, wMarks,
-        random, instruction
+        title, description,
+        course: course ? course : undefined,
+        batch: batch ? batch : undefined,
+        subject: subject ? subject : undefined,
+        nOptions, nQuestions, allottedTime, cMarks, wMarks, random,
+        instruction: instruction ? instruction : undefined
     });
 
     if (createdQp) {
@@ -72,7 +75,7 @@ const updateQpOutline = asyncHandler(async (req, res) => {
     const { title, description, course, batch, subject,
         nOptions, nQuestions, allottedTime, cMarks, wMarks,
         random, instruction } = req.body;
-
+console.log(course,batch,subject)
     if (!title || !description ||
         !nOptions || !nQuestions || !allottedTime ||
         !cMarks || !random ||
@@ -86,7 +89,7 @@ const updateQpOutline = asyncHandler(async (req, res) => {
         nOptions, nQuestions, allottedTime, cMarks, wMarks,
         random, instruction
     }, { new: true });
-    console.log(updateQpOutline)
+    console.log(!updateQpOutline)
     if (updateQpOutline) {
         res.status(200).json(updateQpOutline);
     } else {
