@@ -3,26 +3,32 @@ import { Box, Button, MenuItem, TextField, Typography, useTheme } from '@mui/mat
 import Header from 'components/Header';
 import FlexBetween from 'components/FlexBetween';
 import { useOutletContext } from 'react-router-dom';
+import { useCreateOutlineMutation, useGetBatchesQuery, useGetCoursesQuery, useGetSubjectsQuery } from 'state/apiDevelopmentSlice';
 
 const AddQPOutline = () => {
     const isNonMobile = useOutletContext();
 
     const theme = useTheme();
 
-    const [qpTitle, setQpTitle] = useState();
-    const [qpDes, setQpDes] = useState();
-    const [noOfOption, setNoOfOption] = useState();
-    const [noOfQuestions, setNoOfQuestions] = useState();
-    const [correctMark, SetCorrectMark] = useState();
-    const [wrongMark, SetWrongMark] = useState();
-    const [timeAllotted, setTimeAlotted] = useState();
-    const [random, setRandom] = useState('Free');
+    const [qpTitle, setQpTitle] = useState('');
+    const [qpDes, setQpDes] = useState('');
+    const [noOfOption, setNoOfOption] = useState('');
+    const [noOfQuestions, setNoOfQuestions] = useState('');
+    const [correctMark, SetCorrectMark] = useState('');
+    const [wrongMark, SetWrongMark] = useState('');
+    const [timeAllotted, setTimeAlotted] = useState('');
+    const [random, setRandom] = useState('no');
 
     const [instruction, setInstruction] = useState();
 
-    const [selectedCourse, SetSelectedCourse] = useState('Free');
-    const [selectedBatch, SetSelectedBatch] = useState('Free');
-    const [selectedSubject, SetSelectedSubject] = useState('Free');
+    const [selectedCourse, SetSelectedCourse] = useState('');
+    const [selectedBatch, SetSelectedBatch] = useState('');
+    const [selectedSubject, SetSelectedSubject] = useState('');
+
+    const { isLoading: isCourseLoading, data: courseData } = useGetCoursesQuery();
+    const { isLoading: isBatchLoading, data: batchData } = useGetBatchesQuery();
+    const { isLoading: isSubjectLoading, data: subjectData } = useGetSubjectsQuery();
+    const [createOutline] = useCreateOutlineMutation();
 
     const handleReset = () => {
         setQpTitle('');
@@ -32,17 +38,40 @@ const AddQPOutline = () => {
         SetCorrectMark('');
         SetWrongMark('');
         setTimeAlotted('');
-        setRandom('Free');
+        setRandom('no');
 
         setInstruction('');
 
-        SetSelectedCourse('Free');
-        SetSelectedBatch('Free');
-        SetSelectedSubject('Free');
+        SetSelectedCourse('');
+        SetSelectedBatch('');
+        SetSelectedSubject('');
     }
 
-    const handleSubmit = () => {
-        alert("button clicked");
+    const handleSubmit = async () => {
+
+        if (!qpTitle || !qpDes ||
+            !noOfOption || !noOfQuestions || !timeAllotted ||
+            !correctMark || !random
+            || !(wrongMark !== null && wrongMark !== undefined)) {
+            alert("All fields are mandatory");
+            return;
+        }
+
+        try {
+            await createOutline({
+                title: qpTitle, description: qpDes,
+                course: selectedCourse, batch: selectedBatch, subject: selectedSubject,
+                nOptions: noOfOption, nQuestions: noOfQuestions,
+                allottedTime: timeAllotted, cMarks: correctMark,
+                wMarks: wrongMark,
+                random, instruction
+            }).unwrap();
+            handleReset();
+        } catch (error) {
+            if (error.status === 400) {
+                alert("Give proper data");
+            }
+        }
     }
 
     return (
@@ -94,14 +123,14 @@ const AddQPOutline = () => {
                             value={selectedCourse}
                             onChange={(e) => SetSelectedCourse(e.target.value)}
                             variant="standard"
-                        >
-                            <MenuItem key="Free" value={"Free"}>
-                                Free
-                            </MenuItem>
-                            <MenuItem key="Paid" value={"Paid"}>
-                                Paid
-                            </MenuItem>
-                        </TextField>
+                            children={
+                                !isCourseLoading && courseData ? courseData?.map((dataChunk) => (
+                                    <MenuItem key={`course${dataChunk._id}`} value={dataChunk._id}>
+                                        {dataChunk.name}
+                                    </MenuItem>
+                                )) : <MenuItem value="">Select a Course</MenuItem>
+                            }
+                        />
                     </Box>
 
                     {/* Batch */}
@@ -114,14 +143,14 @@ const AddQPOutline = () => {
                             value={selectedBatch}
                             onChange={(e) => SetSelectedBatch(e.target.value)}
                             variant="standard"
-                        >
-                            <MenuItem key="Free" value={"Free"}>
-                                Free
-                            </MenuItem>
-                            <MenuItem key="Paid" value={"Paid"}>
-                                Paid
-                            </MenuItem>
-                        </TextField>
+                            children={
+                                !isBatchLoading && batchData ? batchData?.map((dataChunk) => (
+                                    <MenuItem key={`batch${dataChunk._id}`} value={dataChunk._id}>
+                                        {dataChunk.name}
+                                    </MenuItem>
+                                )) : <MenuItem value="">Select a Batch</MenuItem>
+                            }
+                        />
                     </Box>
 
                     {/* Subject */}
@@ -134,14 +163,14 @@ const AddQPOutline = () => {
                             value={selectedSubject}
                             onChange={(e) => SetSelectedSubject(e.target.value)}
                             variant="standard"
-                        >
-                            <MenuItem key="Free" value={"Free"}>
-                                Free
-                            </MenuItem>
-                            <MenuItem key="Paid" value={"Paid"}>
-                                Paid
-                            </MenuItem>
-                        </TextField>
+                            children={
+                                !isSubjectLoading && subjectData ? subjectData?.map((dataChunk) => (
+                                    <MenuItem key={`subject${dataChunk._id}`} value={dataChunk._id}>
+                                        {dataChunk.name}
+                                    </MenuItem>
+                                )) : <MenuItem value="">Select a Subject</MenuItem>
+                            }
+                        />
                     </Box>
                 </FlexBetween>
 
@@ -217,11 +246,11 @@ const AddQPOutline = () => {
                             onChange={(e) => setRandom(e.target.value)}
                             variant="standard"
                         >
-                            <MenuItem key="Free" value={"Free"}>
-                                Free
+                            <MenuItem key="Yes" value={"yes"}>
+                                Yes
                             </MenuItem>
-                            <MenuItem key="Paid" value={"Paid"}>
-                                Paid
+                            <MenuItem key="No" value={"no"}>
+                                No
                             </MenuItem>
                         </TextField>
                     </Box>
