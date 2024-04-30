@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => {
     };
 });
 
-const ListPaperTemplate = ({ paperData, paperName }) => {
+const ListPaperTemplate = ({ paperData, paperName, paperLoading, deleteClick }) => {
     const theme = useTheme();
     // const data = paperData;
 
@@ -63,13 +63,13 @@ const ListPaperTemplate = ({ paperData, paperName }) => {
         console.log("Editing", id, title, description);
     };
 
-    const deleteClick = ({ id, title, description }) => {
-        console.log("Deleting", id, title, description);
-    }
+    // const deleteClick = ({ id, title, description }) => {
+    //     console.log("Deleting", id, title, description);
+    // }
 
     const columns = [
         {
-            field: "id",
+            field: "sno",
             headerName: "ID",
             flex: 0.5,
         },
@@ -114,7 +114,7 @@ const ListPaperTemplate = ({ paperData, paperName }) => {
                 <FlexBetween gap={'1rem'}>
                     <IconButton
                         onClick={() => editClick({
-                            id: params.row.id,
+                            id: params.row._id,
                             title: params.row.title,
                             description: params.row.description
                         })}
@@ -136,9 +136,13 @@ const ListPaperTemplate = ({ paperData, paperName }) => {
             sortable: false,
             renderCell: (params) => {
                 const queryString = new URLSearchParams({
-                    id: encodeURIComponent(params.row.id),
+                    id: encodeURIComponent(params.row._id),
                     title: encodeURIComponent(params.row.title),
-                    description: encodeURIComponent(params.row.description),                    
+                    description: encodeURIComponent(params.row.description),
+                    status: encodeURIComponent(params.row.status),
+                    paid: encodeURIComponent(params.row.paid),
+                    price: encodeURIComponent(params.row.price),
+                    paymentLink: encodeURIComponent(params.row.paymentLink),
                 }).toString();
 
                 return (<FlexBetween gap={'1rem'}>
@@ -157,9 +161,9 @@ const ListPaperTemplate = ({ paperData, paperName }) => {
 
                     <IconButton
                         onClick={() => deleteClick({
-                            id: params.row.id,
+                            id: params.row._id,
                             title: params.row.title,
-                            description: params.row.description
+                            schedule: params.row.schedule,
                         })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
@@ -217,9 +221,8 @@ const ListPaperTemplate = ({ paperData, paperName }) => {
             }}
         >
             <DataGrid
-                // loading={isLoading || !data}
-                loading={!data}
-                getRowId={(row) => row.id}
+                loading={paperLoading || !paperData}
+                getRowId={(row) => row._id}
                 rows={(data) || []}
                 columns={columns}
 

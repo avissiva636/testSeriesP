@@ -9,11 +9,15 @@ const AddPaperTemplate = ({ isNonMobile, seriesName,
     series, setSeries,
     seriesDes, setSeriesDes,
     seriesPrice, setSeriesPrice,
-    seriesPaymentLink, setSeriesPaymentLink }) => {
+    seriesPaymentLink, setSeriesPaymentLink,
+    handleSubmit, paid = 'free', status = 'stop' }) => {
     const theme = useTheme();
 
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+
     const [selectedFile, setSelectedFile] = useState(null);
-    const [selectedValue, setSelectedValue] = useState('Free');
+    const [selectedValue, setSelectedValue] = useState(paid);
+    const [selectedStatus, setSelectedStatus] = useState(status)
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -26,11 +30,7 @@ const AddPaperTemplate = ({ isNonMobile, seriesName,
         setSeriesPrice('');
         setSeriesPaymentLink('');
         setSelectedFile(null);
-        setSelectedValue('Free')
-    }
-
-    const handleSubmit = () => {
-        alert("button clicked");
+        setSelectedValue(paid)
     }
 
     return (
@@ -66,19 +66,39 @@ const AddPaperTemplate = ({ isNonMobile, seriesName,
             </Box>
 
             <Box p={'1rem 2rem'}>
-                <Typography variant='h5' >Course:</Typography>
+                <Typography variant='h5' >Status:</Typography>
                 <TextField
-                    id="batchCourse"
+                    select
+                    fullWidth
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value)}
+                    variant="standard"
+                >
+                    <MenuItem key="Free" value={"start"}>
+                        Start
+                    </MenuItem>
+                    <MenuItem key="Stop" value={"stop"}>
+                        Stop
+                    </MenuItem>
+                    <MenuItem key="Test" value={"test"}>
+                        Test
+                    </MenuItem>
+                </TextField>
+            </Box>
+
+            <Box p={'1rem 2rem'}>
+                <Typography variant='h5' >Paid:</Typography>
+                <TextField
                     select
                     fullWidth
                     value={selectedValue}
                     onChange={(e) => setSelectedValue(e.target.value)}
                     variant="standard"
                 >
-                    <MenuItem key="Free" value={"Free"}>
+                    <MenuItem key="Free" value={"free"}>
                         Free
                     </MenuItem>
-                    <MenuItem key="Paid" value={"Paid"}>
+                    <MenuItem key="Paid" value={"paid"}>
                         Paid
                     </MenuItem>
                 </TextField>
@@ -128,6 +148,7 @@ const AddPaperTemplate = ({ isNonMobile, seriesName,
                 <Button variant="contained"
                     size='large'
                     onClick={handleReset}
+                    disabled={buttonDisabled}
                     sx={{
                         ml: 'auto', width: '120px',
                         backgroundColor: theme.palette.neutral.main
@@ -137,7 +158,8 @@ const AddPaperTemplate = ({ isNonMobile, seriesName,
 
                 <Button variant="contained" color="success"
                     size='large'
-                    onClick={handleSubmit}
+                    onClick={() => handleSubmit(setButtonDisabled, selectedFile, selectedValue, selectedStatus, handleReset)}
+                    disabled={buttonDisabled}
                     sx={{ mr: '1rem', width: '120px' }}
                 >
                     Submit
