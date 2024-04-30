@@ -41,6 +41,7 @@ const initializeServer = async () => {
     app.use('/admin/batch', require('./routes/api/adminpanel/batchRoutes'));
     app.use('/admin/student', require('./routes/api/adminpanel/studentRoutes'));
     app.use('/admin/qpoutline', require('./routes/api/adminpanel/qpOutlineRoutes'));
+    app.use('/admin/pseries', require('./routes/api/adminpanel/prelimsSeriesRoutes'));
 
     app.use('/refresh', require('./routes/refresh'));
     app.use('/logout', require('./routes/logout'));
