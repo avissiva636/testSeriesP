@@ -5,7 +5,7 @@ export const api = createApi({
         baseUrl: process.env.REACT_APP_BASE_URL
     }),
     reducerPath: "adminApi",
-    tagTypes: ["Subject", "Course", "Batch", "Student", "Outline"],
+    tagTypes: ["Subject", "Course", "Batch", "Student", "Outline", "Pseries"],
     endpoints: (build) => ({
         getCourses: build.query({
             query: () => `/admin/course`,
@@ -162,6 +162,41 @@ export const api = createApi({
             }),
             invalidatesTags: ["Outline"]
         }),
+
+        getPseries: build.query({
+            query: ({ psid }) => ({
+                url: `/admin/pseries/${psid}`,
+                method: "GET"
+            })
+        }),
+        getPSerieses: build.query({
+            query: () => `/admin/pseries`,
+            providesTags: ["Pseries"]
+        }),
+        createPSeries: build.mutation({
+            query: (createFormData) => ({
+                url: `/admin/pseries`,
+                method: "POST",
+                body: createFormData,
+            }),
+            invalidatesTags: ["Pseries"]
+        }),
+        updatePSeries: build.mutation({
+            query: ({ psId, updateFormData }) => ({
+                url: `/admin/pseries/${psId}`,
+                method: "PUT",
+                body: updateFormData,
+            }),
+            invalidatesTags: ["Pseries"]
+        }),
+        deletePSeries: build.mutation({
+            query: ({ psId, imgName }) => ({
+                url: `/admin/pseries/${psId}`,
+                method: "DELETE",
+                body: {imgName}
+            }),
+            invalidatesTags: ["Pseries"]
+        }),
     }),
 });
 
@@ -191,5 +226,11 @@ export const {
     useGetOutlinesQuery,
     useCreateOutlineMutation,
     useUpdateOutlineMutation,
-    useDeleteOutlineMutation
+    useDeleteOutlineMutation,
+
+    useGetPseriesQuery,
+    useGetPSeriesesQuery,
+    useCreatePSeriesMutation,
+    useUpdatePSeriesMutation,
+    useDeletePSeriesMutation
 } = api;
