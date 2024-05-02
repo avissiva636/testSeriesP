@@ -5,7 +5,7 @@ export const api = createApi({
         baseUrl: process.env.REACT_APP_BASE_URL
     }),
     reducerPath: "adminApi",
-    tagTypes: ["Subject", "Course", "Batch", "Student", "Outline", "Pseries"],
+    tagTypes: ["Subject", "Course", "Batch", "Student", "Outline", "Pseries", "Mseries"],
     endpoints: (build) => ({
         getCourses: build.query({
             query: () => `/admin/course`,
@@ -193,9 +193,44 @@ export const api = createApi({
             query: ({ psId, imgName }) => ({
                 url: `/admin/pseries/${psId}`,
                 method: "DELETE",
-                body: {imgName}
+                body: { imgName }
             }),
             invalidatesTags: ["Pseries"]
+        }),
+
+        getMseries: build.query({
+            query: ({ msid }) => ({
+                url: `/admin/mseries/${msid}`,
+                method: "GET"
+            })
+        }),
+        getMSerieses: build.query({
+            query: () => `/admin/mseries`,
+            providesTags: ["Mseries"]
+        }),
+        createMSeries: build.mutation({
+            query: (createFormData) => ({
+                url: `/admin/mseries`,
+                method: "POST",
+                body: createFormData,
+            }),
+            invalidatesTags: ["Mseries"]
+        }),
+        updateMSeries: build.mutation({
+            query: ({ msId, updateFormData }) => ({
+                url: `/admin/mseries/${msId}`,
+                method: "PUT",
+                body: updateFormData,
+            }),
+            invalidatesTags: ["Mseries"]
+        }),
+        deleteMSeries: build.mutation({
+            query: ({ msId, imgName }) => ({
+                url: `/admin/mseries/${msId}`,
+                method: "DELETE",
+                body: { imgName }
+            }),
+            invalidatesTags: ["Mseries"]
         }),
     }),
 });
@@ -232,5 +267,12 @@ export const {
     useGetPSeriesesQuery,
     useCreatePSeriesMutation,
     useUpdatePSeriesMutation,
-    useDeletePSeriesMutation
+    useDeletePSeriesMutation,
+
+    useGetMseriesQuery,
+    useGetMSeriesesQuery,
+    useCreateMSeriesMutation,
+    useUpdateMSeriesMutation,
+    useDeleteMSeriesMutation
+
 } = api;
