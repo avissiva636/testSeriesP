@@ -2,7 +2,6 @@ import React from 'react'
 import { Box } from '@mui/material';
 import Header from 'components/Header';
 import ListPaperTemplate from 'components/ListPaperTemplate';
-import { PrelimsList as prelimsData } from 'data'
 import { useOutletContext } from 'react-router-dom';
 import { useDeleteMSeriesMutation, useGetMSeriesesQuery } from 'state/apiDevelopmentSlice';
 
