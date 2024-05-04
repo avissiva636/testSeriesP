@@ -10,4 +10,5 @@ module.exports = {
     QpOutlineModel: require("./models/QpOutline"),
     PSeriesModel: require("./models/prelimsSeries"),
     mSeriesModel: require("./models/mainsSeries"),
+    pQpDesModel: require("./models/PrelimsQpDesc")
 };
