@@ -16,9 +16,9 @@ const AddPrelimsSeries = () => {
 
   const [createPSeries] = useCreatePSeriesMutation();
 
-  const handleSubmit = async (setButtonDisabled, selectedFile, selectedValue, handleReset) => {
+  const handleSubmit = async (setButtonDisabled, selectedFile, selectedValue, selectedStatus, handleReset) => {
     if (!prelims || !prelimsDes || !paymentLink
-      || !selectedFile || !selectedValue
+      || !selectedFile || !selectedValue || !selectedStatus
       || !(price !== null && price !== undefined)) {
       alert("All fields are mandatory");
       return;
@@ -26,6 +26,7 @@ const AddPrelimsSeries = () => {
     const formData = new FormData();
     formData.append('title', prelims);
     formData.append('description', prelimsDes);
+    formData.append('status', selectedStatus);
     formData.append('paid', selectedValue);
     formData.append('price', price);
     formData.append('paymentLink', paymentLink);
