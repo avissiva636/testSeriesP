@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require('fs');
 const multer = require('multer');
-// const dataflow = multer();
+const dataflow = multer();
 
 
 // Prelims Series
@@ -72,4 +72,40 @@ const msUpload = multer({
     }
 });
 
-module.exports = { psUpload, msUpload };
+// Prelims Series
+const psDescStorage = multer.diskStorage({
+    destination: async function (req, file, cb) {
+        if (!fs.existsSync(path.join(__dirname, '..', '..', '..', 'public', 'images', 'pQpDesc'))) {
+            if (!fs.existsSync(path.join(__dirname, '..', '..', '..', 'public', 'images'))) {
+                await fs.promises.mkdir(path.join(__dirname, '..', '..', '..', 'public', 'images'));
+            }
+            await fs.promises.mkdir(path.join(__dirname, '..', '..', '..', 'public', 'images', 'pQpDesc'));
+        }
+        cb(null, path.join(__dirname, '../../../public/images/pQpDesc'));
+    },
+    filename: function (req, file, cb) {
+        const fileName = Date.now() + path.extname(file.originalname);
+        req.psQpDescImageName = fileName;
+        cb(null, fileName);
+    }
+});
+const psDescUpload = multer({
+    storage: psDescStorage,
+    fileFilter: (req, file, cb) => {
+        // Check if conditions are met
+        const { pSeries, series, title, description,
+            nOptions, nQuestions, alottedTime, cMarks, wMarks,
+            instruction } = req.body;
+
+        if (!pSeries || !series || !title || !description ||
+            !nOptions || !nQuestions || !alottedTime ||
+            !cMarks || !instruction ||
+            !(wMarks !== null && wMarks !== undefined)) {
+            cb(new Error('File upload restricted'));
+        } else {
+            cb(null, true);
+        }
+    }
+});
+
+module.exports = { psUpload, msUpload, psDescUpload, dataflow };
