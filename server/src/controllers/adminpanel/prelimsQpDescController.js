@@ -16,7 +16,7 @@ const getAllPQpDescs = asyncHandler(async (req, res) => {
 
 //@desc get All prelims Qp Desc
 //@route GET /admin/pQpDescseries/:id
-//access private @only testing
+//access private 
 const getAllSpecificPQpDescs = asyncHandler(async (req, res) => {
     const id = req.params.id;
     const pQpDescs = await pQpDescription.find({ pSeries: id });
@@ -52,12 +52,13 @@ const getPQpDesc = asyncHandler(async (req, res) => {
 //access private
 const createPQpDesc = asyncHandler(async (req, res) => {
     const { pSeries, series, title, description, course, batch, subject,
-        nOptions, nQuestions, allottedTime, cMarks, wMarks,
+        nOptions, nQuestions, alottedTime, cMarks, wMarks,
         random, instruction } = req.body;
+    const schedule = req.psQpDescImageName;
 
     if (!pSeries || !series || !title || !description ||
-        !nOptions || !nQuestions || !allottedTime ||
-        !cMarks || !instruction ||
+        !nOptions || !nQuestions || !alottedTime ||
+        !cMarks || !instruction || !schedule ||
         !(wMarks !== null && wMarks !== undefined)
     ) {
         res.status(400);
@@ -69,8 +70,9 @@ const createPQpDesc = asyncHandler(async (req, res) => {
         course: course ? course : undefined,
         batch: batch ? batch : undefined,
         subject: subject ? subject : undefined,
-        nOptions, nQuestions, allottedTime, cMarks, wMarks, random,
-        instruction
+        nOptions, nQuestions, alottedTime,
+        cMarks, wMarks, random,
+        schedule, instruction
     });
 
     if (createdPQpDesc) {
@@ -81,17 +83,18 @@ const createPQpDesc = asyncHandler(async (req, res) => {
 });
 
 //@desc update the prelims Qp Desc
-//@route PUT /admin/pQpDescseries/pSingle/:id
+//@route PUT /admin/pQpDescseries/:id
 //access private
-const updatePQpDesc = asyncHandler(async (req, res) => {
+const updatePQpDesc = asyncHandler(async (req, res) => {    
     const id = req.params.id;
 
     const { pSeries, series, title, description, course, batch, subject,
-        nOptions, nQuestions, allottedTime, cMarks, wMarks,
+        nOptions, nQuestions, alottedTime, cMarks, wMarks,
         random, instruction } = req.body;
+    const schedule = req.psQpDescImageName;
 
     if (!pSeries || !series || !title || !description ||
-        !nOptions || !nQuestions || !allottedTime ||
+        !nOptions || !nQuestions || !alottedTime ||
         !cMarks || !instruction ||
         !(wMarks !== null && wMarks !== undefined)
     ) {
@@ -99,16 +102,47 @@ const updatePQpDesc = asyncHandler(async (req, res) => {
         throw new Error("Enter the mandatory fields");
     }
 
-    const updatepQpDescription = await pQpDescription.findByIdAndUpdate(id, {
-        pSeries, series, title, description, course, batch, subject,
-        nOptions, nQuestions, allottedTime, cMarks, wMarks,
-        random, instruction
-    }, { new: true });
+    const updatepQpDescription = await pQpDescription.findByIdAndUpdate(id,
+        {
+            pSeries, series, title, description,
+            course: course ? course : undefined,
+            batch: batch ? batch : undefined,
+            subject: subject ? subject : undefined,
+            schedule: schedule ? schedule : undefined,
+            nOptions, nQuestions, alottedTime, cMarks, wMarks,
+            random, instruction
+        }, { new: true });
 
     if (updatepQpDescription) {
         res.status(200).json(updatepQpDescription);
     } else {
         res.status(400).json({ "message": "pQpDescription not updated" });
+    }
+});
+
+//@desc update the prelims Qp Desc
+//@route PUT /admin/pQpDescseries/pSingle/:id
+//access private
+const updatePQpDescStatus = asyncHandler(async (req, res) => {    
+    const id = req.params.id;
+
+    const { status } = req.body;
+
+    if (!status) {        
+        res.status(400);
+        throw new Error("Enter the mandatory fields");
+    }
+
+    const updatepQpDescStatus = await pQpDescription.findByIdAndUpdate(
+        id,
+        { status: status },
+        { new: true }
+    ); 
+
+    if (updatepQpDescStatus) {
+        res.status(200).json(updatepQpDescStatus);
+    } else {
+        res.status(400).json({ "message": "Status not updated" });
     }
 });
 
@@ -129,5 +163,5 @@ const deletePQpDesc = asyncHandler(async (req, res) => {
 
 module.exports = {
     getAllPQpDescs, getAllSpecificPQpDescs, getPQpDesc,
-    createPQpDesc, updatePQpDesc, deletePQpDesc
+    createPQpDesc, updatePQpDescStatus, updatePQpDesc, deletePQpDesc
 };

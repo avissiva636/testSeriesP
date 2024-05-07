@@ -1,15 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const prelimsQpDescController = require("../../../controllers/adminpanel/prelimsQpDescController");
+const { dataflow, psDescUpload } = require("../../../util/middleware/imageUpload");
 
 router.route("/").get(prelimsQpDescController.getAllPQpDescs)
-    .post(prelimsQpDescController.createPQpDesc);
+    .post(psDescUpload.single('schedule'), prelimsQpDescController.createPQpDesc);
 
-router.route("/:id").get(prelimsQpDescController.getAllSpecificPQpDescs)
+router.route("/:id")
+    .get(prelimsQpDescController.getAllSpecificPQpDescs)
+    .put(psDescUpload.single('schedule'),  prelimsQpDescController.updatePQpDesc)
 
 router.route("/pSingle/:id")
     .get(prelimsQpDescController.getPQpDesc)
-    .put(prelimsQpDescController.updatePQpDesc)
+    .put(dataflow.any(), prelimsQpDescController.updatePQpDescStatus)
     .delete(prelimsQpDescController.deletePQpDesc);
 
 module.exports = router;
