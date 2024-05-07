@@ -35,6 +35,10 @@ import ListBatches from "scenes/batches/ListBatches";
 import AddStudents from "scenes/students/AddStudents";
 import EditStudents from "scenes/students/EditStudents";
 import ListStudents from "scenes/students/ListStudents";
+import AddMainsQpDes from "scenes/mains/AddMainsQpDes";
+import AddPrelimsQpDes from "scenes/prelims/AddPrelimsQpDes";
+import ListPrelimsQpDes from "scenes/prelims/ListPrelimsQpDes";
+import EditPrelimsQpDes from "scenes/prelims/EditPrelimsQpDes";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -52,12 +56,16 @@ function App() {
             <Route path="listprelimsseries" element={<ListPrelimsSeries />} />
             <Route path="sellprelimsseries" element={<SellPrelimsSeries />} />
             <Route path="salesprelimsseries" element={<SalesPrelimsSeries />} />
+            <Route path="add_prelims_qp_description" element={<AddPrelimsQpDes />} />
+            <Route path="edit_prelims_qp_description" element={<EditPrelimsQpDes />} />
+            <Route path="list_prelims_qp_description" element={<ListPrelimsQpDes />} />
 
             <Route path="addmainsseries" element={<AddMainsSeries />} />
             <Route path="editmainsseries/:id" element={<EditMainsSeries />} />
             <Route path="listmainsseries" element={<ListMainsSeries />} />
             <Route path="sellmainsseries" element={<SellMainsSeries />} />
             <Route path="salesmainsseries" element={<SalesMainsSeries />} />
+            <Route path="add_mains_qp_description" element={<AddMainsQpDes />} />
 
             <Route path="addscheduledseries" element={<AddScheduledSeries />} />
             <Route path="editscheduledseries/:id" element={<EditScheduledSeries />} />
