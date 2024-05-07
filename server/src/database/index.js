@@ -8,5 +8,7 @@ module.exports = {
     BatchModel: require("./models/Batch"),
     StudentModel: require("./models/Student"),
     QpOutlineModel: require("./models/QpOutline"),
-    PSeriesModel:require("./models/prelimsSeries")
+    PSeriesModel: require("./models/prelimsSeries"),
+    mSeriesModel: require("./models/mainsSeries"),
+    pQpDesModel: require("./models/PrelimsQpDesc")
 };

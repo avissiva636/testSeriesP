@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require('fs');
 const multer = require('multer');
-// const dataflow = multer();
+const dataflow = multer();
 
 
 // Prelims Series
@@ -26,7 +26,7 @@ const psUpload = multer({
     fileFilter: (req, file, cb) => {
         // Check if conditions are met
         const { title, description,
-            paid, price, paymentLink } = req.body;        
+            paid, price, paymentLink } = req.body;
 
         if (!title || !description ||
             !paid || !paymentLink ||
@@ -38,4 +38,74 @@ const psUpload = multer({
     }
 });
 
-module.exports = { psUpload };
+// Mains Series
+const msStorage = multer.diskStorage({
+    destination: async function (req, file, cb) {
+        if (!fs.existsSync(path.join(__dirname, '..', '..', '..', 'public', 'images', 'mains'))) {
+            if (!fs.existsSync(path.join(__dirname, '..', '..', '..', 'public', 'images'))) {
+                await fs.promises.mkdir(path.join(__dirname, '..', '..', '..', 'public', 'images'));
+            }
+            await fs.promises.mkdir(path.join(__dirname, '..', '..', '..', 'public', 'images', 'mains'));
+        }
+        cb(null, path.join(__dirname, '../../../public/images/mains'));
+    },
+    filename: function (req, file, cb) {
+        const fileName = Date.now() + path.extname(file.originalname);
+        req.msImageName = fileName;
+        cb(null, fileName);
+    }
+});
+const msUpload = multer({
+    storage: msStorage,
+    fileFilter: (req, file, cb) => {
+        // Check if conditions are met
+        const { title, description,
+            paid, price, paymentLink } = req.body;
+
+        if (!title || !description ||
+            !paid || !paymentLink ||
+            !(price !== null && price !== undefined)) {
+            cb(new Error('File upload restricted'));
+        } else {
+            cb(null, true);
+        }
+    }
+});
+
+// Prelims Series
+const psDescStorage = multer.diskStorage({
+    destination: async function (req, file, cb) {
+        if (!fs.existsSync(path.join(__dirname, '..', '..', '..', 'public', 'images', 'pQpDesc'))) {
+            if (!fs.existsSync(path.join(__dirname, '..', '..', '..', 'public', 'images'))) {
+                await fs.promises.mkdir(path.join(__dirname, '..', '..', '..', 'public', 'images'));
+            }
+            await fs.promises.mkdir(path.join(__dirname, '..', '..', '..', 'public', 'images', 'pQpDesc'));
+        }
+        cb(null, path.join(__dirname, '../../../public/images/pQpDesc'));
+    },
+    filename: function (req, file, cb) {
+        const fileName = Date.now() + path.extname(file.originalname);
+        req.psQpDescImageName = fileName;
+        cb(null, fileName);
+    }
+});
+const psDescUpload = multer({
+    storage: psDescStorage,
+    fileFilter: (req, file, cb) => {
+        // Check if conditions are met
+        const { pSeries, series, title, description,
+            nOptions, nQuestions, alottedTime, cMarks, wMarks,
+            instruction } = req.body;
+
+        if (!pSeries || !series || !title || !description ||
+            !nOptions || !nQuestions || !alottedTime ||
+            !cMarks || !instruction ||
+            !(wMarks !== null && wMarks !== undefined)) {
+            cb(new Error('File upload restricted'));
+        } else {
+            cb(null, true);
+        }
+    }
+});
+
+module.exports = { psUpload, msUpload, psDescUpload, dataflow };
