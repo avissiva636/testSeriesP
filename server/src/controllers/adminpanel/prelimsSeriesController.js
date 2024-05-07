@@ -94,6 +94,31 @@ const updatePSeries = asyncHandler(async (req, res) => {
     }
 });
 
+//@desc update the Prelims Series
+//@route PUT /admin/pseries/pSingle/:pid
+//access private
+const updatePsStatus = asyncHandler(async (req, res) => {
+    const id = req.params.pid;
+    const { status } = req.body;
+
+    if (!status) {
+        res.status(400);
+        throw new Error("Enter the mandatory fields");
+    }
+
+    const updatePSeries = await PSeries.findByIdAndUpdate(
+        id,
+        { status: status },
+        { new: true }
+    );
+
+    if (updatePSeries) {
+        res.status(200).json(updatePSeries);
+    } else {
+        res.status(400).json({ "message": "Status not updated" });
+    }
+});
+
 //@desc delete the Prelims Series
 //@route DELETE /admin/pseries/:pid
 //access private
@@ -119,5 +144,6 @@ const deletePSeries = asyncHandler(async (req, res) => {
 
 module.exports = {
     getPSerieses, getPSeries, createPSeries,
-    updatePSeries, deletePSeries
+    updatePSeries, updatePsStatus,
+    deletePSeries
 };

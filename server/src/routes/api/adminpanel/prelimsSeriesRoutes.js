@@ -12,4 +12,7 @@ router.route("/:pid")
     .put(psUpload.single('schedule'), pSeriesController.updatePSeries)
     .delete(pSeriesController.deletePSeries);
 
+router.route("/psingle/:pid")
+    .put(pSeriesController.updatePsStatus)
+
 module.exports = router;
