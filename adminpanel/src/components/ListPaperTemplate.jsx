@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CreateRounded, DeleteRounded } from '@mui/icons-material';
-import { Box, IconButton, useTheme } from '@mui/material';
+import { Box, Button, IconButton, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles'
 import FlexBetween from 'components/FlexBetween';
 // import { PrelimsList as subjectData } from 'data'
@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => {
     };
 });
 
-const ListPaperTemplate = ({ paperData, paperName, paperLoading, deleteClick }) => {
+const ListPaperTemplate = ({ paperData, paperName, paperLoading, updatePaperStatus, deleteClick, buttonDisabled }) => {
     const theme = useTheme();
     // const data = paperData;
 
@@ -89,6 +89,24 @@ const ListPaperTemplate = ({ paperData, paperName, paperLoading, deleteClick }) 
             field: "status",
             headerName: "STATUS",
             flex: 0.5,
+            renderCell: (params) => {
+                const paramStatus = params.row.status;
+
+                return (<FlexBetween gap={'1rem'}>
+                    <Button variant="text" color='inherit' disableElevation
+                        disabled={buttonDisabled}
+                        onClick={() => {
+                            if (paramStatus === "start") {
+                                updatePaperStatus("stop", params.row._id)
+                            }
+                            else if (paramStatus === "stop") {
+                                updatePaperStatus("start", params.row._id)
+                            }
+                        }}>
+                        {paramStatus}
+                    </Button>
+                </FlexBetween>)
+            },
         },
         {
             field: "paid",
