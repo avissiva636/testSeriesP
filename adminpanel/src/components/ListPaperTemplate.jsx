@@ -59,14 +59,6 @@ const ListPaperTemplate = ({ paperData, paperName, paperLoading, deleteClick }) 
         pageSize: 10,
     });
 
-    const editClick = ({ id, title, description }) => {
-        console.log("Editing", id, title, description);
-    };
-
-    // const deleteClick = ({ id, title, description }) => {
-    //     console.log("Deleting", id, title, description);
-    // }
-
     const columns = [
         {
             field: "sno",
@@ -110,21 +102,27 @@ const ListPaperTemplate = ({ paperData, paperName, paperLoading, deleteClick }) 
             headerAlign: 'center',
             align: 'center',
             sortable: false,
-            renderCell: (params) => (
-                <FlexBetween gap={'1rem'}>
+            renderCell: (params) => {
+                const queryString = new URLSearchParams({
+                    id: encodeURIComponent(params.row._id),
+                    title: encodeURIComponent(params.row.title),
+                }).toString();
+
+                return (<FlexBetween gap={'1rem'}>
                     <IconButton
-                        onClick={() => editClick({
-                            id: params.row._id,
-                            title: params.row.title,
-                            description: params.row.description
-                        })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
-                        <CreateRounded />
+                        <Link to={`/list_${paperName}_qp_description?${queryString}`}
+                            style={{
+                                color: 'inherit',
+                                textDecoration: 'none'
+                            }}>
+                            <CreateRounded />
+                        </Link>
                     </IconButton>
-                </FlexBetween>
-            )
+                </FlexBetween>)
+            }
 
         },
         {
