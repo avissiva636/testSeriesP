@@ -2,10 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: process.env.REACT_APP_BASE_URL
+        baseUrl: process.env.REACT_APP_BASE_URL,
     }),
     reducerPath: "adminApi",
-    tagTypes: ["Subject", "Course", "Batch", "Student", "Outline", "Pseries", "Mseries"],
+    tagTypes: ["Subject", "Course", "Batch", "Student", "Outline", "Pseries", "Mseries", "psDescSeriesSingle", "psDescSeries"],
     endpoints: (build) => ({
         getCourses: build.query({
             query: () => `/admin/course`,
@@ -232,6 +232,50 @@ export const api = createApi({
             }),
             invalidatesTags: ["Mseries"]
         }),
+
+        getPseriesDes: build.query({
+            query: ({ pDesId }) => ({
+                url: `/admin/pQpDescseries/pSingle/${pDesId}`,
+                method: "GET"
+            }),
+            providesTags: ["psDescSeriesSingle"]
+        }),
+        getSpecificPdescs: build.query({
+            query: ({ pDesId }) => `/admin/pQpDescseries/${pDesId}`,
+            providesTags: ["psDescSeries"]
+        }),
+        createPSeriesDes: build.mutation({
+            query: (createFormData) => ({
+                url: `/admin/pQpDescseries`,
+                method: "POST",
+                body: createFormData,
+            }),
+            invalidatesTags: ["psDescSeries"]
+        }),
+        updatePSeriesDes: build.mutation({
+            query: ({ pDesId, updateFormData }) => ({
+                url: `/admin/pQpDescseries/${pDesId}`,
+                method: "PUT",
+                body: updateFormData,
+            }),
+            invalidatesTags: ["psDescSeriesSingle"]
+        }),
+        updatePSeriesDesStatus: build.mutation({
+            query: ({ pDesId, updateFormData }) => ({
+                url: `/admin/pQpDescseries/pSingle/${pDesId}`,
+                method: "PUT",
+                body: updateFormData,
+            }),
+            invalidatesTags: ["psDescSeries"]
+        }),
+        deletePSeriesDesStatus: build.mutation({
+            query: ({ pDesId, imgName }) => ({
+                url: `/admin/pQpDescseries/pSingle/${pDesId}`,
+                method: "DELETE",
+                body: { imgName },
+            }),
+            invalidatesTags: ["psDescSeries"]
+        }),
     }),
 });
 
@@ -273,6 +317,12 @@ export const {
     useGetMSeriesesQuery,
     useCreateMSeriesMutation,
     useUpdateMSeriesMutation,
-    useDeleteMSeriesMutation
+    useDeleteMSeriesMutation,
 
+    useGetPseriesDesQuery,
+    useGetSpecificPdescsQuery,
+    useCreatePSeriesDesMutation,
+    useUpdatePSeriesDesMutation,
+    useUpdatePSeriesDesStatusMutation,
+    useDeletePSeriesDesStatusMutation,
 } = api;
