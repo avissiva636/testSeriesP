@@ -189,6 +189,14 @@ export const api = createApi({
             }),
             invalidatesTags: ["Pseries"]
         }),
+        updatePSeriesStatus: build.mutation({
+            query: ({ psId, updateFormData }) => ({
+                url: `/admin/pseries/psingle/${psId}`,
+                method: "PUT",
+                body: updateFormData,
+            }),
+            invalidatesTags: ["Pseries"]
+        }),
         deletePSeries: build.mutation({
             query: ({ psId, imgName }) => ({
                 url: `/admin/pseries/${psId}`,
@@ -311,6 +319,7 @@ export const {
     useGetPSeriesesQuery,
     useCreatePSeriesMutation,
     useUpdatePSeriesMutation,
+    useUpdatePSeriesStatusMutation,
     useDeletePSeriesMutation,
 
     useGetMseriesQuery,
