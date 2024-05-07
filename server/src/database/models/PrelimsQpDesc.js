@@ -64,6 +64,15 @@ const prelimsQpDescSchema = new Schema({
         type: String,
         required: [true, "please add the Instruction"]
     },
+    schedule: {
+        type: String,
+        required: [true, "please add the schedule"]
+    },
+    status: {
+        type: String,
+        enum: ["start", "stop", "test"],
+        default: "stop"
+    },
 },
     { timestamps: true }
 )
