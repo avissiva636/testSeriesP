@@ -158,7 +158,7 @@ const EditPrelimsQpDes = () => {
 
     return (
         <Box m="1.5rem 2.5rem" height={isNonMobile ? undefined : '80%'}>
-            <Header title="ADD QUESTION" subtitle="Add Question Paper Details" />
+            <Header title="EDIT QUESTION" subtitle="Edit Question Paper Details" />
 
             <Box m="1rem 2.5rem"
                 component={'form'}
