@@ -6,10 +6,10 @@ const PrelimsQuestionSchema = new Schema({
         type: Number,
         unique: true
     },
-    pqPaper: {
+    pqDesc: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "pSeriesQpDesc",
-        required: [true, "please add the pqPaper"]
+        required: [true, "please add the PQ Description"]
     },
     title: {
         type: String,
@@ -22,19 +22,23 @@ const PrelimsQuestionSchema = new Schema({
     options: [{
         type: String,
         required: [true, "please add the Options"],
-        enum: ["option1", "option2", "option3", "option4",
-            "option5", "option6", "option7", "option8",
-            "option9"
-        ]
     }],
     correctAns: {
         type: String,
         required: [true, "please add the correct answer"],
-        enum: ["easy", "medium", "hard"]
+        enum: ["option1", "option2", "option3", "option4",
+            "option5", "option6", "option7", "option8",
+            "option9"
+        ]
     },
     explanation: {
         type: String,
         required: [true, "please add the explanation"]
+    },
+    difficulty: {
+        type: String,
+        required: [true, "please add the difficulty"],
+        enum: ["easy", "medium", "hard"]
     },
 
 },
