@@ -124,11 +124,13 @@ const ListPrelimsQpDes = () => {
             field: "add questions",
             headerName: "Add Questions",
             flex: 1,
-            renderCell: (params) => {
+            renderCell: (params) => {                
                 const queryString = new URLSearchParams({
                     id: encodeURIComponent(params.row._id),
                     title: encodeURIComponent(params.row.title),
-                }).toString();
+                    nOptions: encodeURIComponent(params.row.nOptions),
+                    nQuestions:encodeURIComponent(params.row.nQuestions)
+                }).toString();                
 
                 return (<FlexBetween gap={'1rem'}>
                     <IconButton
@@ -136,7 +138,7 @@ const ListPrelimsQpDes = () => {
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
                         {/* list_prelims_qp_desription paperName*/}
-                        <Link to={`/list__qp_desription?${queryString}`}
+                        <Link to={`/add_prelims_question?${queryString}`}
                             style={{
                                 color: 'inherit',
                                 textDecoration: 'none'

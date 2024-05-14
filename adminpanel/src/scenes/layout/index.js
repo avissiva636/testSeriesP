@@ -26,11 +26,13 @@ const Layout = () => {
       />
 
       <Box flexGrow={1}>
-        <Navbar
-          // user={data || {}}
-          isSidebarOpen={isSidebarOpen}
-          setIsSidebarOpen={setIsSidebarOpen}
-        />
+        <Box width="100%" maxWidth="1200px " mx="auto">
+          <Navbar
+            // user={data || {}}
+            isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+          />
+        </Box>
         <Outlet
           context={isNonMobile}
         />

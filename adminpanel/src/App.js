@@ -39,6 +39,7 @@ import AddMainsQpDes from "scenes/mains/AddMainsQpDes";
 import AddPrelimsQpDes from "scenes/prelims/AddPrelimsQpDes";
 import ListPrelimsQpDes from "scenes/prelims/ListPrelimsQpDes";
 import EditPrelimsQpDes from "scenes/prelims/EditPrelimsQpDes";
+import AddPrelimsQuestions from "scenes/prelims/AddPrelimsQuestions";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -59,6 +60,7 @@ function App() {
             <Route path="add_prelims_qp_description" element={<AddPrelimsQpDes />} />
             <Route path="edit_prelims_qp_description" element={<EditPrelimsQpDes />} />
             <Route path="list_prelims_qp_description" element={<ListPrelimsQpDes />} />
+            <Route path="add_prelims_question" element={<AddPrelimsQuestions />} />
 
             <Route path="addmainsseries" element={<AddMainsSeries />} />
             <Route path="editmainsseries/:id" element={<EditMainsSeries />} />

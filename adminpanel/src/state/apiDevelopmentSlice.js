@@ -5,7 +5,9 @@ export const api = createApi({
         baseUrl: process.env.REACT_APP_BASE_URL,
     }),
     reducerPath: "adminApi",
-    tagTypes: ["Subject", "Course", "Batch", "Student", "Outline", "Pseries", "Mseries", "psDescSeriesSingle", "psDescSeries"],
+    tagTypes: ["Subject", "Course", "Batch", "Student", "Outline",
+        "Pseries", "Mseries",
+        "psDescSeriesSingle", "psDescSeries", "psInvidualQuestion"],
     endpoints: (build) => ({
         getCourses: build.query({
             query: () => `/admin/course`,
@@ -284,6 +286,27 @@ export const api = createApi({
             }),
             invalidatesTags: ["psDescSeries"]
         }),
+
+        getSpecificPsQuestion: build.query({
+            query: ({ pQuesId }) => `/admin/psQuestions/${pQuesId}`,
+            providesTags: ["psInvidualQuestion"]
+        }),
+        createPsQuestion: build.mutation({
+            query: (createQuestions) => ({
+                url: `/admin/psQuestions`,
+                method: "POST",
+                body: createQuestions,
+            }),
+            invalidatesTags: ["psInvidualQuestion"]
+        }),
+        updatePsQuestion: build.mutation({
+            query: ({ psQuestionId, createQuestions }) => ({
+                url: `/admin/psQuestions/${psQuestionId}`,
+                method: "PUT",
+                body: createQuestions,
+            }),
+            invalidatesTags: ["psInvidualQuestion"]
+        }),
     }),
 });
 
@@ -334,4 +357,8 @@ export const {
     useUpdatePSeriesDesMutation,
     useUpdatePSeriesDesStatusMutation,
     useDeletePSeriesDesStatusMutation,
+
+    useGetSpecificPsQuestionQuery,
+    useCreatePsQuestionMutation,
+    useUpdatePsQuestionMutation,
 } = api;
