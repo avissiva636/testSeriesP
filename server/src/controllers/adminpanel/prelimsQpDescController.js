@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const { pQpDesModel: pQpDescription } = require('../../database/index');
+const { pQpDesModel: pQpDescription, psQuestionModel: psQuestion } = require('../../database/index');
 
 //@desc get All prelims Qp Desc
 //@route GET /admin/pQpDescseries
@@ -85,7 +85,7 @@ const createPQpDesc = asyncHandler(async (req, res) => {
 //@desc update the prelims Qp Desc
 //@route PUT /admin/pQpDescseries/:id
 //access private
-const updatePQpDesc = asyncHandler(async (req, res) => {    
+const updatePQpDesc = asyncHandler(async (req, res) => {
     const id = req.params.id;
 
     const { pSeries, series, title, description, course, batch, subject,
@@ -123,12 +123,12 @@ const updatePQpDesc = asyncHandler(async (req, res) => {
 //@desc update the prelims Qp Desc
 //@route PUT /admin/pQpDescseries/pSingle/:id
 //access private
-const updatePQpDescStatus = asyncHandler(async (req, res) => {    
+const updatePQpDescStatus = asyncHandler(async (req, res) => {
     const id = req.params.id;
 
     const { status } = req.body;
 
-    if (!status) {        
+    if (!status) {
         res.status(400);
         throw new Error("Enter the mandatory fields");
     }
@@ -137,7 +137,7 @@ const updatePQpDescStatus = asyncHandler(async (req, res) => {
         id,
         { status: status },
         { new: true }
-    ); 
+    );
 
     if (updatepQpDescStatus) {
         res.status(200).json(updatepQpDescStatus);
@@ -151,6 +151,8 @@ const updatePQpDescStatus = asyncHandler(async (req, res) => {
 //access private
 const deletePQpDesc = asyncHandler(async (req, res) => {
     const id = req.params.id;
+
+    await psQuestion.findOneAndDelete({ pqDesc: id });
 
     const deletepQpDescription = await pQpDescription.findByIdAndDelete(id);
 
