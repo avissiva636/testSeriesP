@@ -9,6 +9,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useGetSpecificPsQuestionQuery, useUpdatePsQuestionMutation } from 'state/apiDevelopmentSlice';
 import { useEffect, useReducer, useState } from 'react';
 import { cloneDeep } from 'lodash'
+import Header from 'components/Header';
 
 function createData(sno, question, options, correctAns, explanation, difficulty) {
     const optionData = options.reduce((acc, obj, index) => {
@@ -153,6 +154,8 @@ export default function AddPrelimsQuestions() {
 
     return (
         isPsQuestionLoading ? <p>Loading</p> : (<Box m="1.5rem 2.5rem">
+            <Header title="ADD QUESTION" subtitle="Enter All Questions" isNavigate={true} />
+            <br />
             <Button
                 variant="contained"
                 size='large'

@@ -124,13 +124,13 @@ const ListPrelimsQpDes = () => {
             field: "add questions",
             headerName: "Add Questions",
             flex: 1,
-            renderCell: (params) => {                
+            renderCell: (params) => {
                 const queryString = new URLSearchParams({
                     id: encodeURIComponent(params.row._id),
                     title: encodeURIComponent(params.row.title),
                     nOptions: encodeURIComponent(params.row.nOptions),
-                    nQuestions:encodeURIComponent(params.row.nQuestions)
-                }).toString();                
+                    nQuestions: encodeURIComponent(params.row.nQuestions)
+                }).toString();
 
                 return (<FlexBetween gap={'1rem'}>
                     <IconButton
@@ -255,7 +255,7 @@ const ListPrelimsQpDes = () => {
 
     return (
         <Box m="1.5rem 2.5rem" height={isNonMobile ? undefined : '80%'}>
-            <Header title="PRELIMS QP" subtitle="List Prelims Qp" />
+            <Header title="PRELIMS QP" subtitle="List Prelims Qp" isNavigate={true} />
 
             <Box
                 sx={{

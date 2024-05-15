@@ -123,7 +123,7 @@ const AddPrelimsQpDes = () => {
 
     return (
         <Box m="1.5rem 2.5rem" height={isNonMobile ? undefined : '80%'}>
-            <Header title="ADD QUESTION" subtitle="Add Question Paper Details" />
+            <Header title="ADD QUESTION" subtitle="Add Question Paper Details" isNavigate={true} />
 
             <Box m="1rem 2.5rem"
                 component={'form'}
