@@ -63,7 +63,7 @@ export default function AddPrelimsQuestions() {
     const initialPsQuestionItems = Array(parseInt(numberOfQuestions))
         .fill()
         .map((_, index) => ({
-            ...psquestionFormat,
+            ...cloneDeep(psquestionFormat),
             sno: psquestionFormat.sno + index
         }))
     const [psQuestionState, psQuestionDispatch] = useReducer(psQuestionReducer, initialPsQuestionItems);
@@ -74,7 +74,6 @@ export default function AddPrelimsQuestions() {
     useEffect(() => {
         if (!isPsQuestionLoading) {
             if (psQuestionData.length > 0) {
-                console.log("useEffect")
                 psQuestionDispatch({
                     type: psQuestionActions.UPDATE_ALL,
                     payload: {
