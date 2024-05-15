@@ -43,6 +43,7 @@ const initializeServer = async () => {
     app.use('/admin/qpoutline', require('./routes/api/adminpanel/qpOutlineRoutes'));
     app.use('/admin/pseries', require('./routes/api/adminpanel/prelimsSeriesRoutes'));
     app.use('/admin/pQpDescseries', require('./routes/api/adminpanel/prelimsQpDescRoutes'));
+    app.use('/admin/psQuestions', require('./routes/api/adminpanel/pQuestionRoutes'));
     app.use('/admin/mseries', require('./routes/api/adminpanel/mainsSeriesRoutes'));
 
     app.use('/refresh', require('./routes/refresh'));
