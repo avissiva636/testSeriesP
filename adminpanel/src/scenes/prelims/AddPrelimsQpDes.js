@@ -275,7 +275,7 @@ const AddPrelimsQpDes = () => {
                                     e.key === 'Home' ||
                                     e.key === 'End'
                                 );
-                                if ((!isNumericInput || nQuestions.length >= 1)) {
+                                if ((!isNumericInput || nQuestions.length >= 3)) {
                                     if (e.key !== 'Backspace')
                                         e.preventDefault();
                                 }
