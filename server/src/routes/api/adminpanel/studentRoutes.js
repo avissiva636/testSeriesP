@@ -6,6 +6,9 @@ router.route("/")
     .get(studentController.getStudents)
     .post(studentController.createStudent);
 
+router.route("/unCondition")
+    .get(studentController.getAllStudents);
+
 router.route("/:sid")
     .get(studentController.getSpecificStudent)
     .put(studentController.updateStudent)

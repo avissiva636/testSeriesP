@@ -2,6 +2,20 @@ const mongoose = require("mongoose");
 const asyncHandler = require("express-async-handler");
 const { StudentModel: Student } = require("../../database/index");
 
+//@desc get All Student without condition
+//@route GET /admin/student/uncondition
+//access private
+const getAllStudents = asyncHandler(async (req, res) => {
+
+    const students = await Student.find({ status: "approved" });
+
+    if (students) {
+        res.status(200).json(students);
+    } else {
+        res.status(404).json({ "message": "No Student" });
+    }
+});
+
 //@desc get All Student
 //@route GET /admin/student
 //access private
@@ -153,4 +167,4 @@ const deleteStudent = asyncHandler(async (req, res) => {
 
 });
 
-module.exports = { getStudents, getSpecificStudent, createStudent, updateStudent, deleteStudent };
+module.exports = { getAllStudents, getStudents, getSpecificStudent, createStudent, updateStudent, deleteStudent };
