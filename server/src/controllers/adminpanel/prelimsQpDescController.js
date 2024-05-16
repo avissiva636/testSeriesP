@@ -1,5 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { pQpDesModel: pQpDescription, psQuestionModel: psQuestion } = require('../../database/index');
+const path = require("path");
+const fs = require('fs');
 
 //@desc get All prelims Qp Desc
 //@route GET /admin/pQpDescseries
@@ -154,12 +156,26 @@ const deletePQpDesc = asyncHandler(async (req, res) => {
 
     await psQuestion.findOneAndDelete({ pqDesc: id });
 
-    const deletepQpDescription = await pQpDescription.findByIdAndDelete(id);
+    const deletepQpDescription = await pQpDescription.findById(id);
 
-    if (deletepQpDescription) {
-        res.status(204).end();
-    } else {
+    if (deletepQpDescription.length > 0) {
         res.status(400).json({ "message": "pQpDescription not deleted" });
+    } else {
+        const { imgName } = req.body;        
+        const deletePhoto = path.join(__dirname, '../../../public/images/pQpDesc', imgName);
+        if (fs.existsSync(deletePhoto)) {            
+            fs.unlinkSync(deletePhoto);
+        }
+        else {
+            console.log(`File ${deletePhoto} does not exist.`);
+        }
+        const deletePSeries = await pQpDescription.findByIdAndDelete(id);
+
+        if (deletePSeries) {
+            res.status(204).end();
+        } else {
+            res.status(400).json({ "message": "pQpDescription not deleted" });
+        }
     }
 });
 
