@@ -231,7 +231,7 @@ const ListPrelimsQpDes = () => {
                         onClick={() => deleteClick({
                             id: params.row._id,
                             title: params.row.title,
-                            // schedule: params.row.schedule,
+                            schedule: params.row.schedule,
                         })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
