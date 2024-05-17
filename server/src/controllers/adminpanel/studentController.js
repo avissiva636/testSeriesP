@@ -60,14 +60,8 @@ const getStudents = asyncHandler(async (req, res) => {
     const students = await Student.aggregate(pipeline);
     const totalCount = students[0].totalCount[0] ? students[0].totalCount[0].value : 0;
 
-    // const students = await Student.find({});
-
-    // console.log(students[0].paginatedData)
-
-    if (students) {
-        // res.status(200).json(students);
-        res.status(200).json({
-            a: students,
+    if (students) {        
+        res.status(200).json({            
             students: students[0].paginatedData,
             total: totalCount
         });
