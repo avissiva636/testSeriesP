@@ -7,6 +7,7 @@ export const api = createApi({
     reducerPath: "adminApi",
     tagTypes: ["Subject", "Course", "Batch", "Student", "Outline",
         "Pseries", "Mseries",
+        "Psales",
         "psDescSeriesSingle", "psDescSeries", "psInvidualQuestion"],
     endpoints: (build) => ({
         getCourses: build.query({
@@ -98,6 +99,13 @@ export const api = createApi({
                 url: `/admin/student/${sid}`,
                 method: "GET"
             })
+        }),
+        getAllStudents: build.query({
+            query: () => ({
+                url: `/admin/student/uncondition`,
+                method: "GET",
+            }),
+            providesTags: ["Student"]
         }),
         getStudents: build.query({
             query: ({ page, pageSize, sort, search }) => ({
@@ -307,6 +315,43 @@ export const api = createApi({
             }),
             invalidatesTags: ["psInvidualQuestion"]
         }),
+
+
+        getPrelimSales: build.query({
+            query: () => `/admin/psales`,
+            providesTags: ["Psales"]
+        }),
+        getcondtionalPrelimSales: build.query({
+            query: ({ page, pageSize, sort, search }) => ({
+                url: `/admin/psales/conditional`,
+                method: "GET",
+                params: { page, pageSize, sort, search },
+            }),
+            providesTags: ["Psales"]
+        }),
+        createPrelimSales: build.mutation({
+            query: (createPrelimData) => ({
+                url: `/admin/psales`,
+                method: "POST",
+                body: createPrelimData,
+            }),
+            invalidatesTags: ["Psales"]
+        }),
+        updatePrelimSales: build.mutation({
+            query: ({ psId, updatePrelimData }) => ({
+                url: `/admin/psales/${psId}`,
+                method: "PUT",
+                body: updatePrelimData,
+            }),
+            invalidatesTags: ["Psales"]
+        }),
+        deletePrelimSales: build.mutation({
+            query: ({ psId }) => ({
+                url: `/admin/psales/${psId}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Psales"]
+        }),
     }),
 });
 
@@ -327,6 +372,7 @@ export const {
     useDeleteBatchMutation,
 
     useGetStudentQuery,
+    useGetAllStudentsQuery,
     useGetStudentsQuery,
     useCreateStudentMutation,
     useUpdateStudentMutation,
@@ -361,4 +407,10 @@ export const {
     useGetSpecificPsQuestionQuery,
     useCreatePsQuestionMutation,
     useUpdatePsQuestionMutation,
+
+    useGetPrelimSalesQuery,
+    useGetcondtionalPrelimSalesQuery,
+    useCreatePrelimSalesMutation,
+    useUpdatePrelimSalesMutation,
+    useDeletePrelimSalesMutation,
 } = api;
