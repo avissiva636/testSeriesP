@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import FlexBetween from 'components/FlexBetween';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Box, Button, Divider, IconButton, MenuItem, TextField, Typography, useTheme } from '@mui/material';
-import { subject as courseData } from 'data';
-import { CreateRounded, CurrencyRupeeOutlined, DeleteRounded } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { CurrencyRupeeOutlined, DeleteRounded } from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
 import { makeStyles } from '@mui/styles'
 
@@ -30,43 +28,23 @@ const useStyles = makeStyles(() => {
     };
 });
 
-const SalesPaperTemplate = ({ seriesName, userName, setUserName, paperData }) => {
-    const [startDate, setStartDate] = useState(() => {
-        const date = new Date();
-        date.setDate(date.getDate() - 30);
-        return date;
-    });
-    const [seriesList, setSeriesList] = useState("");
-    const [endDate, setEndDate] = useState(new Date());
+const SalesPaperTemplate = ({ seriesName, paperData, ispaperLoading, seriesData, isSeriesLoading, searchSeriesSales, setSearchSeriesSales, paginationModel, setPaginationModel, totalPrice, setSaleSeriesSort, handleSearchSubmit, deleteClick }) => {
     const theme = useTheme();
 
-    const [paginationModel, setPaginationModel] = useState({
-        page: 0,
-        pageSize: 10,
-    });
-
-    const deleteClick = ({ id, title, description }) => {
-        console.log("Deleting", id, title, description);
+    //onChange of search elements
+    const handleSearchChange = (e) => {
+        const { name, value } = e.target;
+        setSearchSeriesSales({ ...searchSeriesSales, [name]: value })
     }
 
     const columns = [
         {
-            field: "sino",
+            field: "sno",
             headerName: "SINO",
             flex: 0.5,
         },
         {
-            field: "username",
-            headerName: "USERNAME",
-            flex: 1,
-            renderCell: function (params) {
-                return (
-                    React.createElement('div', { style: { whiteSpace: 'normal', wordWrap: 'break-word' } }, params.value)
-                );
-            },
-        },
-        {
-            field: "name",
+            field: "studentName",
             headerName: "NAME",
             flex: 1,
             renderCell: function (params) {
@@ -76,15 +54,11 @@ const SalesPaperTemplate = ({ seriesName, userName, setUserName, paperData }) =>
             },
         },
         {
-            field: "series",
-            headerName: "SERIES",
-            flex: 2,
+            field: "seriesName",
+            headerName: "SERIES NAME",
+            flex: 1,
         },
-        {
-            field: "amount",
-            headerName: "AMOUNT",
-            flex: 0.5,
-        },
+
         {
             field: "time",
             headerName: "TIME",
@@ -101,18 +75,12 @@ const SalesPaperTemplate = ({ seriesName, userName, setUserName, paperData }) =>
             align: 'center',
             sortable: false,
             renderCell: (params) => {
-                const queryString = new URLSearchParams({
-                    id: encodeURIComponent(params.row.sino),
-                    title: encodeURIComponent(params.row.username),
-                    description: encodeURIComponent(params.row.name),
-                }).toString();
 
                 return (<FlexBetween gap={'1rem'}>
                     <IconButton
                         onClick={() => deleteClick({
-                            id: params.row.sino,
-                            title: params.row.username,
-                            description: params.row.name
+                            id: params.row._id,
+                            title: params.row.studentName,
                         })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
@@ -150,8 +118,9 @@ const SalesPaperTemplate = ({ seriesName, userName, setUserName, paperData }) =>
                 {/* Prelims Username */}
                 <TextField
                     label={`${seriesName} Username`}
-                    onChange={(e) => setUserName(e.target.value)}
-                    value={userName}
+                    name={"userName"}
+                    onChange={(e) => handleSearchChange(e)}
+                    value={searchSeriesSales.userName}
                     variant='outlined'
                     sx={{ my: '0.5rem', ml: '0.5rem' }}
 
@@ -161,46 +130,47 @@ const SalesPaperTemplate = ({ seriesName, userName, setUserName, paperData }) =>
                 <TextField
                     id={`${seriesName}SeriesList`}
                     select
-                    value={seriesList || "SeriesName"}
-                    onChange={(e) => setSeriesList(e.target.value)}
+                    name='seriesName'
+                    value={searchSeriesSales.seriesName}
+                    onChange={(e) => handleSearchChange(e)}
                     variant="outlined"
                     sx={{ width: '15rem' }}
-                >
-                    {!seriesList && <MenuItem id={`${seriesName}SeriesName`} value="SeriesName" disabled>SeriesName</MenuItem>}
-                    {courseData.map((course) => (
-                        <MenuItem key={course.id} value={course.title}>
-                            {course.title}
-                        </MenuItem>
-                    ))}
-                </TextField>
+                    children={
+                        !isSeriesLoading && seriesData ? seriesData?.map((datachunk) => (
+                            <MenuItem key={datachunk._id} value={datachunk.title}>
+                                {datachunk.title}
+                            </MenuItem>
+                        )) : <MenuItem id={`${seriesName}SeriesName`} value="SeriesName" >SeriesName</MenuItem>
+                    }
+                />
 
                 {/* StatDate */}
                 <Box>
                     <DatePicker
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
+                        selected={searchSeriesSales.startingDate}
+                        onChange={(date) => setSearchSeriesSales({ ...searchSeriesSales, startingDate: date })}
                         selectsStart
-                        startDate={startDate}
-                        endDate={endDate}
+                        startDate={searchSeriesSales.startingDate}
+                        endDate={searchSeriesSales.endingDate}
                     />
                 </Box>
 
                 {/* EndDate */}
                 <Box>
                     <DatePicker
-                        selected={endDate}
-                        onChange={(date) => setEndDate(date)}
+                        selected={searchSeriesSales.endingDate}
+                        onChange={(date) => setSearchSeriesSales({ ...searchSeriesSales, endingDate: date })}
                         selectsEnd
-                        startDate={startDate}
-                        endDate={endDate}
-                        minDate={startDate}
+                        startDate={searchSeriesSales.startingDate}
+                        endDate={searchSeriesSales.endingDate}
+                        minDate={searchSeriesSales.startingDate}
                     />
                 </Box>
 
                 {/* Button to Search */}
                 <Button variant="contained" color="success"
                     size='large'
-                    // onClick={handleSubmit}
+                    onClick={handleSearchSubmit}
                     sx={{ mr: '1rem', width: '120px' }}
                 >
                     Search
@@ -233,7 +203,7 @@ const SalesPaperTemplate = ({ seriesName, userName, setUserName, paperData }) =>
                         display: 'flex',
                         pl: '2rem'
                     }}>
-                        14
+                        {paperData?.total}
                         {/* Dynamic Number */}
                     </Typography>
                 </Box>
@@ -262,7 +232,7 @@ const SalesPaperTemplate = ({ seriesName, userName, setUserName, paperData }) =>
                     }}>
                         <CurrencyRupeeOutlined
                             sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-                        /> 5,110
+                        /> {totalPrice}
                         {/* Dynamic Number */}
                     </Typography>
                 </Box>
@@ -306,25 +276,25 @@ const SalesPaperTemplate = ({ seriesName, userName, setUserName, paperData }) =>
                 }}
             >
                 <DataGrid
-                    // loading={isLoading || !data}
-                    loading={!paperData}
-                    getRowId={(row) => row.sino}
-                    rows={(paperData) || []}
+                    loading={ispaperLoading || !paperData}
+                    getRowId={(row) => row._id}
+                    rows={(paperData?.prelimSales) || []}
                     columns={columns}
+                    paginationModel={paginationModel}
+                    onPaginationModelChange={setPaginationModel}
+                    rowCount={(paperData && (paperData.total || 20)) || 0}
+                    pageSizeOptions={[5, 10, 15]}
+                    pagination
+                    paginationMode='server'
+                    sortingMode='server'
+                    onSortModelChange={(newSortModel) => setSaleSeriesSort(...newSortModel)}
 
                     autoHeight={true}
                     rowHeight={70}
-                    rowCount={(paperData && (paperData.length || 20)) || 0}
-
-                    paginationModel={paginationModel}
-                    onPaginationModelChange={setPaginationModel}
-                    pageSizeOptions={[5, 10, 15]}
-
                     getRowClassName={getRowClassName}
                     disableRowSelectionOnClick
                 />
             </Box>
-
         </Box>
     )
 }
