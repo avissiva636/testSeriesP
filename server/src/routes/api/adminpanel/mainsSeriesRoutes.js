@@ -12,4 +12,7 @@ router.route("/:mid")
     .put(msUpload.single('schedule'), mSeriesController.updateMSeries)
     .delete(mSeriesController.deleteMSeries);
 
+router.route("/msingle/:mid")
+    .put(mSeriesController.updatePsStatus);
+
 module.exports = router;
