@@ -307,7 +307,7 @@ const ListPrelimsQpDes = () => {
 
                     slots={{ toolbar: DataGridCustomToolbar }}
                     slotProps={{
-                        toolbar: { search, searchHandler, psDescId: psDescId, psDescTitle: searchParams.get('title'), }
+                        toolbar: { search, searchHandler, psDescId: psDescId, psDescTitle: searchParams.get('title'), seriesName: 'prelims' }
                     }}
 
                     getRowClassName={getRowClassName}

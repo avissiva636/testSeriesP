@@ -5,7 +5,7 @@ import { Button, IconButton, InputAdornment, TextField } from '@mui/material'
 import { Search } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 
-export const PrelimQp = ({ search, searchHandler, psDescId, psDescTitle }) => {
+export const PrelimQp = ({ search, searchHandler, psDescId, psDescTitle,seriesName }) => {
     const queryString = new URLSearchParams({
         id: psDescId,
         title: psDescTitle,
@@ -22,7 +22,7 @@ export const PrelimQp = ({ search, searchHandler, psDescId, psDescTitle }) => {
                         color='inherit'
                         disableElevation
                         component={Link}
-                        to={`/add_prelims_qp_description?${queryString}`}
+                        to={`/add_${seriesName}_qp_description?${queryString}`}                        
                     >
                         Add Qp
                     </Button>
