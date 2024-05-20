@@ -45,7 +45,7 @@ const SalesPrelimsSeries = () => {
 
   useEffect(() => {
     if (!isStudentLoading)
-      setTotalPrice(studentList?.prelimSales?.reduce((total, pSales) => total + pSales.price, 0));
+      setTotalPrice(studentList?.seriesSales?.reduce((total, pSales) => total + pSales.price, 0));
   }, [isStudentLoading, studentList])
 
   const handleReset = () => {

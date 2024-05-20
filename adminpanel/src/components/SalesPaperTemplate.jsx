@@ -278,7 +278,7 @@ const SalesPaperTemplate = ({ seriesName, paperData, ispaperLoading, seriesData,
                 <DataGrid
                     loading={ispaperLoading || !paperData}
                     getRowId={(row) => row._id}
-                    rows={(paperData?.prelimSales) || []}
+                    rows={(paperData?.seriesSales) || []}
                     columns={columns}
                     paginationModel={paginationModel}
                     onPaginationModelChange={setPaginationModel}
