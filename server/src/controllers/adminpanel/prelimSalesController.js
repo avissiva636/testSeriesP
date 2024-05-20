@@ -68,7 +68,7 @@ const getConditionalpSales = asyncHandler(async (req, res) => {
 
     if (prelimSales) {
         res.status(200).json({
-            prelimSales: prelimSales[0].paginatedData,
+            seriesSales: prelimSales[0].paginatedData,
             total: totalCount
         });
     } else {
