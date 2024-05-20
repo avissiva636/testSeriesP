@@ -9,7 +9,8 @@ export const api = createApi({
         "Pseries", "Mseries",
         "Psales",
         "psDescSeriesSingle", "psDescSeries", "psInvidualQuestion",
-        "msDescSeriesSingle", "msDescSeries"],
+        "msDescSeriesSingle", "msDescSeries",
+        "Msales"],
     endpoints: (build) => ({
         getCourses: build.query({
             query: () => `/admin/course`,
@@ -405,6 +406,42 @@ export const api = createApi({
             }),
             invalidatesTags: ["msDescSeries"]
         }),
+
+        getMainsSales: build.query({
+            query: () => `/admin/mSales`,
+            providesTags: ["Msales"]
+        }),
+        getcondtionalMainsSales: build.query({
+            query: ({ page, pageSize, sort, search }) => ({
+                url: `/admin/mSales/conditional`,
+                method: "GET",
+                params: { page, pageSize, sort, search },
+            }),
+            providesTags: ["Msales"]
+        }),
+        createMainsSales: build.mutation({
+            query: (createMainsData) => ({
+                url: `/admin/mSales`,
+                method: "POST",
+                body: createMainsData,
+            }),
+            invalidatesTags: ["Msales"]
+        }),
+        updateMainsSales: build.mutation({
+            query: ({ msId, updateMainsData }) => ({
+                url: `/admin/mSales/${msId}`,
+                method: "PUT",
+                body: updateMainsData,
+            }),
+            invalidatesTags: ["Msales"]
+        }),
+        deleteMainsSales: build.mutation({
+            query: ({ msId }) => ({
+                url: `/admin/mSales/${msId}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Msales"]
+        }),
     }),
 });
 
@@ -474,4 +511,10 @@ export const {
     useUpdateMSeriesDesMutation,
     useUpdateMSeriesDesStatusMutation,
     useDeleteMSeriesDesStatusMutation,
+
+    useGetMainsSalesQuery,
+    useGetcondtionalMainsSalesQuery,
+    useCreateMainsSalesMutation,
+    useUpdateMainsSalesMutation,
+    useDeleteMainsSalesMutation
 } = api;
