@@ -46,6 +46,7 @@ const initializeServer = async () => {
     app.use('/admin/psQuestions', require('./routes/api/adminpanel/pQuestionRoutes'));
     app.use('/admin/pSales', require('./routes/api/adminpanel/prelimSalesRoutes'));
     app.use('/admin/mseries', require('./routes/api/adminpanel/mainsSeriesRoutes'));
+    app.use('/admin/mQpDescseries', require('./routes/api/adminpanel/mainsQpDescRoutes'));
 
     app.use('/refresh', require('./routes/refresh'));
     app.use('/logout', require('./routes/logout'));
