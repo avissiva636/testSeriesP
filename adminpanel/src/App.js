@@ -40,6 +40,8 @@ import AddPrelimsQpDes from "scenes/prelims/AddPrelimsQpDes";
 import ListPrelimsQpDes from "scenes/prelims/ListPrelimsQpDes";
 import EditPrelimsQpDes from "scenes/prelims/EditPrelimsQpDes";
 import AddPrelimsQuestions from "scenes/prelims/AddPrelimsQuestions";
+import ListMainsQpDes from "scenes/mains/ListMainsQpDes";
+import EditMainsQpDes from "scenes/mains/EditMainsQpDes";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -68,6 +70,8 @@ function App() {
             <Route path="sellmainsseries" element={<SellMainsSeries />} />
             <Route path="salesmainsseries" element={<SalesMainsSeries />} />
             <Route path="add_mains_qp_description" element={<AddMainsQpDes />} />
+            <Route path="edit_mains_qp_description" element={<EditMainsQpDes />} />
+            <Route path="list_mains_qp_description" element={<ListMainsQpDes />} />
 
             <Route path="addscheduledseries" element={<AddScheduledSeries />} />
             <Route path="editscheduledseries/:id" element={<EditScheduledSeries />} />

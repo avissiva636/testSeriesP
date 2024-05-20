@@ -8,7 +8,8 @@ export const api = createApi({
     tagTypes: ["Subject", "Course", "Batch", "Student", "Outline",
         "Pseries", "Mseries",
         "Psales",
-        "psDescSeriesSingle", "psDescSeries", "psInvidualQuestion"],
+        "psDescSeriesSingle", "psDescSeries", "psInvidualQuestion",
+        "msDescSeriesSingle", "msDescSeries"],
     endpoints: (build) => ({
         getCourses: build.query({
             query: () => `/admin/course`,
@@ -242,6 +243,14 @@ export const api = createApi({
             }),
             invalidatesTags: ["Mseries"]
         }),
+        updateMSeriesStatus: build.mutation({
+            query: ({ msId, updateFormData }) => ({
+                url: `/admin/mseries/msingle/${msId}`,
+                method: "PUT",
+                body: updateFormData,
+            }),
+            invalidatesTags: ["Mseries"]
+        }),
         deleteMSeries: build.mutation({
             query: ({ msId, imgName }) => ({
                 url: `/admin/mseries/${msId}`,
@@ -352,6 +361,50 @@ export const api = createApi({
             }),
             invalidatesTags: ["Psales"]
         }),
+
+        getMseriesDes: build.query({
+            query: ({ mDesId }) => ({
+                url: `/admin/mQpDescseries/mSingle/${mDesId}`,
+                method: "GET"
+            }),
+            providesTags: ["msDescSeriesSingle"]
+        }),
+        getSpecificMdescs: build.query({
+            query: ({ mDesId }) => `/admin/mQpDescseries/${mDesId}`,
+            providesTags: ["msDescSeries"]
+        }),
+        createMSeriesDes: build.mutation({
+            query: (createFormData) => ({
+                url: `/admin/mQpDescseries`,
+                method: "POST",
+                body: createFormData,
+            }),
+            invalidatesTags: ["msDescSeries"]
+        }),
+        updateMSeriesDes: build.mutation({
+            query: ({ mDesId, updateFormData }) => ({
+                url: `/admin/mQpDescseries/${mDesId}`,
+                method: "PUT",
+                body: updateFormData,
+            }),
+            invalidatesTags: ["msDescSeriesSingle"]
+        }),
+        updateMSeriesDesStatus: build.mutation({
+            query: ({ mDesId, status }) => ({
+                url: `/admin/mQpDescseries/mSingle/${mDesId}`,
+                method: "PUT",
+                body: { status },
+            }),
+            invalidatesTags: ["msDescSeries"]
+        }),
+        deleteMSeriesDesStatus: build.mutation({
+            query: ({ mDesId, imgName }) => ({
+                url: `/admin/mQpDescseries/mSingle/${mDesId}`,
+                method: "DELETE",
+                body: { imgName },
+            }),
+            invalidatesTags: ["msDescSeries"]
+        }),
     }),
 });
 
@@ -395,6 +448,7 @@ export const {
     useGetMSeriesesQuery,
     useCreateMSeriesMutation,
     useUpdateMSeriesMutation,
+    useUpdateMSeriesStatusMutation,
     useDeleteMSeriesMutation,
 
     useGetPseriesDesQuery,
@@ -413,4 +467,11 @@ export const {
     useCreatePrelimSalesMutation,
     useUpdatePrelimSalesMutation,
     useDeletePrelimSalesMutation,
+
+    useGetSpecificMdescsQuery,
+    useGetMseriesDesQuery,
+    useCreateMSeriesDesMutation,
+    useUpdateMSeriesDesMutation,
+    useUpdateMSeriesDesStatusMutation,
+    useDeleteMSeriesDesStatusMutation,
 } = api;
