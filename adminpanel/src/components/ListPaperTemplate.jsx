@@ -42,9 +42,9 @@ const ListPaperTemplate = ({ paperData, paperName, paperLoading, updatePaperStat
     const searchHandler = (searchTerm) => {
         setSearch(searchTerm);
         if (search !== "") {
+            const columnsToSearch = ['title', 'status', 'description', 'paid'];
             const newDataList = paperData.filter((paperDataChunk) => {
-
-                return Object.values(paperDataChunk).join(" ").toLocaleLowerCase().includes(search.toLocaleLowerCase());
+                return columnsToSearch.some(column => paperDataChunk[column].toLocaleLowerCase().includes(search.toLocaleLowerCase()));
             })
             setSearchResult(newDataList);
         }
