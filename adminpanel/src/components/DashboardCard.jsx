@@ -1,7 +1,7 @@
 import React from 'react'
 const { Box, useTheme, Typography, Divider, Link } = require("@mui/material");
 
-const DashboardCard = ({ text = "sixer", icon, number = "dsf", viewAll }) => {
+const DashboardCard = ({ text = "sixer", icon, number = "", viewAll }) => {
     const theme = useTheme();
 
     return (
