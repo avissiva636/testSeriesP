@@ -12,6 +12,10 @@ export const api = createApi({
         "msDescSeriesSingle", "msDescSeries",
         "Msales"],
     endpoints: (build) => ({
+        getDashboard: build.query({
+            query: () => `/admin/setting/dashboard`,
+            providesTags: ["Dashboard"]
+        }),
         getCourses: build.query({
             query: () => `/admin/course`,
             providesTags: ["Course"]
@@ -446,6 +450,8 @@ export const api = createApi({
 });
 
 export const {
+    useGetDashboardQuery,
+
     useGetCoursesQuery,
     useCreateCourseMutation,
     useUpdateCourseMutation,
