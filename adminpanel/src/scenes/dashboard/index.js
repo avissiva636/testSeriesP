@@ -33,17 +33,17 @@ const Dashboard = () => {
 
           <DashboardCard
             text="Total Students"
-            number={DashboardData.student}
+            number={DashboardData?.student}
             viewAll='/liststudents'
           />
           <DashboardCard
             text="Total Prelims"
-            number={DashboardData.prelim.total}
+            number={DashboardData?.prelim?.total}
             viewAll='/listprelimsseries'
           />
           <DashboardCard
             text="Active Prelims"
-            number={DashboardData.prelim.active}
+            number={DashboardData?.prelim?.active}
             viewAll='/listprelimsseries'
           />
           <DashboardCard
@@ -53,7 +53,7 @@ const Dashboard = () => {
                 sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
               />
             }
-            number={DashboardData.prelim.price}
+            number={DashboardData?.prelim?.price}
             viewAll='/salesprelimsseries'
           />
         </Box>
@@ -75,12 +75,12 @@ const Dashboard = () => {
 
           <DashboardCard
             text="Total Mains"
-            number={DashboardData.mains.total}
+            number={DashboardData?.mains?.total}
             viewAll='/listmainsseries'
           />
           <DashboardCard
             text="Active Mains"
-            number={DashboardData.mains.active}
+            number={DashboardData?.mains?.active}
             viewAll='/listmainsseries'
           />
           <DashboardCard
@@ -90,7 +90,7 @@ const Dashboard = () => {
                 sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
               />
             }
-            number={DashboardData.mains.price}
+            number={DashboardData?.mains?.price}
             viewAll='/salesmainsseries'
           />
 
