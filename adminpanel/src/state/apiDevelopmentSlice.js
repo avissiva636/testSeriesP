@@ -12,6 +12,14 @@ export const api = createApi({
         "msDescSeriesSingle", "msDescSeries",
         "Msales", "profile"],
     endpoints: (build) => ({
+        login: build.mutation({
+            query: credentials => ({
+                url: '/admin/log/login',
+                method: 'POST',
+                body: { ...credentials }
+            })
+        }),
+
         getDashboard: build.query({
             query: () => `/admin/setting/dashboard`,
             providesTags: ["Dashboard"]
@@ -480,6 +488,7 @@ export const api = createApi({
 });
 
 export const {
+    useLoginMutation,
     useGetDashboardQuery,
 
     useGetCoursesQuery,
