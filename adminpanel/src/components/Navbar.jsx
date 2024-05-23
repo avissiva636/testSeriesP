@@ -5,10 +5,13 @@ import FlexBetween from './FlexBetween';
 import { ArrowDropDownOutlined, DarkModeOutlined, LightModeOutlined, Menu as MenuIcon, SettingsOutlined, } from '@mui/icons-material';
 import { setMode } from 'state/stateSlice';
 import profileImage from '../assets/profile.jpeg';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     const dispatch = useDispatch();
     const theme = useTheme();
+
+    const navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const isOpen = Boolean(anchorEl);
@@ -51,9 +54,9 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <LightModeOutlined sx={{ fontSize: "25px" }} />
                     )}
                 </IconButton>
-                <IconButton>
+                {/* <IconButton>
                     <SettingsOutlined />
-                </IconButton>
+                </IconButton> */}
 
                 <FlexBetween>
                     <Button
@@ -83,11 +86,11 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                                 sx={{ color: theme.palette.secondary[100] }}>
                                 user
                             </Typography>
-                            <Typography
+                            {/* <Typography
                                 fontSize="0.75rem"
                                 sx={{ color: theme.palette.secondary[200] }}>
                                 user
-                            </Typography>
+                            </Typography> */}
                         </Box>
                         <ArrowDropDownOutlined
                             sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
@@ -100,6 +103,8 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                     >
                         <MenuItem onClick={handleClose}>Log Out</MenuItem>
+                        <MenuItem onClick={() => { navigate("/profile"); handleClose() }}>Profile</MenuItem>
+                        {/* profile               */}
                     </Menu>
                 </FlexBetween>
             </FlexBetween>
