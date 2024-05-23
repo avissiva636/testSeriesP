@@ -363,7 +363,7 @@ const Sidebar = ({
           </Box>
 
           {/* USER BOX */}
-          <Box position="relative" marginTop='auto'>
+          {/* <Box position="relative" marginTop='auto'>
             <Divider />
             <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
               <Box
@@ -393,7 +393,7 @@ const Sidebar = ({
                 sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
               />
             </FlexBetween>
-          </Box>
+          </Box> */}
 
         </Drawer>
       )
