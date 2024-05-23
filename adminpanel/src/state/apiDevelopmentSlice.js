@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.REACT_APP_BASE_URL,
+        credentials:'include'
     }),
     reducerPath: "adminApi",
     tagTypes: ["Subject", "Course", "Batch", "Student", "Outline",
@@ -15,6 +16,13 @@ export const api = createApi({
         login: build.mutation({
             query: credentials => ({
                 url: '/admin/log/login',
+                method: 'POST',
+                body: { ...credentials }
+            })
+        }),
+        refresh: build.mutation({
+            query: credentials => ({
+                url: '/admin/log/refresh',
                 method: 'POST',
                 body: { ...credentials }
             })
@@ -489,6 +497,7 @@ export const api = createApi({
 
 export const {
     useLoginMutation,
+    useRefreshMutation,
     useGetDashboardQuery,
 
     useGetCoursesQuery,
