@@ -10,7 +10,7 @@ const Dashboard = () => {
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
 
   const { isLoading: isDashbordLoading, data: DashboardData } = useGetDashboardQuery();
-  console.log(DashboardData)
+  
   return (
 
     <Box m="1.5rem 2.5rem">
