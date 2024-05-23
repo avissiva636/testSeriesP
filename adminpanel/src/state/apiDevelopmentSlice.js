@@ -10,7 +10,7 @@ export const api = createApi({
         "Psales",
         "psDescSeriesSingle", "psDescSeries", "psInvidualQuestion",
         "msDescSeriesSingle", "msDescSeries",
-        "Msales"],
+        "Msales", "profile"],
     endpoints: (build) => ({
         getDashboard: build.query({
             query: () => `/admin/setting/dashboard`,
@@ -446,6 +446,36 @@ export const api = createApi({
             }),
             invalidatesTags: ["Msales"]
         }),
+
+
+        getProfile: build.query({
+            query: () => `/admin/setting/profile`,
+            providesTags: ["profile"]
+        }),
+        createProfile: build.mutation({
+            query: (createProfileData) => ({
+                url: `/admin/setting/profile`,
+                method: "POST",
+                body: { ...createProfileData },
+            }),
+            invalidatesTags: ["profile"]
+        }),
+        updateProfile: build.mutation({
+            query: (createProfileData) => ({
+                url: `/admin/setting/profile`,
+                method: "PUT",
+                body: { ...createProfileData },
+            }),
+            invalidatesTags: ["profile"]
+        }),
+        deleteProfile: build.mutation({
+            query: ({ pId }) => ({
+                url: `/admin/setting/profile`,
+                method: "DELETE",
+                body: { pid: pId }
+            }),
+            invalidatesTags: ["profile"]
+        }),
     }),
 });
 
@@ -522,5 +552,10 @@ export const {
     useGetcondtionalMainsSalesQuery,
     useCreateMainsSalesMutation,
     useUpdateMainsSalesMutation,
-    useDeleteMainsSalesMutation
+    useDeleteMainsSalesMutation,
+
+    useGetProfileQuery,
+    useCreateProfileMutation,
+    useUpdateProfileMutation,
+    useDeleteProfileMutation,
 } = api;
