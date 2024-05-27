@@ -1,7 +1,7 @@
 import { createTheme, ThemeProvider, CssBaseline } from "@mui/material"
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Dashboard from "scenes/dashboard";
 import Layout from "scenes/layout";
 import { selectCurrentMode } from "state/stateSlice";
@@ -44,6 +44,9 @@ import ListMainsQpDes from "scenes/mains/ListMainsQpDes";
 import EditMainsQpDes from "scenes/mains/EditMainsQpDes";
 import Restrict from "scenes/restrict";
 import Profile from "scenes/profile";
+import Login from "scenes/login/Login";
+import RequireAuth from "components/auth/RequireAuth";
+import PersistLogin from "components/auth/PersistLogin";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -54,65 +57,68 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Routes>
+
+          <Route path="login" element={<Login />} />
+
           <Route path="/" element={<Layout />}>
-            <Route path="home" element={<Dashboard />} />
-            <Route path="addprelimsseries" element={<AddPrelimsSeries />} />
-            <Route path="editprelimsseries/:id" element={<EditPrelimsSeries />} />
-            <Route path="listprelimsseries" element={<ListPrelimsSeries />} />
-            <Route path="sellprelimsseries" element={<SellPrelimsSeries />} />
-            <Route path="salesprelimsseries" element={<SalesPrelimsSeries />} />
-            <Route path="add_prelims_qp_description" element={<AddPrelimsQpDes />} />
-            <Route path="edit_prelims_qp_description" element={<EditPrelimsQpDes />} />
-            <Route path="list_prelims_qp_description" element={<ListPrelimsQpDes />} />
-            <Route path="add_prelims_question" element={<AddPrelimsQuestions />} />
-
+            <Route path="/" element={<Navigate to="/home" />} />
             <Route path="restrict" element={<Restrict />} />
-            <Route path="profile" element={<Profile />} />
+            <Route element={<PersistLogin />}>
+              <Route element={<RequireAuth allowedRoles={[5150]} />}>
+                <Route path="profile" element={<Profile />} />
+              </Route>
+              <Route element={<RequireAuth allowedRoles={[1984]} />}>
+                <Route path="home" element={<Dashboard />} />
 
-            <Route path="addmainsseries" element={<AddMainsSeries />} />
-            <Route path="editmainsseries/:id" element={<EditMainsSeries />} />
-            <Route path="listmainsseries" element={<ListMainsSeries />} />
-            <Route path="sellmainsseries" element={<SellMainsSeries />} />
-            <Route path="salesmainsseries" element={<SalesMainsSeries />} />
-            <Route path="add_mains_qp_description" element={<AddMainsQpDes />} />
-            <Route path="edit_mains_qp_description" element={<EditMainsQpDes />} />
-            <Route path="list_mains_qp_description" element={<ListMainsQpDes />} />
+                <Route path="addprelimsseries" element={<AddPrelimsSeries />} />
+                <Route path="editprelimsseries/:id" element={<EditPrelimsSeries />} />
+                <Route path="listprelimsseries" element={<ListPrelimsSeries />} />
+                <Route path="sellprelimsseries" element={<SellPrelimsSeries />} />
+                <Route path="salesprelimsseries" element={<SalesPrelimsSeries />} />
+                <Route path="add_prelims_qp_description" element={<AddPrelimsQpDes />} />
+                <Route path="edit_prelims_qp_description" element={<EditPrelimsQpDes />} />
+                <Route path="list_prelims_qp_description" element={<ListPrelimsQpDes />} />
+                <Route path="add_prelims_question" element={<AddPrelimsQuestions />} />
 
-            <Route path="addscheduledseries" element={<AddScheduledSeries />} />
-            <Route path="editscheduledseries/:id" element={<EditScheduledSeries />} />
-            <Route path="listscheduledseries" element={<ListScheduledSeries />} />
-            <Route path="enrolledscheduledseries" element={<EnrollScheduledSeries />} />
 
-            <Route path="addoutline" element={<AddQPOutline />} />
-            <Route path="editoutline/:id" element={<EditQpOutline />} />
-            <Route path="listoutline" element={<ListQpOutline />} />
+                <Route path="addmainsseries" element={<AddMainsSeries />} />
+                <Route path="editmainsseries/:id" element={<EditMainsSeries />} />
+                <Route path="listmainsseries" element={<ListMainsSeries />} />
+                <Route path="sellmainsseries" element={<SellMainsSeries />} />
+                <Route path="salesmainsseries" element={<SalesMainsSeries />} />
+                <Route path="add_mains_qp_description" element={<AddMainsQpDes />} />
+                <Route path="edit_mains_qp_description" element={<EditMainsQpDes />} />
+                <Route path="list_mains_qp_description" element={<ListMainsQpDes />} />
 
-            <Route path="addsubjects" element={<AddSubjects />} />
-            <Route path="editsubjects/:id" element={<EditSubjects />} />
-            <Route path="listsubjects" element={<ListSubjects />} />
+                <Route path="addscheduledseries" element={<AddScheduledSeries />} />
+                <Route path="editscheduledseries/:id" element={<EditScheduledSeries />} />
+                <Route path="listscheduledseries" element={<ListScheduledSeries />} />
+                <Route path="enrolledscheduledseries" element={<EnrollScheduledSeries />} />
 
-            <Route path="addcourses" element={<AddCourses />} />
-            <Route path="editcourses/:id" element={<EditCourses />} />
-            <Route path="listcourses" element={<ListCourses />} />
+                <Route path="addoutline" element={<AddQPOutline />} />
+                <Route path="editoutline/:id" element={<EditQpOutline />} />
+                <Route path="listoutline" element={<ListQpOutline />} />
 
-            <Route path="addbatches" element={<AddBatches />} />
-            <Route path="editbatch/:id" element={<EditBatch />} />
-            <Route path="listbatches" element={<ListBatches />} />
+                <Route path="addsubjects" element={<AddSubjects />} />
+                <Route path="editsubjects/:id" element={<EditSubjects />} />
+                <Route path="listsubjects" element={<ListSubjects />} />
 
-            <Route path="addstudents" element={<AddStudents />} />
-            <Route path="editstudents/:id" element={<EditStudents />} />
-            <Route path="liststudents" element={<ListStudents />} />
-            {/* public routes */}
-            {/* <Route index element={<Public />} />
-            <Route path="login" element={<Login />} /> */}
+                <Route path="addcourses" element={<AddCourses />} />
+                <Route path="editcourses/:id" element={<EditCourses />} />
+                <Route path="listcourses" element={<ListCourses />} />
 
-            {/* protected routes */}
-            {/* <Route element={<RequireAuth />}>
-          <Route path="welcome" element={<Welcome />} />
-          <Route path="userslist" element={<UsersList />} />
-        </Route> */}
+                <Route path="addbatches" element={<AddBatches />} />
+                <Route path="editbatch/:id" element={<EditBatch />} />
+                <Route path="listbatches" element={<ListBatches />} />
 
+                <Route path="addstudents" element={<AddStudents />} />
+                <Route path="editstudents/:id" element={<EditStudents />} />
+                <Route path="liststudents" element={<ListStudents />} />
+
+              </Route>
+            </Route>
           </Route>
+
         </Routes>
       </ThemeProvider>
     </div>
