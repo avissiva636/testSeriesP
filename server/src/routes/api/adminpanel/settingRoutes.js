@@ -1,6 +1,9 @@
 const express = require("express");
-const router = express.Router();
 const settingController = require("../../../controllers/adminpanel/settingController");
+const router = express.Router();
+const verifyJWT = require("../../../util/middleware/verifyJWT");
+
+router.use(verifyJWT);
 
 router.route("/dashboard").get(settingController.getDashboard);
 

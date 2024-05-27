@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const studentController = require("../../../controllers/adminpanel/studentController");
+const verifyJWT = require("../../../util/middleware/verifyJWT");
+
+router.use(verifyJWT);
 
 router.route("/")
     .get(studentController.getStudents)

@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const mSeriesController = require("../../../controllers/adminpanel/mainsSeriesController");
 const { msUpload } = require("../../../util/middleware/imageUpload");
+const verifyJWT = require("../../../util/middleware/verifyJWT");
+
+router.use(verifyJWT);
 
 router.route("/")
     .get(mSeriesController.getMSerieses)

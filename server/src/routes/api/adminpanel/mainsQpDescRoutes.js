@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const mainsQpDescController = require("../../../controllers/adminpanel/mainsQpDescController");
 const { msDescUpload } = require("../../../util/middleware/imageUpload");
+const verifyJWT = require("../../../util/middleware/verifyJWT");
+
+router.use(verifyJWT);
 
 router.route("/").get(mainsQpDescController.getAllMQpDescs)
     .post(msDescUpload.single('schedule'), mainsQpDescController.createMQpDesc);

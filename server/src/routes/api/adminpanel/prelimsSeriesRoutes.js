@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const pSeriesController = require("../../../controllers/adminpanel/prelimsSeriesController");
 const { psUpload } = require("../../../util/middleware/imageUpload");
+const verifyJWT = require("../../../util/middleware/verifyJWT");
+
+router.use(verifyJWT);
 
 router.route("/")
     .get(pSeriesController.getPSerieses)

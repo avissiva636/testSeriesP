@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const qpOutlineController = require("../../../controllers/adminpanel/qpOutlineController");
+const verifyJWT = require("../../../util/middleware/verifyJWT");
+
+router.use(verifyJWT);
 
 router.route("/").get(qpOutlineController.getQpOutlines)
     .post(qpOutlineController.createQpOutline);
