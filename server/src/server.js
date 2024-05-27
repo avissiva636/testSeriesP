@@ -8,6 +8,7 @@ const cors = require('cors')
 const corsOptions = require('./config/corsOptions');
 const cookieParser = require('cookie-parser');
 const validateToken = require('./util/middleware/validateTokenHandler');
+const credentials = require("./util/middleware/credentials");
 
 const initializeServer = async () => {
     const app = express();
@@ -16,7 +17,7 @@ const initializeServer = async () => {
 
     await connectDb();
 
-
+    app.use(credentials);
     app.use(cors(corsOptions));
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
@@ -36,6 +37,7 @@ const initializeServer = async () => {
     app.use('/user/archive', require('./routes/api/user/userArchives'));
     app.use('/user/profile', require('./routes/api/user/userProfile'));
 
+    app.use('/admin/log', require('./routes/api/adminpanel/logRoutes'));
     app.use('/admin/setting', require('./routes/api/adminpanel/settingRoutes'));
     app.use('/admin/subject', require('./routes/api/adminpanel/subjectRoutes'));
     app.use('/admin/course', require('./routes/api/adminpanel/courseRoutes'));
