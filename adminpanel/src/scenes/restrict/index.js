@@ -12,7 +12,7 @@ const Restrict = () => {
 
     return (
         <Box m="1.5rem 2.5rem" height={isNonMobile ? undefined : '80%'}>
-            <Header title="Restict" subtitle="User Restricted" />
+            <Header title="Restict" subtitle="User Restricted" isNavigate={true} />
 
             <div
                 style={{
