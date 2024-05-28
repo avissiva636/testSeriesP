@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { api } from './apiDevelopmentSlice';
 
 const initialState = {
     mode: "dark",
@@ -22,11 +21,7 @@ const authSlice = createSlice({
         logOut: (state, action) => {
             state.user = null;
             state.token = null;
-            console.log("25 first")
-            api.util.invalidateTags(["Batch"]);
-            api.util.invalidateTags(["Batch"]);
-            
-            console.log("27 second")
+            window.location.reload();
         }
     }
 })
