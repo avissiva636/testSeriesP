@@ -52,7 +52,6 @@ const initializeServer = async () => {
     app.use('/admin/mQpDescseries', require('./routes/api/adminpanel/mainsQpDescRoutes'));
     app.use('/admin/mSales', require('./routes/api/adminpanel/mainsSalesRoutes'));
 
-    app.use('/refresh', require('./routes/refresh'));
     app.use('/logout', require('./routes/logout'));
 
     app.use(validateToken);
