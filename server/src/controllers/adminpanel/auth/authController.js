@@ -47,24 +47,19 @@ const handleLogin = async (req, res) => {
 
 const handleLogout = async (req, res) => {
     const cookies = req.cookies;
-console.log("cookies",cookies)
     if (!cookies?.testSeries) return res.sendStatus(204);
 
     const refreshToken = cookies.testSeries;
 
-    // is refreshToken in DB
-    // const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
     const foundUser = await Admin.findOne({ refreshToken }).exec();
     if (!foundUser) {
         res.clearCookie('testSeries', { httpOnly: true, sameSite: 'None', secure: true })
         return res.sendStatus(204);
     }
 
-
-
     // Delete refreshToken in DB
     foundUser.refreshToken = '';
-    const result = await foundUser.save();
+    await foundUser.save();
 
     res.clearCookie('testSeries', { httpOnly: true, sameSite: 'None', secure: true })
     return res.sendStatus(204);
