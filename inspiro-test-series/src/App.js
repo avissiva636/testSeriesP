@@ -1,6 +1,6 @@
 import { InspiroContext } from "./components/context/InspiroContext";
 import Prelimspage from "./components/prelimsTestSeries/Prelimspage";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 // import Explorer from "./components/homepage/Explorer";
 import Homepage from "./components/homepage/Homepage";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -21,27 +21,25 @@ import ScheduledTest from "./components/scheduledTest/ScheduledTest.js";
 function App() {
   return (
     <div>
-      <Router>
-        <InspiroContext>
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="Dashboard" element={<Dashboard />}/>
-            <Route path="/PrelimsTestStore" element={<Prelimspage />} />
-            <Route path="/MainsTestStore" element={<Mainspage />} />
-            <Route path="/Purchasedtestseries" element={<Purchasedtestseries />} />
-            <Route path="/ScheduledTestStore" element={<ScheduledTest />} />
-            <Route path="PreviousYearsQP" element={<PreviousYearsQP />} />
-            <Route path="/ViewTest" element={<ViewTest />} />
-            <Route path="/InstructionPage" element={<InstructionPage />} />
-            <Route path="/TestPage" element={<TestPage />}/>
-            <Route path="/ProgressCardMain" element={<ProgressCardMain />}/>
-            <Route path="/ProgressCard" element={<ProgressCard />}/>
-            <Route path="/DiscussionMainPage" element={<DiscussionMainPage />} />
-            <Route path="/DiscussionCard" element={<DiscussionCard />} />
-            <Route path="/ArchivesMainPage" element={<ArchivesMainPage />} />
-          </Routes>
-        </InspiroContext>
-      </Router>
+      <InspiroContext>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="Dashboard" element={<Dashboard />} />
+          <Route path="/PrelimsTestStore" element={<Prelimspage />} />
+          <Route path="/MainsTestStore" element={<Mainspage />} />
+          <Route path="/Purchasedtestseries" element={<Purchasedtestseries />} />
+          <Route path="/ScheduledTestStore" element={<ScheduledTest />} />
+          <Route path="PreviousYearsQP" element={<PreviousYearsQP />} />
+          <Route path="/ViewTest" element={<ViewTest />} />
+          <Route path="/InstructionPage" element={<InstructionPage />} />
+          <Route path="/TestPage" element={<TestPage />} />
+          <Route path="/ProgressCardMain" element={<ProgressCardMain />} />
+          <Route path="/ProgressCard" element={<ProgressCard />} />
+          <Route path="/DiscussionMainPage" element={<DiscussionMainPage />} />
+          <Route path="/DiscussionCard" element={<DiscussionCard />} />
+          <Route path="/ArchivesMainPage" element={<ArchivesMainPage />} />
+        </Routes>
+      </InspiroContext>
     </div>
   );
 }
