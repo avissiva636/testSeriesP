@@ -94,6 +94,31 @@ const updateMSeries = asyncHandler(async (req, res) => {
     }
 });
 
+//@desc update the Mains Series Status
+//@route PUT /admin/mseries/msingle/:mid
+//access private
+const updatePsStatus = asyncHandler(async (req, res) => {
+    const id = req.params.mid;
+    const { status } = req.body;
+
+    if (!status) {
+        res.status(400);
+        throw new Error("Enter the mandatory fields");
+    }
+
+    const updateMSeries = await MSeries.findByIdAndUpdate(
+        id,
+        { status: status },
+        { new: true }
+    );
+
+    if (updateMSeries) {
+        res.status(200).json(updateMSeries);
+    } else {
+        res.status(400).json({ "message": "Status not updated" });
+    }
+});
+
 //@desc delete the Mains Series
 //@route DELETE /admin/mseries/:mid
 //access private
@@ -119,5 +144,5 @@ const deleteMSeries = asyncHandler(async (req, res) => {
 
 module.exports = {
     getMSerieses, getMSeries,
-    createMSeries, updateMSeries, deleteMSeries
+    createMSeries, updateMSeries, updatePsStatus, deleteMSeries
 };

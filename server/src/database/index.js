@@ -12,4 +12,8 @@ module.exports = {
     mSeriesModel: require("./models/mainsSeries"),
     pQpDesModel: require("./models/PrelimsQpDesc"),
     psQuestionModel: require("./models/PrelimsQuestion"),
+    pSalesModel: require("./models/prelimsSales"),
+    mQpDesModel: require("./models/MainsQpDesc"),
+    mSalesModel: require("./models/mainsSales"),
+
 };

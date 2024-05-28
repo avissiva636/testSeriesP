@@ -2,6 +2,20 @@ const mongoose = require("mongoose");
 const asyncHandler = require("express-async-handler");
 const { StudentModel: Student } = require("../../database/index");
 
+//@desc get All Student without condition
+//@route GET /admin/student/uncondition
+//access private
+const getAllStudents = asyncHandler(async (req, res) => {
+
+    const students = await Student.find({ status: "approved" });
+
+    if (students) {
+        res.status(200).json(students);
+    } else {
+        res.status(404).json({ "message": "No Student" });
+    }
+});
+
 //@desc get All Student
 //@route GET /admin/student
 //access private
@@ -46,14 +60,8 @@ const getStudents = asyncHandler(async (req, res) => {
     const students = await Student.aggregate(pipeline);
     const totalCount = students[0].totalCount[0] ? students[0].totalCount[0].value : 0;
 
-    // const students = await Student.find({});
-
-    // console.log(students[0].paginatedData)
-
-    if (students) {
-        // res.status(200).json(students);
-        res.status(200).json({
-            a: students,
+    if (students) {        
+        res.status(200).json({            
             students: students[0].paginatedData,
             total: totalCount
         });
@@ -153,4 +161,4 @@ const deleteStudent = asyncHandler(async (req, res) => {
 
 });
 
-module.exports = { getStudents, getSpecificStudent, createStudent, updateStudent, deleteStudent };
+module.exports = { getAllStudents, getStudents, getSpecificStudent, createStudent, updateStudent, deleteStudent };

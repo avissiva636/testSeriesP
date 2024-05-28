@@ -1,5 +1,7 @@
 const asyncHandler = require("express-async-handler");
-const { pQpDesModel: pQpDescription } = require('../../database/index');
+const { pQpDesModel: pQpDescription, psQuestionModel: psQuestion } = require('../../database/index');
+const path = require("path");
+const fs = require('fs');
 
 //@desc get All prelims Qp Desc
 //@route GET /admin/pQpDescseries
@@ -85,7 +87,7 @@ const createPQpDesc = asyncHandler(async (req, res) => {
 //@desc update the prelims Qp Desc
 //@route PUT /admin/pQpDescseries/:id
 //access private
-const updatePQpDesc = asyncHandler(async (req, res) => {    
+const updatePQpDesc = asyncHandler(async (req, res) => {
     const id = req.params.id;
 
     const { pSeries, series, title, description, course, batch, subject,
@@ -123,12 +125,12 @@ const updatePQpDesc = asyncHandler(async (req, res) => {
 //@desc update the prelims Qp Desc
 //@route PUT /admin/pQpDescseries/pSingle/:id
 //access private
-const updatePQpDescStatus = asyncHandler(async (req, res) => {    
+const updatePQpDescStatus = asyncHandler(async (req, res) => {
     const id = req.params.id;
 
     const { status } = req.body;
 
-    if (!status) {        
+    if (!status) {
         res.status(400);
         throw new Error("Enter the mandatory fields");
     }
@@ -137,7 +139,7 @@ const updatePQpDescStatus = asyncHandler(async (req, res) => {
         id,
         { status: status },
         { new: true }
-    ); 
+    );
 
     if (updatepQpDescStatus) {
         res.status(200).json(updatepQpDescStatus);
@@ -152,12 +154,28 @@ const updatePQpDescStatus = asyncHandler(async (req, res) => {
 const deletePQpDesc = asyncHandler(async (req, res) => {
     const id = req.params.id;
 
-    const deletepQpDescription = await pQpDescription.findByIdAndDelete(id);
+    await psQuestion.findOneAndDelete({ pqDesc: id });
 
-    if (deletepQpDescription) {
-        res.status(204).end();
-    } else {
+    const deletepQpDescription = await pQpDescription.findById(id);
+
+    if (deletepQpDescription.length > 0) {
         res.status(400).json({ "message": "pQpDescription not deleted" });
+    } else {
+        const { imgName } = req.body;        
+        const deletePhoto = path.join(__dirname, '../../../public/images/pQpDesc', imgName);
+        if (fs.existsSync(deletePhoto)) {            
+            fs.unlinkSync(deletePhoto);
+        }
+        else {
+            console.log(`File ${deletePhoto} does not exist.`);
+        }
+        const deletePSeries = await pQpDescription.findByIdAndDelete(id);
+
+        if (deletePSeries) {
+            res.status(204).end();
+        } else {
+            res.status(400).json({ "message": "pQpDescription not deleted" });
+        }
     }
 });
 

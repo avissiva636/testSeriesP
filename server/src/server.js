@@ -8,6 +8,7 @@ const cors = require('cors')
 const corsOptions = require('./config/corsOptions');
 const cookieParser = require('cookie-parser');
 const validateToken = require('./util/middleware/validateTokenHandler');
+const credentials = require("./util/middleware/credentials");
 
 const initializeServer = async () => {
     const app = express();
@@ -16,7 +17,7 @@ const initializeServer = async () => {
 
     await connectDb();
 
-
+    app.use(credentials);
     app.use(cors(corsOptions));
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
@@ -36,6 +37,8 @@ const initializeServer = async () => {
     app.use('/user/archive', require('./routes/api/user/userArchives'));
     app.use('/user/profile', require('./routes/api/user/userProfile'));
 
+    app.use('/admin/log', require('./routes/api/adminpanel/logRoutes'));
+    app.use('/admin/setting', require('./routes/api/adminpanel/settingRoutes'));
     app.use('/admin/subject', require('./routes/api/adminpanel/subjectRoutes'));
     app.use('/admin/course', require('./routes/api/adminpanel/courseRoutes'));
     app.use('/admin/batch', require('./routes/api/adminpanel/batchRoutes'));
@@ -43,9 +46,12 @@ const initializeServer = async () => {
     app.use('/admin/qpoutline', require('./routes/api/adminpanel/qpOutlineRoutes'));
     app.use('/admin/pseries', require('./routes/api/adminpanel/prelimsSeriesRoutes'));
     app.use('/admin/pQpDescseries', require('./routes/api/adminpanel/prelimsQpDescRoutes'));
+    app.use('/admin/psQuestions', require('./routes/api/adminpanel/pQuestionRoutes'));
+    app.use('/admin/pSales', require('./routes/api/adminpanel/prelimSalesRoutes'));
     app.use('/admin/mseries', require('./routes/api/adminpanel/mainsSeriesRoutes'));
+    app.use('/admin/mQpDescseries', require('./routes/api/adminpanel/mainsQpDescRoutes'));
+    app.use('/admin/mSales', require('./routes/api/adminpanel/mainsSalesRoutes'));
 
-    app.use('/refresh', require('./routes/refresh'));
     app.use('/logout', require('./routes/logout'));
 
     app.use(validateToken);

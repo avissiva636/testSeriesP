@@ -7,23 +7,23 @@ const PrelimsQuestionSchema = new Schema({
         ref: "pSeriesQpDesc",
         required: [true, "please add the PQ Description"]
     },
-    title: {
+    pqDescString: {
         type: String,
-        required: [true, "please add the Title"]
+        required: [true, "please add the pqDesc"]
     },
     questions: [{
         sno: {
             type: Number,
-            unique: true
+            required: [true, "please add the serial number"]
         },
         question: {
             type: String,
             required: [true, "please add the Question"]
         },
-        options: [{
-            type: String,
+        options: {
+            type: Object,
             required: [true, "please add the Options"],
-        }],
+        },
         correctAns: {
             type: String,
             required: [true, "please add the correct answer"],
@@ -46,23 +46,5 @@ const PrelimsQuestionSchema = new Schema({
 },
     { timestamps: true }
 )
-
-// PrelimsQuestionSchema.pre('save', async function (next) {
-//     if (!this.isNew) {
-//         return next();
-//     }
-
-//     try {
-//         const latestDoc = await this.constructor.findOne({}, {}, { sort: { sno: -1 } });
-//         if (latestDoc) {
-//             this.sno = latestDoc.sno + 1;
-//         } else {
-//             this.sno = 1;
-//         }
-//         next();
-//     } catch (error) {
-//         next(error)
-//     }
-// })
 
 module.exports = mongoose.model('prelimsQuestionSeries', PrelimsQuestionSchema);

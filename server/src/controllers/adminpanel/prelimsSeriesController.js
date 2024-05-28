@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const { PSeriesModel: PSeries } = require('../../database/index');
+const { PSeriesModel: PSeries, pQpDesModel: pQpDescription } = require('../../database/index');
 const path = require("path");
 const fs = require('fs');
 
@@ -124,22 +124,29 @@ const updatePsStatus = asyncHandler(async (req, res) => {
 //access private
 const deletePSeries = asyncHandler(async (req, res) => {
     const id = req.params.pid;
+    const pQpDescs = await pQpDescription.find({ pSeries: id });
 
-    const { imgName } = req.body;
-
-    const deletePhoto = path.join(__dirname, '../../../public/images/prelims', imgName);
-    if (fs.existsSync(deletePhoto)) {
-        fs.unlinkSync(deletePhoto);
-    } else {
-        console.log(`File ${deletePhoto} does not exist.`);
+    if (pQpDescs.length > 0) {
+        res.status(403).json({ "message": "PSeries not deleted" });
     }
-    const deletePSeries = await PSeries.findByIdAndDelete(id);
+    else {
+        const { imgName } = req.body;
 
-    if (deletePSeries) {
-        res.status(204).end();
-    } else {
-        res.status(400).json({ "message": "PSeries not deleted" });
+        const deletePhoto = path.join(__dirname, '../../../public/images/prelims', imgName);
+        if (fs.existsSync(deletePhoto)) {
+            fs.unlinkSync(deletePhoto);
+        } else {
+            console.log(`File ${deletePhoto} does not exist.`);
+        }
+        const deletePSeries = await PSeries.findByIdAndDelete(id);
+
+        if (deletePSeries) {
+            res.status(204).end();
+        } else {
+            res.status(400).json({ "message": "PSeries not deleted" });
+        }
     }
+
 });
 
 module.exports = {
