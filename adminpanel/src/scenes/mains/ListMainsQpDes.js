@@ -2,7 +2,7 @@ import { Box, Button, IconButton, useTheme } from '@mui/material';
 import Header from 'components/Header';
 import React, { useState } from 'react'
 import { Link, useOutletContext, useSearchParams } from 'react-router-dom';
-import { useDeletePSeriesDesStatusMutation, useGetSpecificPdescsQuery, useUpdatePSeriesDesStatusMutation } from 'state/apiDevelopmentSlice';
+import { useDeleteMSeriesDesStatusMutation, useGetSpecificMdescsQuery, useUpdateMSeriesDesStatusMutation } from 'state/apiDevelopmentSlice';
 import { PrelimQp as DataGridCustomToolbar } from 'components/PrelimQp'
 import { makeStyles } from '@mui/styles';
 import FlexBetween from 'components/FlexBetween';
@@ -30,23 +30,23 @@ const useStyles = makeStyles(() => {
     };
 });
 
-const ListPrelimsQpDes = () => {
+const ListMainsQpDes = () => {
     const isNonMobile = useOutletContext();
 
     const [searchParams] = useSearchParams();
-    const psDescId = searchParams.get('id');
+    const msDescId = searchParams.get('id');
     const [buttonDisabled, setButtonDisabled] = useState(false);
 
-    const { isLoading: isPSDescLoading, data: PsDescData } = useGetSpecificPdescsQuery({ pDesId: psDescId });
-    const [deletePSeriesDes] = useDeletePSeriesDesStatusMutation();
-    const [updatePQpSeries] = useUpdatePSeriesDesStatusMutation();
+    const { isLoading: isMSDescLoading, data: MsDescData } = useGetSpecificMdescsQuery({ mDesId: msDescId });
+    const [deleteMSeriesDes] = useDeleteMSeriesDesStatusMutation();
+    const [updateMQpSeries] = useUpdateMSeriesDesStatusMutation();
 
     const deleteClick = async ({ id, title, schedule }) => {
 
         const confirmation = window.confirm(`Are you sure you want to delete ${title}?`);
 
         if (confirmation) {
-            await deletePSeriesDes({ pDesId: id, imgName: schedule });
+            await deleteMSeriesDes({ mDesId: id, imgName: schedule });
         }
     }
 
@@ -55,19 +55,19 @@ const ListPrelimsQpDes = () => {
     const [search, setSearch] = useState("");
     const [searchResult, setSearchResult] = useState("");
 
-    const data = !search.length ? PsDescData : searchResult;
+    const data = !search.length ? MsDescData : searchResult;
 
     const searchHandler = (searchTerm) => {
         setSearch(searchTerm);
         if (search !== "") {
-            const newDataList = PsDescData.filter((paperDataChunk) => {
-
-                return Object.values(paperDataChunk).join(" ").toLocaleLowerCase().includes(search.toLocaleLowerCase());
+            const columnsToSearch = ['title', 'status'];
+            const newDataList = MsDescData.filter((paperDataChunk) => {
+                return columnsToSearch.some(column => paperDataChunk[column].toLocaleLowerCase().includes(search.toLocaleLowerCase()));
             })
             setSearchResult(newDataList);
         }
         else {
-            setSearchResult(PsDescData);
+            setSearchResult(MsDescData);
         }
 
     };
@@ -77,19 +77,17 @@ const ListPrelimsQpDes = () => {
         pageSize: 10,
     });
 
-    const updatePQpStatus = async (pQpNewStatus, pqStatusUpdateId) => {
-        if (!pQpNewStatus) {
+    const updateMQpStatus = async (mQpNewStatus, mqStatusUpdateId) => {
+        if (!mQpNewStatus) {
             alert("Give Status");
             return;
         }
-        const formData = new FormData();
-        formData.append('status', pQpNewStatus);
 
         try {
             setButtonDisabled(true);
-            await updatePQpSeries({
-                pDesId: pqStatusUpdateId,
-                updateFormData: formData
+            await updateMQpSeries({
+                mDesId: mqStatusUpdateId,
+                status: mQpNewStatus
             }).unwrap()
                 .then(() => {
                     setButtonDisabled(false)
@@ -121,15 +119,13 @@ const ListPrelimsQpDes = () => {
             },
         },
         {
-            field: "add questions",
-            headerName: "Add Questions",
+            field: "answer sheets",
+            headerName: "Answer Sheets",
             flex: 1,
             renderCell: (params) => {
                 const queryString = new URLSearchParams({
                     id: encodeURIComponent(params.row._id),
                     title: encodeURIComponent(params.row.title),
-                    nOptions: encodeURIComponent(params.row.nOptions),
-                    nQuestions: encodeURIComponent(params.row.nQuestions)
                 }).toString();
 
                 return (<FlexBetween gap={'1rem'}>
@@ -139,33 +135,6 @@ const ListPrelimsQpDes = () => {
                         }}>
                         {/* list_prelims_qp_desription paperName*/}
                         <Link to={`/add_prelims_question?${queryString}`}
-                            style={{
-                                color: 'inherit',
-                                textDecoration: 'none'
-                            }}>
-                            <CreateRounded />
-                        </Link>
-                    </IconButton>
-                </FlexBetween>)
-            },
-        },
-        {
-            field: "results",
-            headerName: "Results",
-            flex: 0.5,
-            renderCell: (params) => {
-                const queryString = new URLSearchParams({
-                    id: encodeURIComponent(params.row._id),
-                    title: encodeURIComponent(params.row.title),
-                }).toString();
-
-                return (<FlexBetween gap={'1rem'}>
-                    <IconButton
-                        sx={{
-                            backgroundColor: 'rgba(0, 0, 0, 0.2)'
-                        }}>
-                        {/* submitted results*/}
-                        <Link to={`/list__qp_desription?${queryString}`}
                             style={{
                                 color: 'inherit',
                                 textDecoration: 'none'
@@ -188,10 +157,10 @@ const ListPrelimsQpDes = () => {
                         disabled={buttonDisabled}
                         onClick={() => {
                             if (paramStatus === "start") {
-                                updatePQpStatus("stop", params.row._id)
+                                updateMQpStatus("stop", params.row._id)
                             }
                             else if (paramStatus === "stop") {
-                                updatePQpStatus("start", params.row._id)
+                                updateMQpStatus("start", params.row._id)
                             }
                         }}>
                         {paramStatus}
@@ -208,7 +177,7 @@ const ListPrelimsQpDes = () => {
             sortable: false,
             renderCell: (params) => {
                 const queryString = new URLSearchParams({
-                    pSeriesId: psDescId,
+                    mSeriesId: msDescId,
                     id: encodeURIComponent(params.row._id),
                     title: searchParams.get('title'),
                 }).toString();
@@ -218,7 +187,7 @@ const ListPrelimsQpDes = () => {
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
-                        <Link to={`/edit_prelims_qp_description?${queryString}`}
+                        <Link to={`/edit_mains_qp_description?${queryString}`}
                             style={{
                                 color: 'inherit',
                                 textDecoration: 'none'
@@ -255,7 +224,7 @@ const ListPrelimsQpDes = () => {
 
     return (
         <Box m="1.5rem 2.5rem" height={isNonMobile ? undefined : '80%'}>
-            <Header title="PRELIMS QP" subtitle="List Prelims Qp" isNavigate={true} />
+            <Header title="MAINS QP" subtitle="List Mains Qp" isNavigate={true} />
 
             <Box
                 sx={{
@@ -292,7 +261,7 @@ const ListPrelimsQpDes = () => {
                 }}
             >
                 <DataGrid
-                    loading={isPSDescLoading || !PsDescData}
+                    loading={isMSDescLoading || !MsDescData}
                     getRowId={(row) => row._id}
                     rows={(data) || []}
                     columns={columns}
@@ -307,7 +276,7 @@ const ListPrelimsQpDes = () => {
 
                     slots={{ toolbar: DataGridCustomToolbar }}
                     slotProps={{
-                        toolbar: { search, searchHandler, psDescId: psDescId, psDescTitle: searchParams.get('title'), seriesName: 'prelims' }
+                        toolbar: { search, searchHandler, psDescId: msDescId, psDescTitle: searchParams.get('title'), seriesName: 'mains' }
                     }}
 
                     getRowClassName={getRowClassName}
@@ -319,4 +288,4 @@ const ListPrelimsQpDes = () => {
     )
 }
 
-export default ListPrelimsQpDes
+export default ListMainsQpDes

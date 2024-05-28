@@ -1,19 +1,42 @@
 import { AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar, Typography, useTheme } from '@mui/material';
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import FlexBetween from './FlexBetween';
-import { ArrowDropDownOutlined, DarkModeOutlined, LightModeOutlined, Menu as MenuIcon, SettingsOutlined, } from '@mui/icons-material';
-import { setMode } from 'state/stateSlice';
+import {
+    ArrowDropDownOutlined, DarkModeOutlined, LightModeOutlined, Menu as MenuIcon,
+} from '@mui/icons-material';
+import { logOut, selectCurrentUser, setMode } from 'state/stateSlice';
 import profileImage from '../assets/profile.jpeg';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     const dispatch = useDispatch();
     const theme = useTheme();
 
+    const navigate = useNavigate();
+    const applicationUser = useSelector(selectCurrentUser)
+
     const [anchorEl, setAnchorEl] = useState(null);
     const isOpen = Boolean(anchorEl);
     const handleClick = (event) => setAnchorEl(event.currentTarget);
     const handleClose = () => setAnchorEl(null);
+
+    const handleLogOut = () => {
+        handleClose();
+
+        fetch(`${process.env.REACT_APP_BASE_URL}/admin/log/logout`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+            .catch(error => {
+                console.error('Error');
+            })
+            .finally(() => {
+                dispatch(logOut());
+                navigate("/login");
+            });
+
+    };
 
 
     return (<AppBar
@@ -51,9 +74,6 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <LightModeOutlined sx={{ fontSize: "25px" }} />
                     )}
                 </IconButton>
-                <IconButton>
-                    <SettingsOutlined />
-                </IconButton>
 
                 <FlexBetween>
                     <Button
@@ -81,12 +101,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                                 fontWeight="bold"
                                 fontSize="0.85rem"
                                 sx={{ color: theme.palette.secondary[100] }}>
-                                user
-                            </Typography>
-                            <Typography
-                                fontSize="0.75rem"
-                                sx={{ color: theme.palette.secondary[200] }}>
-                                user
+                                {!applicationUser === true ? "user" : applicationUser}
                             </Typography>
                         </Box>
                         <ArrowDropDownOutlined
@@ -99,7 +114,10 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         onClose={handleClose}
                         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                     >
-                        <MenuItem onClick={handleClose}>Log Out</MenuItem>
+                        <MenuItem onClick={
+                            handleLogOut
+                        }>Log Out</MenuItem>
+                        <MenuItem onClick={() => { navigate("/profile"); handleClose() }}>Profile</MenuItem>
                     </Menu>
                 </FlexBetween>
             </FlexBetween>

@@ -1,14 +1,70 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { logOut, setCredentials } from "./stateSlice";
+
+const baseQuery = fetchBaseQuery({
+    baseUrl: process.env.REACT_APP_BASE_URL,
+    credentials: 'include',
+    prepareHeaders: (headers, { getState }) => {
+        const token = getState().auth.token;
+        if (token) {
+            headers.set("authorization", `Bearer ${token}`)
+        }
+        return headers
+    }
+})
+
+const baseQuesryWithReauth = async (args, api, extraOptions) => {
+    let result = await baseQuery(args, api, extraOptions);
+
+    if (result?.error?.originalStatus === 403) {
+        const refreshResult = await baseQuery({
+            url: '/admin/log/refresh',
+            method: 'POST'
+        }, api, extraOptions);
+        if (refreshResult?.data) {
+            const user = api.getState().auth.user;
+            // setting new action token
+            api.dispatch(setCredentials({ ...refreshResult.data, user }));
+
+            //retury with new access token
+            result = await baseQuery(args, api, extraOptions);
+        } else {
+            api.dispatch(logOut());
+        }
+    }
+
+    return result;
+}
 
 export const api = createApi({
-    baseQuery: fetchBaseQuery({
-        baseUrl: process.env.REACT_APP_BASE_URL,
-    }),
+    baseQuery: baseQuesryWithReauth,
     reducerPath: "adminApi",
     tagTypes: ["Subject", "Course", "Batch", "Student", "Outline",
         "Pseries", "Mseries",
-        "psDescSeriesSingle", "psDescSeries", "psInvidualQuestion"],
+        "Psales",
+        "psDescSeriesSingle", "psDescSeries", "psInvidualQuestion",
+        "msDescSeriesSingle", "msDescSeries",
+        "Msales", "profile"],
     endpoints: (build) => ({
+        login: build.mutation({
+            query: credentials => ({
+                url: '/admin/log/login',
+                method: 'POST',
+                body: { ...credentials }
+            })
+        }),
+        refresh: build.mutation({
+            query: credentials => ({
+                url: '/admin/log/refresh',
+                method: 'POST',
+                body: { ...credentials }
+            })
+        }),
+
+        getDashboard: build.query({
+            query: () => `/admin/setting/dashboard`,
+            providesTags: ["Dashboard"]
+        }),
         getCourses: build.query({
             query: () => `/admin/course`,
             providesTags: ["Course"]
@@ -98,6 +154,13 @@ export const api = createApi({
                 url: `/admin/student/${sid}`,
                 method: "GET"
             })
+        }),
+        getAllStudents: build.query({
+            query: () => ({
+                url: `/admin/student/uncondition`,
+                method: "GET",
+            }),
+            providesTags: ["Student"]
         }),
         getStudents: build.query({
             query: ({ page, pageSize, sort, search }) => ({
@@ -234,6 +297,14 @@ export const api = createApi({
             }),
             invalidatesTags: ["Mseries"]
         }),
+        updateMSeriesStatus: build.mutation({
+            query: ({ msId, updateFormData }) => ({
+                url: `/admin/mseries/msingle/${msId}`,
+                method: "PUT",
+                body: updateFormData,
+            }),
+            invalidatesTags: ["Mseries"]
+        }),
         deleteMSeries: build.mutation({
             query: ({ msId, imgName }) => ({
                 url: `/admin/mseries/${msId}`,
@@ -307,10 +378,161 @@ export const api = createApi({
             }),
             invalidatesTags: ["psInvidualQuestion"]
         }),
+
+
+        getPrelimSales: build.query({
+            query: () => `/admin/psales`,
+            providesTags: ["Psales"]
+        }),
+        getcondtionalPrelimSales: build.query({
+            query: ({ page, pageSize, sort, search }) => ({
+                url: `/admin/psales/conditional`,
+                method: "GET",
+                params: { page, pageSize, sort, search },
+            }),
+            providesTags: ["Psales"]
+        }),
+        createPrelimSales: build.mutation({
+            query: (createPrelimData) => ({
+                url: `/admin/psales`,
+                method: "POST",
+                body: createPrelimData,
+            }),
+            invalidatesTags: ["Psales"]
+        }),
+        updatePrelimSales: build.mutation({
+            query: ({ psId, updatePrelimData }) => ({
+                url: `/admin/psales/${psId}`,
+                method: "PUT",
+                body: updatePrelimData,
+            }),
+            invalidatesTags: ["Psales"]
+        }),
+        deletePrelimSales: build.mutation({
+            query: ({ psId }) => ({
+                url: `/admin/psales/${psId}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Psales"]
+        }),
+
+        getMseriesDes: build.query({
+            query: ({ mDesId }) => ({
+                url: `/admin/mQpDescseries/mSingle/${mDesId}`,
+                method: "GET"
+            }),
+            providesTags: ["msDescSeriesSingle"]
+        }),
+        getSpecificMdescs: build.query({
+            query: ({ mDesId }) => `/admin/mQpDescseries/${mDesId}`,
+            providesTags: ["msDescSeries"]
+        }),
+        createMSeriesDes: build.mutation({
+            query: (createFormData) => ({
+                url: `/admin/mQpDescseries`,
+                method: "POST",
+                body: createFormData,
+            }),
+            invalidatesTags: ["msDescSeries"]
+        }),
+        updateMSeriesDes: build.mutation({
+            query: ({ mDesId, updateFormData }) => ({
+                url: `/admin/mQpDescseries/${mDesId}`,
+                method: "PUT",
+                body: updateFormData,
+            }),
+            invalidatesTags: ["msDescSeriesSingle"]
+        }),
+        updateMSeriesDesStatus: build.mutation({
+            query: ({ mDesId, status }) => ({
+                url: `/admin/mQpDescseries/mSingle/${mDesId}`,
+                method: "PUT",
+                body: { status },
+            }),
+            invalidatesTags: ["msDescSeries"]
+        }),
+        deleteMSeriesDesStatus: build.mutation({
+            query: ({ mDesId, imgName }) => ({
+                url: `/admin/mQpDescseries/mSingle/${mDesId}`,
+                method: "DELETE",
+                body: { imgName },
+            }),
+            invalidatesTags: ["msDescSeries"]
+        }),
+
+        getMainsSales: build.query({
+            query: () => `/admin/mSales`,
+            providesTags: ["Msales"]
+        }),
+        getcondtionalMainsSales: build.query({
+            query: ({ page, pageSize, sort, search }) => ({
+                url: `/admin/mSales/conditional`,
+                method: "GET",
+                params: { page, pageSize, sort, search },
+            }),
+            providesTags: ["Msales"]
+        }),
+        createMainsSales: build.mutation({
+            query: (createMainsData) => ({
+                url: `/admin/mSales`,
+                method: "POST",
+                body: createMainsData,
+            }),
+            invalidatesTags: ["Msales"]
+        }),
+        updateMainsSales: build.mutation({
+            query: ({ msId, updateMainsData }) => ({
+                url: `/admin/mSales/${msId}`,
+                method: "PUT",
+                body: updateMainsData,
+            }),
+            invalidatesTags: ["Msales"]
+        }),
+        deleteMainsSales: build.mutation({
+            query: ({ msId }) => ({
+                url: `/admin/mSales/${msId}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Msales"]
+        }),
+
+
+        getProfile: build.query({
+            query: () => `/admin/setting/profile`,
+            providesTags: ["profile"]
+        }),
+        createProfile: build.mutation({
+            query: (createProfileData) => ({
+                url: `/admin/setting/profile`,
+                method: "POST",
+                body: { ...createProfileData },
+            }),
+            invalidatesTags: ["profile"]
+        }),
+        updateProfile: build.mutation({
+            query: (createProfileData) => ({
+                url: `/admin/setting/profile`,
+                method: "PUT",
+                body: { ...createProfileData },
+            }),
+            invalidatesTags: ["profile"]
+        }),
+        deleteProfile: build.mutation({
+            query: ({ pId }) => ({
+                url: `/admin/setting/profile`,
+                method: "DELETE",
+                body: { pid: pId }
+            }),
+            invalidatesTags: ["profile"]
+        }),
     }),
 });
 
 export const {
+    useLoginMutation,
+    useRefreshMutation,
+    useGetDashboardQuery,
+
     useGetCoursesQuery,
     useCreateCourseMutation,
     useUpdateCourseMutation,
@@ -327,6 +549,7 @@ export const {
     useDeleteBatchMutation,
 
     useGetStudentQuery,
+    useGetAllStudentsQuery,
     useGetStudentsQuery,
     useCreateStudentMutation,
     useUpdateStudentMutation,
@@ -349,6 +572,7 @@ export const {
     useGetMSeriesesQuery,
     useCreateMSeriesMutation,
     useUpdateMSeriesMutation,
+    useUpdateMSeriesStatusMutation,
     useDeleteMSeriesMutation,
 
     useGetPseriesDesQuery,
@@ -361,4 +585,28 @@ export const {
     useGetSpecificPsQuestionQuery,
     useCreatePsQuestionMutation,
     useUpdatePsQuestionMutation,
+
+    useGetPrelimSalesQuery,
+    useGetcondtionalPrelimSalesQuery,
+    useCreatePrelimSalesMutation,
+    useUpdatePrelimSalesMutation,
+    useDeletePrelimSalesMutation,
+
+    useGetSpecificMdescsQuery,
+    useGetMseriesDesQuery,
+    useCreateMSeriesDesMutation,
+    useUpdateMSeriesDesMutation,
+    useUpdateMSeriesDesStatusMutation,
+    useDeleteMSeriesDesStatusMutation,
+
+    useGetMainsSalesQuery,
+    useGetcondtionalMainsSalesQuery,
+    useCreateMainsSalesMutation,
+    useUpdateMainsSalesMutation,
+    useDeleteMainsSalesMutation,
+
+    useGetProfileQuery,
+    useCreateProfileMutation,
+    useUpdateProfileMutation,
+    useDeleteProfileMutation,
 } = api;

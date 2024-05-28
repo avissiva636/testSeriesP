@@ -158,7 +158,7 @@ const EditPrelimsQpDes = () => {
 
     return (
         <Box m="1.5rem 2.5rem" height={isNonMobile ? undefined : '80%'}>
-            <Header title="EDIT QUESTION" subtitle="Edit Question Paper Details" />
+            <Header title="EDIT QUESTION" subtitle="Edit Question Paper Details" isNavigate={true} />
 
             <Box m="1rem 2.5rem"
                 component={'form'}
@@ -310,7 +310,7 @@ const EditPrelimsQpDes = () => {
                                     e.key === 'Home' ||
                                     e.key === 'End'
                                 );
-                                if ((!isNumericInput || nQuestions.length >= 1)) {
+                                if ((!isNumericInput || nQuestions.length >= 3)) {
                                     if (e.key !== 'Backspace')
                                         e.preventDefault();
                                 }

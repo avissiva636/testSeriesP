@@ -1,0 +1,33 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap'); */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* || UTILITY CLASSES */
+.errmsg {
+  color: firebrick;
+}
+
+/* || GENERAL STYLES */
+
+section {
+  width: min(100%, 500px);
+}
+
+/* || LOGIN */
+
+.login form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.login input,
+.login button {
+  padding: 0.5em;
+  border-radius: 15px;
+}

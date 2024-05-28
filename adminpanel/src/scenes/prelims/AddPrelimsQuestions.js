@@ -9,6 +9,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useGetSpecificPsQuestionQuery, useUpdatePsQuestionMutation } from 'state/apiDevelopmentSlice';
 import { useEffect, useReducer, useState } from 'react';
 import { cloneDeep } from 'lodash'
+import Header from 'components/Header';
 
 function createData(sno, question, options, correctAns, explanation, difficulty) {
     const optionData = options.reduce((acc, obj, index) => {
@@ -63,7 +64,7 @@ export default function AddPrelimsQuestions() {
     const initialPsQuestionItems = Array(parseInt(numberOfQuestions))
         .fill()
         .map((_, index) => ({
-            ...psquestionFormat,
+            ...cloneDeep(psquestionFormat),
             sno: psquestionFormat.sno + index
         }))
     const [psQuestionState, psQuestionDispatch] = useReducer(psQuestionReducer, initialPsQuestionItems);
@@ -74,7 +75,6 @@ export default function AddPrelimsQuestions() {
     useEffect(() => {
         if (!isPsQuestionLoading) {
             if (psQuestionData.length > 0) {
-                console.log("useEffect")
                 psQuestionDispatch({
                     type: psQuestionActions.UPDATE_ALL,
                     payload: {
@@ -82,8 +82,8 @@ export default function AddPrelimsQuestions() {
                     }
                 })
             }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
         }
+        // eslint-disable-next-line     
     }, [isPsQuestionLoading])
 
 
@@ -154,6 +154,8 @@ export default function AddPrelimsQuestions() {
 
     return (
         isPsQuestionLoading ? <p>Loading</p> : (<Box m="1.5rem 2.5rem">
+            <Header title="ADD QUESTION" subtitle="Enter All Questions" isNavigate={true} />
+            <br />
             <Button
                 variant="contained"
                 size='large'

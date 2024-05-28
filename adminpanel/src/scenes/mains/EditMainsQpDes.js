@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, TextField, Typography, useTheme } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import Header from 'components/Header';
 import FlexBetween from 'components/FlexBetween';
-import { useOutletContext, useSearchParams } from 'react-router-dom';
-import { useCreateMSeriesDesMutation } from 'state/apiDevelopmentSlice';
+import { useNavigate, useOutletContext, useSearchParams } from 'react-router-dom';
+import { useGetMseriesDesQuery, useUpdateMSeriesDesMutation } from 'state/apiDevelopmentSlice';
 import InvisibleFileUploader from 'components/InvisibleFileUploader';
 import JodithEditor from 'components/JodithEditor';
 
-const AddMainsQpDes = () => {
+const EditMainsQpDes = () => {
     const isNonMobile = useOutletContext();
 
     const theme = useTheme();
     const [searchParams] = useSearchParams();
 
+    const navigate = useNavigate();
+
     const mQDesId = decodeURIComponent(searchParams.get('id'));
+    const mSeriesId = decodeURIComponent(searchParams.get('mSeriesId'));
     const title = decodeURIComponent(searchParams.get('title'));
 
     const [qpTitle, setQpTitle] = useState('');
@@ -25,7 +28,23 @@ const AddMainsQpDes = () => {
     //Jodith Editor
     const [content, setContent] = useState('');
 
-    const [createMSeriesDes] = useCreateMSeriesDesMutation();
+    const { isLoading: isSpecificMdescLoading, data: mPDescData } = useGetMseriesDesQuery({ mDesId: mQDesId });
+    const [updateMSeriesDes] = useUpdateMSeriesDesMutation();
+
+    // mSeries, series,
+    //  title, description,
+    //     alottedTime, instruction, question
+    useEffect(() => {
+        const selectedSpecificMDesc = !isSpecificMdescLoading ? mPDescData : null;
+        if (selectedSpecificMDesc) {
+            setQpTitle(selectedSpecificMDesc?.title || '');
+            setQpDescription(selectedSpecificMDesc?.description || '');
+            setAlottedTIme(selectedSpecificMDesc?.alottedTime || '');
+            setInstructions(selectedSpecificMDesc?.instruction || '');
+            setContent(selectedSpecificMDesc?.question || '');
+        }
+        // eslint-disable-next-line
+    }, [mPDescData])
 
     const handleReset = () => {
         setQpTitle('');
@@ -40,27 +59,40 @@ const AddMainsQpDes = () => {
         setSelectedFile(file);
     };
 
-    const handleSubmit = async () => {
+    const handleUpdate = async () => {
 
         if (!mQDesId || !title || !qpTitle || !qpDescription ||
-            !alottedTime || !instructions || !selectedFile) {
+            !alottedTime || !instructions) {
             alert("All fields are mandatory");
             return;
         }
 
         const formData = new FormData();
-        formData.append('mSeries', mQDesId);
+        formData.append('mSeries', mSeriesId);
         formData.append('series', title);
         formData.append('title', qpTitle);
         formData.append('description', qpDescription);
         formData.append('alottedTime', alottedTime);
         formData.append('instruction', instructions);
         formData.append('question', content);
-        formData.append('schedule', selectedFile);
+        if (selectedFile) {
+            formData.append('schedule', selectedFile);
+        }
 
         try {
-            await createMSeriesDes(formData).unwrap();
-            handleReset();
+            await updateMSeriesDes({
+                mDesId: mQDesId,
+                updateFormData: formData
+            }).unwrap()
+                .then(() => {
+                    const queryString = new URLSearchParams({
+                        id: mSeriesId,
+                        title: title,
+                    }).toString();
+                    navigate(`/list_mains_qp_description?${queryString}`,
+                        { replace: true });
+                });
+            // handleReset();
         } catch (error) {
             if (error.status === 400) {
                 alert("Give proper data");
@@ -70,7 +102,7 @@ const AddMainsQpDes = () => {
 
     return (
         <Box m="1.5rem 2.5rem" height={isNonMobile ? undefined : '80%'}>
-            <Header title="ADD QUESTION" subtitle="Add Question Paper Details" isNavigate={true} />
+            <Header title="EDIT QUESTION" subtitle="Edit Question Paper Details" isNavigate={true} />
 
             <Box m="1rem 2.5rem"
                 component={'form'}
@@ -208,10 +240,10 @@ const AddMainsQpDes = () => {
 
                     <Button variant="contained" color="success"
                         size='large'
-                        onClick={handleSubmit}
+                        onClick={handleUpdate}
                         sx={{ mr: '1rem', width: '120px' }}
                     >
-                        Submit
+                        Update
                     </Button>
                 </FlexBetween>
 
@@ -222,4 +254,4 @@ const AddMainsQpDes = () => {
     )
 }
 
-export default AddMainsQpDes
+export default EditMainsQpDes

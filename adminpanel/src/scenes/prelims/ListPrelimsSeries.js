@@ -44,7 +44,14 @@ const ListPrelimsSeries = () => {
     const confirmation = window.confirm(`Are you sure you want to delete ${title}?`);
 
     if (confirmation) {
-      await deletePSeries({ psId: id, imgName: schedule });
+      try {
+        await deletePSeries({ psId: id, imgName: schedule }).unwrap();
+      } catch (error) {
+        if (error.status === 403) {
+          alert("Description not Empty");
+        }
+      }
+
     }
   }
 

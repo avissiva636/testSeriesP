@@ -64,7 +64,7 @@ const EditMainsSeries = () => {
 
     return (
         <Box m="1.5rem 2.5rem" height={isNonMobile ? undefined : '80%'}>
-            <Header title="MAINS" subtitle="Edit Mains" />
+            <Header title="MAINS" subtitle="Edit Mains" isNavigate={true} />
 
             <AddPaperTemplate
                 isNonMobile={isNonMobile} seriesName="Mains"
