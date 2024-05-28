@@ -3,7 +3,7 @@ const { adminModel: Admin } = require('../../../database/index');
 const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken');
-const { AACCESS_TOKEN_SECRET, AREFRESH_TOKEN_SECRET } = require('../../../config');
+const { AACCESS_TOKEN_SECRET, AREFRESH_TOKEN_SECRET, ATIME, RTIME } = require('../../../config');
 
 const handleLogin = async (req, res) => {
     const { user, pwd } = req.body;
@@ -25,13 +25,13 @@ const handleLogin = async (req, res) => {
                 }
             },
             AACCESS_TOKEN_SECRET,
-            { expiresIn: '10s' }
+            { expiresIn: ATIME }
         );
 
         const refreshToken = jwt.sign(
             { "username": foundUser.username },
             AREFRESH_TOKEN_SECRET,
-            { expiresIn: '15s' }
+            { expiresIn: RTIME }
         );
 
         // Saving refreshToken with current user

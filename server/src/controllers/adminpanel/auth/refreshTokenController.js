@@ -1,4 +1,4 @@
-const { AREFRESH_TOKEN_SECRET, AACCESS_TOKEN_SECRET } = require('../../../config');
+const { AREFRESH_TOKEN_SECRET, AACCESS_TOKEN_SECRET, ATIME } = require('../../../config');
 const { adminModel: Admin } = require('../../../database/index');
 const jwt = require('jsonwebtoken');
 
@@ -25,7 +25,7 @@ const handleRefreshToken = async (req, res) => {
                     }
                 },
                 AACCESS_TOKEN_SECRET,
-                { expiresIn: '10s' }
+                { expiresIn: ATIME }
             );
             res.json({ accessToken, user: foundUser.username });
         });
