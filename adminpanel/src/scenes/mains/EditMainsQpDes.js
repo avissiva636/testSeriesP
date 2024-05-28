@@ -4,7 +4,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import Header from 'components/Header';
 import FlexBetween from 'components/FlexBetween';
 import { useNavigate, useOutletContext, useSearchParams } from 'react-router-dom';
-import { useCreateMSeriesDesMutation, useGetMseriesDesQuery, useGetPseriesDesQuery, useGetSubjectsQuery, useUpdateMSeriesDesMutation } from 'state/apiDevelopmentSlice';
+import { useGetMseriesDesQuery, useUpdateMSeriesDesMutation } from 'state/apiDevelopmentSlice';
 import InvisibleFileUploader from 'components/InvisibleFileUploader';
 import JodithEditor from 'components/JodithEditor';
 
@@ -43,6 +43,7 @@ const EditMainsQpDes = () => {
             setInstructions(selectedSpecificMDesc?.instruction || '');
             setContent(selectedSpecificMDesc?.question || '');
         }
+        // eslint-disable-next-line
     }, [mPDescData])
 
     const handleReset = () => {

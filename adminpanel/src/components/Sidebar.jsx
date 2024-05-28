@@ -2,8 +2,11 @@ import { Box, Collapse, Divider, Drawer, IconButton, List, ListItem, ListItemBut
 import React, { useEffect, useMemo, useReducer, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import FlexBetween from './FlexBetween';
-import { ChevronLeft, ExpandLess, ExpandMore, HomeOutlined, SettingsOutlined } from '@mui/icons-material';
-import profileImage from '../assets/profile.jpeg';
+import {
+  ChevronLeft, ExpandLess, ExpandMore, HomeOutlined,
+  // SettingsOutlined
+} from '@mui/icons-material';
+// import profileImage from '../assets/profile.jpeg';
 
 const navItems = [
   {

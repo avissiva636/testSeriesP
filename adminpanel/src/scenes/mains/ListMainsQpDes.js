@@ -2,7 +2,7 @@ import { Box, Button, IconButton, useTheme } from '@mui/material';
 import Header from 'components/Header';
 import React, { useState } from 'react'
 import { Link, useOutletContext, useSearchParams } from 'react-router-dom';
-import { useDeleteMSeriesDesStatusMutation, useDeletePSeriesDesStatusMutation, useGetSpecificMdescsQuery, useGetSpecificPdescsQuery, useUpdateMSeriesDesStatusMutation, useUpdatePSeriesDesStatusMutation } from 'state/apiDevelopmentSlice';
+import { useDeleteMSeriesDesStatusMutation, useGetSpecificMdescsQuery, useUpdateMSeriesDesStatusMutation } from 'state/apiDevelopmentSlice';
 import { PrelimQp as DataGridCustomToolbar } from 'components/PrelimQp'
 import { makeStyles } from '@mui/styles';
 import FlexBetween from 'components/FlexBetween';
@@ -61,7 +61,7 @@ const ListMainsQpDes = () => {
         setSearch(searchTerm);
         if (search !== "") {
             const columnsToSearch = ['title', 'status'];
-            const newDataList = MsDescData.filter((paperDataChunk) => {                
+            const newDataList = MsDescData.filter((paperDataChunk) => {
                 return columnsToSearch.some(column => paperDataChunk[column].toLocaleLowerCase().includes(search.toLocaleLowerCase()));
             })
             setSearchResult(newDataList);

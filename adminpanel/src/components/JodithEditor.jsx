@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import JoditEditor from 'jodit-react';
 
 
-const JodithEditor = ({content, setContent}) => {
-    const editor = useRef(null);    
+const JodithEditor = ({ content, setContent }) => {
+    const editor = useRef(null);
 
     const config = {
         readonly: false,
@@ -20,7 +20,7 @@ const JodithEditor = ({content, setContent}) => {
     }
 
     return (
-        <JoditEditor    
+        <JoditEditor
             ref={editor}
             value={content}
             config={config}
