@@ -12,8 +12,8 @@ import {
   TableRow,
 } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
-import Navigationbar from "../homepage/Navigationbar";
-import Explorer from "../homepage/Explorer";
+// import Navigationbar from "../homepage/Navigationbar";
+// import Explorer from "../homepage/Explorer";
 import BackButton from "../homepage/BackButton";
 import Appbar from "../homepage/Appbar";
 
@@ -68,8 +68,8 @@ const InstructionPage = () => {
                       </TableRow>
                       <TableRow sx={{ alignItems: "center" }}>
                         <TableCell>{questionDetails.subject}</TableCell>
-                        <TableCell>{questionDetails.nQuestion}</TableCell>
-                        <TableCell>{questionDetails.time}</TableCell>
+                        <TableCell>{questionDetails.nQuestions}</TableCell>
+                        <TableCell>{questionDetails.alottedTime}</TableCell>
                       </TableRow>
                     </TableBody>
                   </Table>
