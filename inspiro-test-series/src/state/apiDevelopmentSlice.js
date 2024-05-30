@@ -9,6 +9,22 @@ export const api = createApi({
     tagTypes: ["Psales"],
     endpoints: (build) => ({
 
+        getPrelimsSeries: build.query({
+            query: ({ userId }) => `/user/prelims/${userId}`
+        }),
+
+        getMainsSeries: build.query({
+            query: ({ userId }) => `/user/mains/${userId}`
+        }),
+
+        getPurchasedSeries: build.query({
+            query: ({ userId }) => `/user/purchased/${userId}`
+        }),
+
+        getPrelimsQuestion: build.query({
+            query: ({ qNo }) => `/user/prelims/exam/${qNo}`
+        }),
+
         getPrelimSales: build.query({
             query: () => `/admin/psales`,
             providesTags: ["Psales"]
@@ -50,6 +66,10 @@ export const api = createApi({
 });
 
 export const {
+    useGetPrelimsSeriesQuery,
+    useGetMainsSeriesQuery,
+    useGetPurchasedSeriesQuery,
+    useGetPrelimsQuestionQuery,
 
     useGetPrelimSalesQuery,
     useGetcondtionalPrelimSalesQuery,
