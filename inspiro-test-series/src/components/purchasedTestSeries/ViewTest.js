@@ -1,6 +1,6 @@
 import { Button, Card, Divider, Grid, Stack, Typography } from "@mui/material";
-import Navigationbar from "../homepage/Navigationbar";
-import Explorer from "../homepage/Explorer";
+// import Navigationbar from "../homepage/Navigationbar";
+// import Explorer from "../homepage/Explorer";
 import { Link, useLocation } from "react-router-dom";
 import Appbar from "../homepage/Appbar";
 
@@ -48,11 +48,11 @@ const ViewTest = () => {
                     </Stack>
                     <Stack>
                       <h4 style={{ marginBottom: "0rem" }}>no.of question</h4>
-                      <p>{data.nQuestion}</p>
+                      <p>{data.nQuestions}</p>
                     </Stack>
                     <Stack>
                       <h4 style={{ marginBottom: "0rem" }}>Time Allocated</h4>
-                      <p>{data.time}</p>
+                      <p>{data.alottedTime}</p>
                     </Stack>
                   </Stack>
                 </Grid>
