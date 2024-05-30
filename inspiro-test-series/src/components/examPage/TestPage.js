@@ -1,6 +1,5 @@
 import { Button, Card, Stack, Typography } from "@mui/material";
 import TestPageNav from "./TestPageNav";
-import { useInspiroCrud } from "../context/InspiroContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -10,6 +9,7 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 import { useEffect, useState } from "react";
+import { useGetPrelimsQuestionQuery } from "../../state/apiDevelopmentSlice";
 
 const TestPage = () => {
   const location = useLocation();
@@ -19,27 +19,35 @@ const TestPage = () => {
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   // const prelimsQuestions = archiveQuestions;
-  const { prelimsQuestions } = useInspiroCrud();
-  const question = prelimsQuestions.questions[currentQuestionIndex];
-  const option = prelimsQuestions.questions[currentQuestionIndex].options;
+
+  const { isLoading: isQuestionLoading, data: prelimsQuestionData } = useGetPrelimsQuestionQuery({ qNo: testDetails?._id });
+
+  const question = !isQuestionLoading ? prelimsQuestionData?.questions[currentQuestionIndex] : "";
+  const option = !isQuestionLoading ? prelimsQuestionData?.questions[currentQuestionIndex]?.options : {
+    "option1": "",
+    "option2": "",
+    "option3": "",
+    "option4": ""
+  };
+
   const [selectedOption, setSelectedOption] = useState("");
   const [markedQuestions, setMarkedQuestions] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(testDetails.time * 60); // Convert minutes to seconds
+  const [timeLeft, setTimeLeft] = useState(testDetails.alottedTime * 60); // Convert minutes to seconds
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prevTimeLeft) => {
-        if (prevTimeLeft === 0) {
-          clearInterval(timer);
-          handleSubmit();
-          return 0;
-        }
-        return prevTimeLeft - 1;
-      });
-    }, 1000);
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setTimeLeft((prevTimeLeft) => {
+  //       if (prevTimeLeft === 0) {
+  //         clearInterval(timer);
+  //         handleSubmit();
+  //         return 0;
+  //       }
+  //       return prevTimeLeft - 1;
+  //     });
+  //   }, 1000);
 
-    return () => clearInterval(timer);
-  }, [timeLeft]);
+  //   return () => clearInterval(timer);
+  // }, [timeLeft]);
 
   useEffect(() => {
     // Function to update timeLeft every second
@@ -73,19 +81,19 @@ const TestPage = () => {
   const handleOptionSelect = (optionKey) => {
     setSelectedOption((prevSelectedOptions) => ({
       ...prevSelectedOptions,
-      [question.qno]: optionKey,
+      [question?.sno]: optionKey,
     }));
   };
 
   const handleClear = () => {
     setSelectedOption((prevSelectedOptions) => ({
       ...prevSelectedOptions,
-      [question.qno]: "",
+      [question?.sno]: "",
     }));
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestionIndex < prelimsQuestions.questions.length - 1) {
+    if (currentQuestionIndex < prelimsQuestionData?.questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
@@ -99,8 +107,9 @@ const TestPage = () => {
   const handleSubmit = () => {
     const confirmation = window.confirm("Are you sure you want to submit?");
     if (confirmation) {
-      navigate("/ProgressCard");
+      navigate("/ProgressCard", { replace: true });
     } else {
+      console.log("selectedOption", selectedOption)
     }
   };
 
@@ -131,7 +140,7 @@ const TestPage = () => {
                         <Stack>
                           <h4>
                             Question: {currentQuestionIndex + 1}/
-                            {prelimsQuestions.questions.length}
+                            {prelimsQuestionData?.questions.length}
                           </h4>
                         </Stack>
                         <Stack
@@ -139,11 +148,11 @@ const TestPage = () => {
                           alignItems="center"
                           spacing={1}
                           onClick={() => {
-                            toggleMarkForReview(question.qno);
+                            toggleMarkForReview(question?.sno);
                           }}
                         >
                           <Stack>
-                            {markedQuestions.includes(question.qno) ? ( // Conditionally render CheckBoxIcon
+                            {markedQuestions.includes(question?.sno) ? ( // Conditionally render CheckBoxIcon
                               <CheckBoxIcon />
                             ) : (
                               <CheckBoxOutlineBlankIcon />
@@ -161,9 +170,9 @@ const TestPage = () => {
                     <Card>
                       <Stack sx={{ margin: "5px 15px", minHeight: "500px" }}>
                         <Typography variant="h6">
-                          {question.question}
+                          {question?.question}
                         </Typography>
-                        {Object.keys(option).map((optionKey, index) => (
+                        {!isQuestionLoading && Object.keys(option).map((optionKey, index) => (
                           <Stack
                             key={optionKey}
                             direction="row"
@@ -172,7 +181,7 @@ const TestPage = () => {
                             onClick={() => handleOptionSelect(optionKey)}
                             sx={{ cursor: "pointer" }}
                           >
-                            {selectedOption[question.qno] === optionKey ? (
+                            {selectedOption[question?.sno] === optionKey ? (
                               <RadioButtonCheckedIcon color="primary" />
                             ) : (
                               <RadioButtonUncheckedIcon color="disabled" />
@@ -266,40 +275,42 @@ const TestPage = () => {
                         flexWrap: "wrap",
                       }}
                     >
-                      {prelimsQuestions.questions.map((question, index) => (
-                        <div
-                          key={index + 1}
-                          style={{
-                            borderRadius: "50%",
-                            border: "1px solid #ccc",
-                            padding: "8px",
-                            margin: "5px",
-                            width: "10px",
-                            height: "10px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            backgroundColor:
-                              currentQuestionIndex === index
-                                ? "#6C22A6" // Purple for currently displayed question
-                                : markedQuestions.includes(question.qno)
-                                ? "red" // Background color red if question is marked for review
-                                : selectedOption[question.qno]
-                                ? "#65B741" // Green if question is selected
-                                : "transparent",
-                            color:
-                              currentQuestionIndex === index
-                                ? "#fff" // White text color for currently displayed question
-                                : markedQuestions.includes(question.qno) ||
-                                  selectedOption[question.qno]
-                                ? "#fff" // White text color if question is marked or selected
-                                : "#000", // Black text color for default
-                          }}
-                          onClick={() => setCurrentQuestionIndex(index)}
-                        >
-                          {question.qno}
-                        </div>
-                      ))}
+                      {
+                        isQuestionLoading ? <h1>Loading...</h1> :
+                          prelimsQuestionData.questions.map((question, index) => (
+                            <div
+                              key={index + 1}
+                              style={{
+                                borderRadius: "50%",
+                                border: "1px solid #ccc",
+                                padding: "8px",
+                                margin: "5px",
+                                width: "10px",
+                                height: "10px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor:
+                                  currentQuestionIndex === index
+                                    ? "#6C22A6" // Purple for currently displayed question
+                                    : markedQuestions.includes(question.sno)
+                                      ? "red" // Background color red if question is marked for review
+                                      : selectedOption[question.sno]
+                                        ? "#65B741" // Green if question is selected
+                                        : "transparent",
+                                color:
+                                  currentQuestionIndex === index
+                                    ? "#fff" // White text color for currently displayed question
+                                    : markedQuestions.includes(question.sno) ||
+                                      selectedOption[question.sno]
+                                      ? "#fff" // White text color if question is marked or selected
+                                      : "#000", // Black text color for default
+                              }}
+                              onClick={() => setCurrentQuestionIndex(index)}
+                            >
+                              {question.sno}
+                            </div>
+                          ))}
                     </Stack>
                   </Card>
                 </Stack>
