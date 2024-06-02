@@ -1,20 +1,58 @@
 const asyncHandler = require("express-async-handler");
-// const { employeeModel: Employee } = require('../../database/index');
+const { mSalesModel: Msales, mQpDesModel: mQpDescription } = require('../../database/index');
 
 //@desc Get All Mains papers, Paid details of user
-//@route GET /user/mains/:uid ,{uid,uname}
+//@route GET /user/mains/:uid
 //access private
 const getMainsPapers = asyncHandler(async (req, res) => {
-    const { uid, uname } = req.body;
-    const paramuid = req.params.uid;
+    const uid = req.params.uid;
 
-    console.log('req body', uid, uname);
-    console.log('paramuid', paramuid);
+    const mainsSales = await Msales.find({ student: uid })
+        .select("series");
+
+    const convertedMainsSales = mainsSales.map(ms => ms.series);
+
+    const result = await mQpDescription.aggregate([
+        {
+            $match: { mSeries: { $nin: convertedMainsSales } }
+        },
+        {
+            $group: {
+                _id: "$mSeries",
+                totalCount: { $sum: 1 }
+            }
+        },
+        {
+            $lookup: {
+                from: 'mseries',
+                localField: '_id',
+                foreignField: '_id',
+                as: 'mSeriesDetails'
+            }
+        },
+        {
+            $project: {
+                totalCount: 1,
+                mSeriesDetails: { $arrayElemAt: ["$mSeriesDetails", 0] }
+            }
+        },
+        {
+            $project: {
+                totalCount: 1,
+                mSeriesDetails: {
+                    title: 1,
+                    description: 1,
+                    paymentLink: 1,
+                    schedule: 1,
+                    price: 1,
+                }
+            }
+        }
+    ]);
 
     res.json(
         {
-            paid: ['{ title, description, details(file link), question: [{ qno, title, description, time, instruction }] }'],
-            mains: ['{ title, description, payHere(link), details(file link), fee }']
+            mains: result            
         }
     )
 });
@@ -40,10 +78,9 @@ const getMainsPaper = asyncHandler(async (req, res) => {
 //@desc Submit Mains exam paper
 //@route POST /user/mains/exam/:qno ,{{qno(questionPaperNumber),title(sn),sanswer[{qsn:sOption}]}}
 //access private
-const submitMainsPaper = asyncHandler(async (req, res) => {    
+const submitMainsPaper = asyncHandler(async (req, res) => {
     const { qno, title, sanswer } = req.body;
-//qno questionPaperNumber, 
-// sanswer picture
+
     console.log(qno, title, sanswer);
     console.log('paramuid', req.params.qno);
 
