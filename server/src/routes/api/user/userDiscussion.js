@@ -4,6 +4,6 @@ const uDiscussionController = require("../../../controllers/user/uDiscussionCont
 
 router.get("/:uid", uDiscussionController.getDiscussionResults);
 
-router.get("/:category/:qno", uDiscussionController.getDiscussionPaper);
+router.get("/prelims/:qno", uDiscussionController.getDiscussionPaper);
 
 module.exports = router;
