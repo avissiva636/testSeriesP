@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const uProgressController = require("../../../controllers/user/uProgressController");
 
-router.get("/:uid", uProgressController.getProgressResults);
+router.get("/prelims/:uid", uProgressController.getPrelimProgressDescriptions);
+
+router.get("/mains/:uid", uProgressController.getMainsProgressDescriptions);
 
 router.get("/:category/:qno", uProgressController.getProgressPaper);
 

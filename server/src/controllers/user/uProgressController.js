@@ -1,20 +1,55 @@
 const asyncHandler = require("express-async-handler");
-// const { employeeModel: Employee } = require('../../database/index');
+const { pResultModel: prelimResult, mResultModel: mainsResult } = require("../../database");
 
-//@desc Get All progress prelims, Mains and Scheduled paper
-//@route GET /user/progress/:uid ,
+//@desc Get prelims progress descriptions
+//@route GET /user/progress/prelims/:uid ,
 //access private
-const getProgressResults = asyncHandler(async (req, res) => {
+const getPrelimProgressDescriptions = asyncHandler(async (req, res) => {
+    const uid = req.params.uid;
 
-    const paramuid = req.params.uid;
-
-    console.log('paramuid', paramuid);
+    const foundResult = await prelimResult.find({ userId: uid })
+        .populate({
+            path: "questionDescriptionId",
+            select: "title description nQuestions cMarks wMarks -_id"
+        })
+        .select("userId questionDescriptionId correctCount");
 
     res.json(
         {
-            prelims: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}'],
-            mains: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}'],
-            scheduled: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}']
+            prelimResult: foundResult
+            // prelims: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}'],
+            // mains: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}'],
+            // scheduled: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}']
+        }
+    )
+});
+
+//@desc  Get mains progress descriptions
+//@route GET /user/progress/mains/:uid ,
+//access private
+const getMainsProgressDescriptions = asyncHandler(async (req, res) => {
+    const uid = req.params.uid;
+    await mainsResult.create({
+        userId: uid,
+        userIdString: uid,
+        questionDescriptionId: "664aedc64eba96a5fd8ae938",
+        submittedAnswer: "one",
+        correctedAnswer: "two"
+    })
+
+    const foundResult = await mainsResult.find({ userId: uid })
+        .populate({
+            path: "questionDescriptionId",
+            select: "title description -_id"
+        })
+        .select("userId questionDescriptionId correctedAnswer");
+
+    res.json(
+        {
+            mainResult: foundResult
+            // prelims: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}'],
+            // mains: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}'],
+            // scheduled: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}']
         }
     )
 });
@@ -23,12 +58,8 @@ const getProgressResults = asyncHandler(async (req, res) => {
 //@route GET /user/progress/:category/:qno ,
 //access private
 const getProgressPaper = asyncHandler(async (req, res) => {
-
     const paramQno = req.params.qno;
     const paramCategory = req.params.category;
-
-    console.log('paramuid', paramQno);
-    console.log('paramCategory', paramCategory);
 
     res.json(
         {
@@ -38,4 +69,4 @@ const getProgressPaper = asyncHandler(async (req, res) => {
     )
 });
 
-module.exports = { getProgressResults, getProgressPaper };
+module.exports = { getPrelimProgressDescriptions, getMainsProgressDescriptions, getProgressPaper };
