@@ -25,6 +25,10 @@ export const api = createApi({
             query: ({ qNo }) => `/user/prelims/exam/${qNo}`
         }),
 
+        getDiscussionPrelims: build.query({
+            query: ({ qNo }) => `/user/discussion/prelims/${qNo}`
+        }),
+
         getPrelimSales: build.query({
             query: () => `/admin/psales`,
             providesTags: ["Psales"]
@@ -61,6 +65,13 @@ export const api = createApi({
             invalidatesTags: ["Psales"]
         }),
 
+        getProgressPrelimResults: build.query({
+            query: ({ userId }) => `/user/progress/prelims/${userId}`
+        }),
+        getProgressMainsResults: build.query({
+            query: ({ userId }) => `/user/progress/mains/${userId}`
+        }),
+
 
     }),
 });
@@ -70,11 +81,15 @@ export const {
     useGetMainsSeriesQuery,
     useGetPurchasedSeriesQuery,
     useGetPrelimsQuestionQuery,
+    useGetDiscussionPrelimsQuery,
 
     useGetPrelimSalesQuery,
     useGetcondtionalPrelimSalesQuery,
     useCreatePrelimSalesMutation,
     useUpdatePrelimSalesMutation,
     useDeletePrelimSalesMutation,
+
+    useGetProgressPrelimResultsQuery,
+    useGetProgressMainsResultsQuery,
 
 } = api;
