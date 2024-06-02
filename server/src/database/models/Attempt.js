@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const attemptSchema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "pSeries",
+        ref: "User",
         required: [true, "please add the user id"]
     },
     userIdString: {
@@ -15,31 +15,19 @@ const attemptSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "pSeries",
         required: [true, "please add the series id"]
-    },
-    seriesIdString: {
-        type: String,
-        required: [true, "please add the series id"]
-    },
+    },    
     questionDescriptions: [{
         questionDescriptionId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "pSeries",
+            ref: "pSeriesQpDesc",
             required: [true, "please add the questionDescription id"]
-        },
-        questionDescriptionIdString: {
-            type: String,
-            required: [true, "please add the questionDescription id"]
-        },
+        },        
         questions: [{
             questionId: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "pSeries",
+                ref: "prelimsQuestionSeries",
                 required: [true, "please add the question id"]
-            },
-            questionIdString: {
-                type: String,
-                required: [true, "please add the question id"]
-            },
+            },            
             attempt: {
                 type: Number,
                 default: 0
