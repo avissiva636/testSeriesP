@@ -5,21 +5,22 @@ const Schema = mongoose.Schema;
 const pResultSchema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "pSeries",
+        ref: "User",
         required: [true, "please add the user id"]
     },
     userIdString: {
         type: String,
         required: [true, "please add the user id"]
     },
-    seriesId: {
+    questionDescriptionId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "pSeries",
-        required: [true, "please add the series id"]
-    },
-    seriesIdString: {
-        type: String,
-        required: [true, "please add the series id"]
+        ref: "pSeriesQpDesc",
+        required: [true, "please add the questionDescription id"]
+    }, 
+    questionId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "prelimsQuestionSeries",
+        required: [true, "please add the question id"]
     },
     result: [{
         sno: {
@@ -38,7 +39,11 @@ const pResultSchema = new Schema({
             type: String,
             required: [true, "please add the status"]
         },
-    }]
+    }],
+    correctCount: {
+        type: Number,
+        required: [true, "please add the correct count"]
+    }
 },
     { timestamps: true }
 )
