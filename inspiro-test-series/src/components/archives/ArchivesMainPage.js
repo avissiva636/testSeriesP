@@ -83,7 +83,7 @@ const ArchivesMainPage = () => {
                         </Button>
                       </Grid>
                       <Grid item>
-                        <Typography>Attempt: 0/2</Typography>
+                        <Typography>Attempt: 1/2</Typography>
                       </Grid>
                     </Grid>
                   </Stack>
