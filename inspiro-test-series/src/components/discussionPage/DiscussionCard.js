@@ -3,19 +3,25 @@ import Navigationbar from "../homepage/Navigationbar";
 import Explorer from "../homepage/Explorer";
 import { useInspiroCrud } from "../context/InspiroContext";
 import { useState } from "react";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useGetDiscussionPrelimsQuery } from "../../state/apiDevelopmentSlice";
 
 const DiscussionCard = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const { prelimsAnswers } = useInspiroCrud();
-  const question = prelimsAnswers.Answer[currentQuestionIndex];
-  const [markedQuestions, setMarkedQuestions] = useState([]);
+
   const location = useLocation();
-  const navigate = useNavigate();
   const title = location.state?.data?.title;
+  const pQuestionId = location.state?.data?.id;
+
+  const { isLoading: isPrelimDiscussionLoading, data: prelimDiscussion } = useGetDiscussionPrelimsQuery({ qNo: pQuestionId });
+
+  const question = prelimDiscussion?.questions[currentQuestionIndex];
+  const [markedQuestions, setMarkedQuestions] = useState([]);
+  const navigate = useNavigate();
   const optionLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
   const handleClear = () => {
     // setSelectedOption((prevSelectedOptions) => ({
@@ -25,7 +31,7 @@ const DiscussionCard = () => {
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestionIndex < prelimsAnswers.Answer.length - 1) {
+    if (currentQuestionIndex < prelimDiscussion?.questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
@@ -73,7 +79,7 @@ const DiscussionCard = () => {
                         <Stack>
                           <h4>
                             Question: {currentQuestionIndex + 1}/
-                            {prelimsAnswers.Answer.length}
+                            {prelimDiscussion?.questions.length}
                           </h4>
                         </Stack>
                       </Stack>
@@ -83,9 +89,9 @@ const DiscussionCard = () => {
                     <Card>
                       <Stack sx={{ margin: "5px 15px", minHeight: "500px" }}>
                         <Typography variant="h6" sx={{ fontSize: "15px" }}>
-                          {question.qno}. {question.question}
+                          {question?.sno}. {question?.question}
                         </Typography>
-                        {Object.keys(question.options).map(
+                        {!isPrelimDiscussionLoading && Object.keys(question?.options ?? {}).map(
                           (optionKey, index) => (
                             <Stack
                               key={optionKey}
@@ -100,7 +106,7 @@ const DiscussionCard = () => {
                                   paddingLeft: "50px",
                                   paddingTop: "10px",
                                   color:
-                                    index + 1 === question.cOption
+                                    optionKey === question.correctAns
                                       ? "red"
                                       : "inherit",
                                 }}
@@ -116,7 +122,7 @@ const DiscussionCard = () => {
                             <Stack sx={{ color: "#7F27FF" }}>
                               <h4>Explanation:</h4>
                             </Stack>
-                            <Stack>{question.explanation}</Stack>
+                            <Stack>{question?.explanation}</Stack>
                           </Typography>
                         </Stack>
                       </Stack>
@@ -181,37 +187,39 @@ const DiscussionCard = () => {
                         flexWrap: "wrap",
                       }}
                     >
-                      {prelimsAnswers.Answer.map((question, index) => (
-                        <div
-                          key={index + 1}
-                          style={{
-                            borderRadius: "50%",
-                            border: "1px solid #ccc",
-                            padding: "8px",
-                            margin: "5px",
-                            width: "10px",
-                            height: "10px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            backgroundColor:
-                              currentQuestionIndex === index
-                                ? "#6C22A6"
-                                : markedQuestions.includes(question.qno)
-                                ? "red"
-                                : "transparent",
-                            color:
-                              currentQuestionIndex === index
-                                ? "#fff"
-                                : markedQuestions.includes(question.qno)
-                                ? "#fff"
-                                : "#000",
-                          }}
-                          onClick={() => setCurrentQuestionIndex(index)}
-                        >
-                          {question.qno}
-                        </div>
-                      ))}
+                      {
+                        isPrelimDiscussionLoading ? <h1>Loading...</h1> :
+                          prelimDiscussion?.questions.map((question, index) => (
+                            <div
+                              key={index + 1}
+                              style={{
+                                borderRadius: "50%",
+                                border: "1px solid #ccc",
+                                padding: "8px",
+                                margin: "5px",
+                                width: "10px",
+                                height: "10px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor:
+                                  currentQuestionIndex === index
+                                    ? "#6C22A6"
+                                    : markedQuestions.includes(question.sno)
+                                      ? "red"
+                                      : "transparent",
+                                color:
+                                  currentQuestionIndex === index
+                                    ? "#fff"
+                                    : markedQuestions.includes(question.sno)
+                                      ? "#fff"
+                                      : "#000",
+                              }}
+                              onClick={() => setCurrentQuestionIndex(index)}
+                            >
+                              {question.sno}
+                            </div>
+                          ))}
                     </Stack>
                   </Card>
                 </Stack>
