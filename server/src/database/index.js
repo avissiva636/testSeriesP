@@ -17,4 +17,5 @@ module.exports = {
     mSalesModel: require("./models/mainsSales"),
     attemptModel: require("./models/Attempt"),
     pResultModel: require("./models/prelimResult"),
+    mResultModel: require("./models/mainResult"),
 };
