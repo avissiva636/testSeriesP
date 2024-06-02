@@ -81,7 +81,7 @@ const ViewTest = () => {
                       </Button>
                     </Grid>
                     <Grid item>
-                      <Typography>Attempt: 0/1</Typography>
+                      <Typography>Attempt: 0/2</Typography>
                     </Grid>
                   </Grid>
                 </Stack>
