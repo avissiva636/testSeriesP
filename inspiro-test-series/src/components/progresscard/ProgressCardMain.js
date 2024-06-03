@@ -24,13 +24,24 @@ const ProgressCardMain = () => {
 
   const navigate = useNavigate();
 
-  const viewResultHandler = (data) => {    
+  const viewResultHandler = (data) => {
     navigate("/ProgressCard", {
       state: { Progress: data }
     });
   };
-  const downloadHandler = (correctedAnswer) => {
-    console.log(correctedAnswer);
+  const downloadHandler = async (schedule) => {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/images/mQpDesc/${schedule}`);
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = schedule;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    }
   }
   return (
     <Stack direction="row" spacing={8}>
@@ -123,7 +134,7 @@ const ProgressCardMain = () => {
                   margin: "10px",
                   borderColor: "ButtonShadow",
                 }}
-              >
+              >                
                 <Grid sx={{ marginTop: "10px" }}>
                   <Stack direction={"column"}>
                     <h2>{data.questionDescriptionId.title}</h2>
@@ -166,7 +177,7 @@ const ProgressCardMain = () => {
                       color="success"
                       variant="contained"
                       sx={{ width: "auto" }}
-                      onClick={() => downloadHandler(data?.correctedAnswer)}
+                      onClick={() => downloadHandler(data?.questionDescriptionId?.schedule)}
                     >
                       Download Result
                     </Button>
