@@ -6,6 +6,6 @@ router.get("/prelims/:uid", uProgressController.getPrelimProgressDescriptions);
 
 router.get("/mains/:uid", uProgressController.getMainsProgressDescriptions);
 
-router.get("/:category/:qno", uProgressController.getProgressPaper);
+router.get("/prelimProgress/:qno", uProgressController.getPrelimsProgressResult);
 
 module.exports = router;

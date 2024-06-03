@@ -12,14 +12,11 @@ const getPrelimProgressDescriptions = asyncHandler(async (req, res) => {
             path: "questionDescriptionId",
             select: "title description nQuestions cMarks wMarks -_id"
         })
-        .select("userId questionDescriptionId correctCount");
+        .select("userId questionDescriptionId correctCount submitCount");
 
     res.json(
         {
-            prelimResult: foundResult
-            // prelims: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}'],
-            // mains: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}'],
-            // scheduled: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}']
+            prelimResult: foundResult            
         }
     )
 });
@@ -29,13 +26,6 @@ const getPrelimProgressDescriptions = asyncHandler(async (req, res) => {
 //access private
 const getMainsProgressDescriptions = asyncHandler(async (req, res) => {
     const uid = req.params.uid;
-    await mainsResult.create({
-        userId: uid,
-        userIdString: uid,
-        questionDescriptionId: "664aedc64eba96a5fd8ae938",
-        submittedAnswer: "one",
-        correctedAnswer: "two"
-    })
 
     const foundResult = await mainsResult.find({ userId: uid })
         .populate({
@@ -46,27 +36,25 @@ const getMainsProgressDescriptions = asyncHandler(async (req, res) => {
 
     res.json(
         {
-            mainResult: foundResult
-            // prelims: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}'],
-            // mains: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}'],
-            // scheduled: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}']
+            mainResult: foundResult            
         }
     )
 });
 
 //@desc Get specific progress paper prelims, Mains and Scheduled paper
-//@route GET /user/progress/:category/:qno ,
+//@route GET /user/progress/prelimProgress/:qno ,
 //access private
-const getProgressPaper = asyncHandler(async (req, res) => {
+const getPrelimsProgressResult = asyncHandler(async (req, res) => {
     const paramQno = req.params.qno;
-    const paramCategory = req.params.category;
+
+    const foundResult = await prelimResult.findById(paramQno)
+        .select("result");
 
     res.json(
         {
-            qAttended: [`qno`],
-            questions: [`qno, difficulty, analysis('true' / 'false')`]
+            foundResult            
         }
     )
 });
 
-module.exports = { getPrelimProgressDescriptions, getMainsProgressDescriptions, getProgressPaper };
+module.exports = { getPrelimProgressDescriptions, getMainsProgressDescriptions, getPrelimsProgressResult };
