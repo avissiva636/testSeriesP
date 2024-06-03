@@ -16,7 +16,7 @@ const pResultSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "pSeriesQpDesc",
         required: [true, "please add the questionDescription id"]
-    }, 
+    },
     questionId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "prelimsQuestionSeries",
@@ -39,10 +39,18 @@ const pResultSchema = new Schema({
             type: String,
             required: [true, "please add the status"]
         },
+        difficulty: {
+            type: String,
+            required: [true, "please add the difficulty"]
+        },
     }],
     correctCount: {
         type: Number,
         required: [true, "please add the correct count"]
+    },
+    submitCount: {
+        type: Number,
+        required: [true, "please add the submit count"]
     }
 },
     { timestamps: true }
