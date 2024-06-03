@@ -9,18 +9,21 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 import { useEffect, useState } from "react";
-import { useGetPrelimsQuestionQuery } from "../../state/apiDevelopmentSlice";
+import { useGetPrelimsQuestionQuery, useSubmitPrelimsQuestionMutation } from "../../state/apiDevelopmentSlice";
+import { useSelector } from "react-redux";
+import { selectCurrentUserId } from "../../state/stateSlice";
 
 const TestPage = () => {
   const location = useLocation();
   const testDetails = location.state?.data;
+  const currentUserId = useSelector(selectCurrentUserId)
 
   const navigate = useNavigate();
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  // const prelimsQuestions = archiveQuestions;
 
   const { isLoading: isQuestionLoading, data: prelimsQuestionData } = useGetPrelimsQuestionQuery({ qNo: testDetails?._id });
+  const [prelimQuestion] = useSubmitPrelimsQuestionMutation();
 
   const question = !isQuestionLoading ? prelimsQuestionData?.questions[currentQuestionIndex] : "";
   const option = !isQuestionLoading ? prelimsQuestionData?.questions[currentQuestionIndex]?.options : {
@@ -29,6 +32,9 @@ const TestPage = () => {
     "option3": "",
     "option4": ""
   };
+
+  const pSeries = !isQuestionLoading ? prelimsQuestionData?.pSeries : "";
+  const pqDesc = !isQuestionLoading ? prelimsQuestionData?.pqDesc : "";
 
   const [selectedOption, setSelectedOption] = useState("");
   const [markedQuestions, setMarkedQuestions] = useState([]);
@@ -64,7 +70,8 @@ const TestPage = () => {
 
     // Cleanup function to clear the interval when the component unmounts
     return () => clearInterval(timer);
-  }, []);
+  },  // eslint-disable-next-line
+    []);
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
@@ -104,20 +111,39 @@ const TestPage = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const confirmation = window.confirm("Are you sure you want to submit?");
     if (confirmation) {
-      navigate("/ProgressCard", { replace: true });
-    } else {
-      console.log("selectedOption", selectedOption)
+      try {
+        // setButtonDisabled(true);
+        await prelimQuestion({
+          qNo: prelimsQuestionData?.pQuestionId,
+          uid: currentUserId,
+          pSeries,
+          pqDesc,
+          selectedOption,
+        }).unwrap()
+          .then((data) => {
+            // setButtonDisabled(false)
+            navigate("/ProgressCard", {
+              state: { Progress: data?.prelimSubmitResult },
+              replace: true
+            }
+            );
+          });
+      }
+      catch (error) {
+        // setButtonDisabled(false);
+        if (error.status === 400) {
+          alert("Give proper data");
+        }
+      }
     }
   };
 
   return (
     <Stack>
       <Stack spacing={9} direction={"column"}>
-        {" "}
-        //includes nav bar & below section
         <Stack>
           <TestPageNav title={testDetails.title} />
         </Stack>
@@ -243,6 +269,7 @@ const TestPage = () => {
                 <Stack sx={{ margin: "10px" }}>
                   <Card>
                     <Button
+                      disabled={isQuestionLoading}
                       variant="contained"
                       color="success"
                       sx={{ width: "100%", height: "100%" }}
