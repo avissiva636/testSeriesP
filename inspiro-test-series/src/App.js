@@ -16,6 +16,7 @@ import DiscussionCard from "./components/discussionPage/DiscussionCard.js";
 import ArchivesMainPage from "./components/archives/ArchivesMainPage.js";
 import PreviousYearsQP from "./components/previousQP/PreviousYearsQP.js";
 import ScheduledTest from "./components/scheduledTest/ScheduledTest.js";
+import MainsTestPage from "./components/examPage/MainsTestPage.js";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/ViewTest" element={<ViewTest />} />
           <Route path="/InstructionPage" element={<InstructionPage />} />
           <Route path="/TestPage" element={<TestPage />} />
+          <Route path="/MainsTestPage" element={<MainsTestPage />} />
           <Route path="/ProgressCardMain" element={<ProgressCardMain />} />
           <Route path="/ProgressCard" element={<ProgressCard />} />
           <Route path="/DiscussionMainPage" element={<DiscussionMainPage />} />
