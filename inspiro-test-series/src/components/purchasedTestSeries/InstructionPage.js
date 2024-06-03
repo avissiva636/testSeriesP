@@ -21,6 +21,7 @@ const InstructionPage = () => {
   const location = useLocation();
   const questionDetails = location.state?.data;
   const archiveQuestions = location.state?.archiveQuestions;
+  const seriesName = location.state?.seriesName;
 
   return (
     <Stack>
@@ -38,7 +39,7 @@ const InstructionPage = () => {
               width: "90%", // 90% of the viewport width
               maxWidth: "400%", // Maximum width for larger screens
               // minHeight:"500px",
-              height:"400px",
+              height: "400px",
               textAlign: "center",
               margin: "10px auto",
               padding: "20px",
@@ -95,7 +96,7 @@ const InstructionPage = () => {
                   <Grid item>
                     <Button variant="contained" color="success">
                       <Link
-                        to={"/TestPage"}
+                        to={seriesName === "mains" ? "/MainsTestPage" : "/TestPage"}
                         state={{
                           data: questionDetails,
                           archiveQuestions: archiveQuestions,

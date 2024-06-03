@@ -10,6 +10,7 @@ import { selectCurrentUserId } from "../../state/stateSlice";
 const ViewTest = () => {
   const location = useLocation();
   const questionDetails = location.state?.data;
+  const seriesName = location.state?.seriesName;
   const pSeriesId = location.state?.pSeriesId;
   const currentUserId = useSelector(selectCurrentUserId);
 
@@ -92,7 +93,9 @@ const ViewTest = () => {
                           <Button variant="contained" color="success">
                             <Link
                               to={"/InstructionPage"}
-                              state={{ data: data }}
+                              state={{ data: data,
+                                seriesName
+                               }}
                               style={{ textDecoration: "none", color: "#ffffff" }}
                             >
                               Start Exam
