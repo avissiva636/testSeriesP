@@ -14,15 +14,20 @@ import {
 import { useNavigate } from "react-router-dom";
 import Appbar from "../homepage/Appbar";
 import { useGetProgressMainsResultsQuery, useGetProgressPrelimResultsQuery } from "../../state/apiDevelopmentSlice";
+import { selectCurrentUserId } from "../../state/stateSlice";
+import { useSelector } from "react-redux";
 
-const ProgressCardMain = () => {  
-  const { isLoading: isProgressprelimsLoading, data: progressPrelimsData } = useGetProgressPrelimResultsQuery({ userId: "66279432cc5ed3267265fd5d" });
-  const { isLoading: isProgressMainsLoading, data: progressMainsData } = useGetProgressMainsResultsQuery({ userId: "66279432cc5ed3267265fd5d" });
+const ProgressCardMain = () => {
+  const currentUserId = useSelector(selectCurrentUserId);
+  const { isLoading: isProgressprelimsLoading, data: progressPrelimsData } = useGetProgressPrelimResultsQuery({ userId: currentUserId });
+  const { isLoading: isProgressMainsLoading, data: progressMainsData } = useGetProgressMainsResultsQuery({ userId: currentUserId });
 
   const navigate = useNavigate();
 
-  const viewResultHandler = () => {
-    navigate("/ProgressCard");
+  const viewResultHandler = (data) => {    
+    navigate("/ProgressCard", {
+      state: { Progress: data }
+    });
   };
   const downloadHandler = (correctedAnswer) => {
     console.log(correctedAnswer);
@@ -84,7 +89,7 @@ const ProgressCardMain = () => {
                             <TableCell>{data.questionDescriptionId.nQuestions - data.correctCount}</TableCell>
                             <TableCell>{
                               (data.correctCount * data.questionDescriptionId.cMarks) -
-                              ((data.questionDescriptionId.nQuestions - data.correctCount) * data.questionDescriptionId.wMarks)
+                              ((data.submitCount - data.correctCount) * data.questionDescriptionId.wMarks)
                             }</TableCell>
                           </TableRow>
                         </TableBody>
@@ -96,7 +101,7 @@ const ProgressCardMain = () => {
                       color="success"
                       variant="contained"
                       sx={{ width: "auto" }}
-                      onClick={viewResultHandler}
+                      onClick={() => viewResultHandler(data)}
                     >
                       View Result
                     </Button>
