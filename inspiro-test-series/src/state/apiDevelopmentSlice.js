@@ -6,7 +6,7 @@ export const api = createApi({
         credentials: 'include'
     }),
     reducerPath: "adminApi",
-    tagTypes: ["Psales"],
+    tagTypes: ["pQuestionSeries", "pQuestion",  "pAttempt"],
     endpoints: (build) => ({
 
         getPrelimsSeries: build.query({
@@ -18,52 +18,41 @@ export const api = createApi({
         }),
 
         getPurchasedSeries: build.query({
-            query: ({ userId }) => `/user/purchased/${userId}`
+            query: ({ userId }) => `/user/purchased/${userId}`,
+            providesTags: ["pQuestionSeries"]
         }),
 
         getPrelimsQuestion: build.query({
-            query: ({ qNo }) => `/user/prelims/exam/${qNo}`
+            query: ({ qNo }) => `/user/prelims/exam/${qNo}`,
+            providesTags: ["pQuestion"]
+        }),
+
+        getPrelimAttempt: build.query({
+            query: ({ userId, seriesId }) => ({
+                url: `/user/prelims/prelimAttempt/${userId}`,
+                method: "GET",
+                params: { seriesId }
+            }),
+            providesTags: ["pAttempt"]
+        }),
+
+        submitPrelimsQuestion: build.mutation({
+            query: ({ qNo, uid, pSeries, pqDesc, selectedOption, }) => ({
+                url: `/user/prelims/exam/${qNo}`,
+                method: "POST",
+                body: {
+                    uid,
+                    pSeries,
+                    pqDesc,
+                    pAnswer: selectedOption,
+                },
+            }),
+            invalidatesTags: ["pQuestionSeries", "pQuestion", "pAttempt"]
         }),
 
         getDiscussionPrelims: build.query({
             query: ({ qNo }) => `/user/discussion/prelims/${qNo}`
-        }),
-
-        getPrelimSales: build.query({
-            query: () => `/admin/psales`,
-            providesTags: ["Psales"]
-        }),
-        getcondtionalPrelimSales: build.query({
-            query: ({ page, pageSize, sort, search }) => ({
-                url: `/admin/psales/conditional`,
-                method: "GET",
-                params: { page, pageSize, sort, search },
-            }),
-            providesTags: ["Psales"]
-        }),
-        createPrelimSales: build.mutation({
-            query: (createPrelimData) => ({
-                url: `/admin/psales`,
-                method: "POST",
-                body: createPrelimData,
-            }),
-            invalidatesTags: ["Psales"]
-        }),
-        updatePrelimSales: build.mutation({
-            query: ({ psId, updatePrelimData }) => ({
-                url: `/admin/psales/${psId}`,
-                method: "PUT",
-                body: updatePrelimData,
-            }),
-            invalidatesTags: ["Psales"]
-        }),
-        deletePrelimSales: build.mutation({
-            query: ({ psId }) => ({
-                url: `/admin/psales/${psId}`,
-                method: "DELETE",
-            }),
-            invalidatesTags: ["Psales"]
-        }),
+        }),       
 
         getProgressPrelimResults: build.query({
             query: ({ userId }) => `/user/progress/prelims/${userId}`
@@ -72,6 +61,9 @@ export const api = createApi({
             query: ({ userId }) => `/user/progress/mains/${userId}`
         }),
 
+        getSpecificPrelimProgress: build.query({
+            query: ({ questionId }) => `/user/progress/prelimProgress/${questionId}`
+        }),
 
     }),
 });
@@ -81,15 +73,11 @@ export const {
     useGetMainsSeriesQuery,
     useGetPurchasedSeriesQuery,
     useGetPrelimsQuestionQuery,
+    useGetPrelimAttemptQuery,
+    useSubmitPrelimsQuestionMutation,
     useGetDiscussionPrelimsQuery,
-
-    useGetPrelimSalesQuery,
-    useGetcondtionalPrelimSalesQuery,
-    useCreatePrelimSalesMutation,
-    useUpdatePrelimSalesMutation,
-    useDeletePrelimSalesMutation,
 
     useGetProgressPrelimResultsQuery,
     useGetProgressMainsResultsQuery,
-
+    useGetSpecificPrelimProgressQuery,
 } = api;
