@@ -79,13 +79,15 @@ const Purchasedtestseries = () => {
                               Schedule
                             </Button>
                           </a>
-                          <h4 style={{ paddingTop: "10px" }}>{data?.totalCount} Tests</h4>
-
+                          <h4 style={{ paddingTop: "10px" }}>{data?.totalCount} Tests</h4>                          
                           <Stack>
                             <Button variant="contained" color="success">
                               <Link
                                 to={"/ViewTest"}
-                                state={{ data: data.question }}
+                                state={{
+                                  data: data.question,
+                                  pSeriesId: data?._id
+                                }}
                                 style={{ textDecoration: "none", color: "#ffffff" }}
                               >
                                 View Test
