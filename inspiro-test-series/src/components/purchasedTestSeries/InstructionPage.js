@@ -101,6 +101,7 @@ const InstructionPage = () => {
                           archiveQuestions: archiveQuestions,
                         }}
                         style={{ textDecoration: "none", color: "#ffffff" }}
+                        replace
                       >
                         Start Exam
                       </Link>
