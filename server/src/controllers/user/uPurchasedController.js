@@ -71,7 +71,7 @@ const getPurchasedPapers = asyncHandler(async (req, res) => {
                 },
                 seriesName: 1,
                 question: {
-                    _id:1,
+                    _id: 1,
                     sno: 1,
                     title: 1,
                     description: 1,
@@ -147,13 +147,14 @@ const getPurchasedPapers = asyncHandler(async (req, res) => {
                 },
                 seriesName: 1,
                 question: {
-                    _id:1,
+                    _id: 1,
                     sno: 1,
                     title: 1,
                     description: 1,
                     alottedTime: 1,
                     instruction: 1,
-                    // nQuestions: 1,
+                    question: 1,
+                    schedule: 1,
                 }
             }
         }

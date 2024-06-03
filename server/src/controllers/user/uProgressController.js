@@ -30,7 +30,7 @@ const getMainsProgressDescriptions = asyncHandler(async (req, res) => {
     const foundResult = await mainsResult.find({ userId: uid })
         .populate({
             path: "questionDescriptionId",
-            select: "title description -_id"
+            select: "title description schedule -_id"
         })
         .select("userId questionDescriptionId correctedAnswer");
 
