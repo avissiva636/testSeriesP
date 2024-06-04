@@ -4,5 +4,6 @@ const uArchiveController = require("../../../controllers/user/uArchiveController
 
 router.get("/:uid", uArchiveController.getArchivePaper);
 
+router.get("/archiveAttempt/:uid", uArchiveController.getArchiveAttempt);
 
 module.exports = router;
