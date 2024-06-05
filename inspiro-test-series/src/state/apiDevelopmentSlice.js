@@ -6,7 +6,9 @@ export const api = createApi({
         credentials: 'include'
     }),
     reducerPath: "adminApi",
-    tagTypes: ["pQuestionSeries", "pQuestion",  "pAttempt"],
+    tagTypes: ["pQuestionSeries", "pQuestion", "pAttempt", "mAttempt",
+        "archives", "archivesAttempt", "archivesMainAttempt"
+    ],
     endpoints: (build) => ({
 
         getPrelimsSeries: build.query({
@@ -36,6 +38,15 @@ export const api = createApi({
             providesTags: ["pAttempt"]
         }),
 
+        getMainsAttempt: build.query({
+            query: ({ userId, seriesId }) => ({
+                url: `/user/mains/mainsAttempt/${userId}`,
+                method: "GET",
+                params: { seriesId }
+            }),
+            providesTags: ["mAttempt"]
+        }),
+
         submitPrelimsQuestion: build.mutation({
             query: ({ qNo, uid, pSeries, pqDesc, selectedOption, }) => ({
                 url: `/user/prelims/exam/${qNo}`,
@@ -47,12 +58,27 @@ export const api = createApi({
                     pAnswer: selectedOption,
                 },
             }),
-            invalidatesTags: ["pQuestionSeries", "pQuestion", "pAttempt"]
+            invalidatesTags: ["pQuestionSeries", "pQuestion",
+                "pAttempt", "mAttempt",
+                "archives", "archivesAttempt", "archivesMainAttempt"
+            ]
+        }),
+
+        submitMainsQuestion: build.mutation({
+            query: ({ formData }) => ({
+                url: `/user/mains/exam`,
+                method: "POST",
+                body: formData,
+            }),
+            invalidatesTags: ["pQuestionSeries", "pQuestion",
+                "pAttempt", "mAttempt",
+                "archives", "archivesAttempt", "archivesMainAttempt"
+            ]
         }),
 
         getDiscussionPrelims: build.query({
             query: ({ qNo }) => `/user/discussion/prelims/${qNo}`
-        }),       
+        }),
 
         getProgressPrelimResults: build.query({
             query: ({ userId }) => `/user/progress/prelims/${userId}`
@@ -65,6 +91,19 @@ export const api = createApi({
             query: ({ questionId }) => `/user/progress/prelimProgress/${questionId}`
         }),
 
+        getArchives: build.query({
+            query: ({ userId }) => `/user/archive/${userId}`,
+            providesTags: ["archives"]
+        }),
+        getArchiveAttempt: build.query({
+            query: ({ userId }) => `/user/archive/archiveAttempt/${userId}`,
+            providesTags: ["archivesAttempt"]
+        }),
+        getArchiveMainsAttempt: build.query({
+            query: ({ userId }) => `/user/archive/archiveMAttempt/${userId}`,
+            providesTags: ["archivesMainAttempt"]
+        }),
+
     }),
 });
 
@@ -74,10 +113,16 @@ export const {
     useGetPurchasedSeriesQuery,
     useGetPrelimsQuestionQuery,
     useGetPrelimAttemptQuery,
+    useGetMainsAttemptQuery,
     useSubmitPrelimsQuestionMutation,
     useGetDiscussionPrelimsQuery,
 
     useGetProgressPrelimResultsQuery,
     useGetProgressMainsResultsQuery,
     useGetSpecificPrelimProgressQuery,
+
+    useGetArchivesQuery,
+    useGetArchiveMainsAttemptQuery,
+    useGetArchiveAttemptQuery,
+    useSubmitMainsQuestionMutation
 } = api;
