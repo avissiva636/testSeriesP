@@ -16,6 +16,7 @@ module.exports = {
     mQpDesModel: require("./models/MainsQpDesc"),
     mSalesModel: require("./models/mainsSales"),
     attemptModel: require("./models/Attempt"),
+    mAttemptModel: require("./models/mainsAttempt"),
     pResultModel: require("./models/prelimResult"),
     mResultModel: require("./models/mainResult"),
 };
