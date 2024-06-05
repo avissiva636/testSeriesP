@@ -12,6 +12,11 @@ const mResultSchema = new Schema({
         type: String,
         required: [true, "please add the user id"]
     },
+    seriesId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "mseries",
+        required: [true, "please add the mains description id"]
+    }, 
     questionDescriptionId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "mSeriesQpDesc",
