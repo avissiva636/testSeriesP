@@ -16,8 +16,8 @@ const ProgressCard = () => {
     unAttended: Progress?.questionDescriptionId?.nQuestions - Progress?.submitCount,
     questionsWrong: Progress?.submitCount - Progress?.correctCount,
     questionsCorrect: Progress?.correctCount,
-    marks: (Progress.correctCount * Progress.questionDescriptionId.cMarks) -
-      ((Progress.submitCount - Progress.correctCount) * Progress.questionDescriptionId.wMarks),
+    marks: (Progress?.correctCount * Progress.questionDescriptionId?.cMarks) -
+      ((Progress?.submitCount - Progress?.correctCount) * Progress?.questionDescriptionId?.wMarks),
   };
 
   const { isLoading: isSPrelimLoading, data: sPrelimData } = useGetSpecificPrelimProgressQuery({ questionId: Progress?._id });
