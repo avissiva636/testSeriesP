@@ -3,7 +3,7 @@ import { Button, Card, Divider, Grid, Stack, Typography } from "@mui/material";
 // import Explorer from "../homepage/Explorer";
 import { Link, useLocation } from "react-router-dom";
 import Appbar from "../homepage/Appbar";
-import { useGetPrelimAttemptQuery } from "../../state/apiDevelopmentSlice";
+import { useGetMainsAttemptQuery, useGetPrelimAttemptQuery } from "../../state/apiDevelopmentSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUserId } from "../../state/stateSlice";
 
@@ -11,18 +11,29 @@ const ViewTest = () => {
   const location = useLocation();
   const questionDetails = location.state?.data;
   const seriesName = location.state?.seriesName;
-  const pSeriesId = location.state?.pSeriesId;
+  const seriesId = location.state?.seriesId;
+  const isPrelimAttempt = location.state?.isPrelimAttempt;
   const currentUserId = useSelector(selectCurrentUserId);
 
   const { isLoading: isAttempLoading, data: attemptData } = useGetPrelimAttemptQuery({
     userId: currentUserId,
-    seriesId: pSeriesId
+    seriesId: seriesId
   })
 
-  const excludeIds = new Set(attemptData
-    ?.psQuestionDescription
-    ?.map(desc => desc.questionDescriptionId)
+  const { isLoading: isMainsAttemptLoading, data: mainsAttemptData } = useGetMainsAttemptQuery({
+    userId: currentUserId,
+    seriesId: seriesId
+  })
+
+  const excludeIds = new Set(isPrelimAttempt ?
+    (attemptData
+      ?.psQuestionDescription
+      ?.map(desc => desc.questionDescriptionId)) :
+    (mainsAttemptData
+      ?.msQuestionDescription
+      ?.map(desc => desc.questionDescriptionId))
   );
+
   const filteredQuestionDetails = questionDetails.filter(item => !excludeIds.has(item._id));
 
   return (
@@ -41,7 +52,7 @@ const ViewTest = () => {
           flexWrap="wrap"
         >
           {
-            isAttempLoading ? <h1>Loading...</h1> :
+            isAttempLoading || isMainsAttemptLoading ? <h1>Loading...</h1> :
               filteredQuestionDetails.map((data) => (
                 <Card
                   direction={"column"}
@@ -93,9 +104,11 @@ const ViewTest = () => {
                           <Button variant="contained" color="success">
                             <Link
                               to={"/InstructionPage"}
-                              state={{ data: data,
-                                seriesName
-                               }}
+                              state={{
+                                data: data,
+                                seriesName,
+                                seriesId
+                              }}
                               style={{ textDecoration: "none", color: "#ffffff" }}
                             >
                               Start Exam
