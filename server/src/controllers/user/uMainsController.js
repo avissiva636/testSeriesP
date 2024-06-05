@@ -1,5 +1,7 @@
 const asyncHandler = require("express-async-handler");
-const { mSalesModel: Msales, mQpDesModel: mQpDescription } = require('../../database/index');
+const { mSalesModel: Msales, mQpDesModel: mQpDescription, } = require('../../database/index');
+const { mResultModel: mainResult, mAttemptModel: mainsAttempt } = require("../../database/index");
+const mongoose = require('mongoose');
 
 //@desc Get All Mains papers, Paid details of user
 //@route GET /user/mains/:uid
@@ -52,9 +54,33 @@ const getMainsPapers = asyncHandler(async (req, res) => {
 
     res.json(
         {
-            mains: result            
+            mains: result
         }
     )
+});
+
+//@desc Get Mains Description Id's of particaular series
+//@route GET /user/mains/mainAttempt/:uid 
+//access private
+const getMainsAttempt = asyncHandler(async (req, res) => {
+    const uid = req.params.uid;
+    const { seriesId } = req.query;
+
+    const psQuestions = await mainsAttempt.findOne({
+        userId: new mongoose.Types.ObjectId(uid),
+        seriesId: new mongoose.Types.ObjectId(seriesId)
+    })
+        .select('_id questionDescriptions');
+
+    if (psQuestions) {
+        res.status(200).json({
+            msQuestionDescription: psQuestions?.questionDescriptions
+        });
+    } else {
+        res.status(200).json({
+            msQuestionDescription: []
+        });
+    }
 });
 
 //@desc Get specific Mains question paper
@@ -79,10 +105,51 @@ const getMainsPaper = asyncHandler(async (req, res) => {
 //@route POST /user/mains/exam/:qno ,{{qno(questionPaperNumber),title(sn),sanswer[{qsn:sOption}]}}
 //access private
 const submitMainsPaper = asyncHandler(async (req, res) => {
-    const { qno, title, sanswer } = req.body;
+    const { uid, mSeries, mqDesc } = req.body;
 
-    console.log(qno, title, sanswer);
-    console.log('paramuid', req.params.qno);
+    const mainsAnswer = req?.mainsAnswer;
+    const foundseriesAttempt = await mainsAttempt.findOne({
+        userId: uid,
+        seriesId: mSeries,
+    });
+
+    if (foundseriesAttempt) {
+        if (mainsAnswer) {
+            await mainResult.create({
+                userId: uid,
+                userIdString: uid,
+                seriesId: mSeries,
+                questionDescriptionId: mqDesc,
+                correctedAnswer: mainsAnswer
+            })
+
+            foundseriesAttempt.questionDescriptions.push({
+                questionDescriptionId: mqDesc,
+                attempt: 1
+            });
+
+            await foundseriesAttempt.save();
+        }
+    }
+    else {
+        await mainResult.create({
+            userId: uid,
+            userIdString: uid,
+            seriesId: mSeries,
+            questionDescriptionId: mqDesc,
+            correctedAnswer: mainsAnswer
+        })
+        await mainsAttempt.create({
+            userId: uid,
+            userIdString: uid,
+            seriesId: mSeries,
+            questionDescriptions: [{
+                questionDescriptionId: mqDesc,
+                attempt: 1
+            }]
+        })
+    }
+
 
     res.json(
         {
@@ -92,4 +159,4 @@ const submitMainsPaper = asyncHandler(async (req, res) => {
 });
 
 
-module.exports = { getMainsPapers, getMainsPaper, submitMainsPaper };
+module.exports = { getMainsPapers, getMainsAttempt, getMainsPaper, submitMainsPaper };
