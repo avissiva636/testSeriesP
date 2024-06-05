@@ -4,9 +4,12 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Link } from "react-router-dom";
 import Appbar from "../homepage/Appbar";
 import { useGetPurchasedSeriesQuery } from "../../state/apiDevelopmentSlice";
+import { selectCurrentUserId } from "../../state/stateSlice";
+import { useSelector } from "react-redux";
 
 const Purchasedtestseries = () => {
-  const { isLoading: isPurchasedLoading, data: purchasedData } = useGetPurchasedSeriesQuery({ userId: "66279432cc5ed3267265fd5d" });
+  const currentUserId = useSelector(selectCurrentUserId);
+  const { isLoading: isPurchasedLoading, data: purchasedData } = useGetPurchasedSeriesQuery({ userId: currentUserId });
 
   return (
     <Stack direction="column" spacing={8}>
@@ -36,7 +39,7 @@ const Purchasedtestseries = () => {
                     margin: "10px",
                     borderColor: "ButtonShadow",
                   }}
-                >
+                >                  
                   <Grid direction={"column"} spacing={1}>
                     <Grid item>
                       <h2>{data.seriesDetails.title}</h2>
@@ -85,7 +88,8 @@ const Purchasedtestseries = () => {
                                 to={"/ViewTest"}
                                 state={{
                                   data: data.question,
-                                  pSeriesId: data?._id
+                                  seriesId: data?._id,
+                                  isPrelimAttempt: true
                                 }}
                                 style={{ textDecoration: "none", color: "#ffffff" }}
                               >
@@ -164,7 +168,8 @@ const Purchasedtestseries = () => {
                                 state={{
                                   data: data.question,
                                   seriesName: data?.seriesName,
-                                  pSeriesId: data?._id
+                                  seriesId: data?.seriesDetails?._id,
+                                  isPrelimAttempt: false
                                 }}
                                 style={{ textDecoration: "none", color: "#ffffff" }}
                               >
