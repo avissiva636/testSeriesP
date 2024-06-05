@@ -9,8 +9,8 @@ const mainsSalesSchema = new Schema({
     },
     series: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "pSeries",
-        required: [true, "please add the prelim series"]
+        ref: "mSeries",
+        required: [true, "please add the mains series"]
     },
     seriesName: {
         type: String,
