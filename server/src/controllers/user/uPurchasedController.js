@@ -139,6 +139,7 @@ const getPurchasedPapers = asyncHandler(async (req, res) => {
             $project: {
                 totalCount: 1,
                 seriesDetails: {
+                    _id: 1,
                     title: 1,
                     description: 1,
                     paymentLink: 1,
