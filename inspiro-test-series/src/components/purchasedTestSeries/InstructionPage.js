@@ -20,8 +20,8 @@ import Appbar from "../homepage/Appbar";
 const InstructionPage = () => {
   const location = useLocation();
   const questionDetails = location.state?.data;
-  const archiveQuestions = location.state?.archiveQuestions;
   const seriesName = location.state?.seriesName;
+  const seriesId = location?.state?.seriesId;
 
   return (
     <Stack>
@@ -98,8 +98,8 @@ const InstructionPage = () => {
                       <Link
                         to={seriesName === "mains" ? "/MainsTestPage" : "/TestPage"}
                         state={{
-                          data: questionDetails,
-                          archiveQuestions: archiveQuestions,
+                          data: questionDetails,                          
+                          seriesId
                         }}
                         style={{ textDecoration: "none", color: "#ffffff" }}
                         replace
