@@ -141,11 +141,10 @@ function evaluateAnswers(questions, answers) {
 const submitPrelimsPaper = asyncHandler(async (req, res) => {
     const qno = req.params.qno;
     const { uid, pAnswer, pSeries, pqDesc } = req.body;
-
+  
     const foundAttempt = await attemptModel.findOne({
         userId: uid,
-        seriesId: pSeries,
-        'questionDescriptions.questionDescriptionId': pqDesc
+        seriesId: pSeries,        
     });
 
     const psQuestions = await psQuestion.aggregate([
@@ -163,7 +162,49 @@ const submitPrelimsPaper = asyncHandler(async (req, res) => {
 
     const evaluatedAnswer = evaluateAnswers(psQuestions, pAnswer)
 
-    if (!foundAttempt) {
+    if (foundAttempt) {        
+        const foundDescAttempt = await attemptModel.findOne({
+            userId: uid,
+            seriesId: pSeries,
+            'questionDescriptions.questionDescriptionId': pqDesc
+        });
+
+        if (!foundDescAttempt) {            
+            foundAttempt.questionDescriptions.push({
+                questionDescriptionId: pqDesc,
+                questions: [{
+                    questionId: qno,
+                    attempt: 1
+                }]
+            })
+            await foundAttempt.save();
+
+            await prelimResult.create({
+                userId: uid,
+                userIdString: uid,
+                questionDescriptionId: pqDesc,
+                questionId: qno,
+                result: evaluatedAnswer.evaluationResult,
+                correctCount: evaluatedAnswer.correctCount,
+                submitCount: evaluatedAnswer.submitCount,
+            })
+        } else {            
+            await attemptModel.findOneAndUpdate(
+                {
+                    _id: foundAttempt._id,
+                },
+                { $inc: { "questionDescriptions.$[outer].questions.$[inner].attempt": 1 } },
+                {
+                    arrayFilters: [
+                        { "outer.questionDescriptionId": pqDesc },
+                        { "inner.questionId": qno }
+                    ],
+                    new: true
+                }
+            );
+        }
+    }
+    else {
         await prelimResult.create({
             userId: uid,
             userIdString: uid,
@@ -172,7 +213,7 @@ const submitPrelimsPaper = asyncHandler(async (req, res) => {
             result: evaluatedAnswer.evaluationResult,
             correctCount: evaluatedAnswer.correctCount,
             submitCount: evaluatedAnswer.submitCount,
-        })
+        })        
 
         await attemptModel.create({
             userId: uid,
@@ -185,22 +226,7 @@ const submitPrelimsPaper = asyncHandler(async (req, res) => {
                     attempt: 1
                 }]
             }]
-        })
-    } else {
-        await attemptModel.findOneAndUpdate(
-            {
-                _id: foundAttempt._id,
-            },
-            { $inc: { "questionDescriptions.$[outer].questions.$[inner].attempt": 1 } },
-            {
-                arrayFilters: [
-                    { "outer.questionDescriptionId": pqDesc },
-                    { "inner.questionId": qno }
-                ],
-                new: true
-            }
-        );
-
+        })        
     }
 
     const prelimSubmitResult = await prelimResult.find({ userId: uid, questionDescriptionId: pqDesc })
