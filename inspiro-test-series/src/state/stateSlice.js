@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    user: null,
-    userId: "66279432cc5ed3267265fd5d",
-    token: null
+    user: localStorage.getItem('user') || null,
+    userId: localStorage.getItem('userId') || null,
+
 };
 
 const authSlice = createSlice({
@@ -11,14 +11,18 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setCredentials: (state, action) => {
-            const { user, accessToken } = action.payload;
+            const { user, userid } = action.payload;
             state.user = user;
-            state.token = accessToken;
+            state.userId = userid;
+            localStorage.setItem('user', user);
+            localStorage.setItem('userId', userid);
         },
         logOut: (state, action) => {
             state.user = null;
-            state.token = null;
-            window.location.reload();
+            state.userId = null;
+            localStorage.removeItem('user');
+            localStorage.removeItem('userId');
+            // window.location.reload();
         }
     }
 })
@@ -29,4 +33,3 @@ export default authSlice.reducer;
 
 export const selectCurrentUser = (state) => state.auth.user;
 export const selectCurrentUserId = (state) => state.auth.userId;
-export const selectCurrentToken = (state) => state.auth.token;
