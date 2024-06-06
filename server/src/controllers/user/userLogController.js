@@ -1,33 +1,35 @@
 const asyncHandler = require("express-async-handler");
-const { userModel: User } = require("../../database/index");
-const { APP_SECRET, RFRESH_TOKEN_SECRET } = require("../../config/index");
+const { StudentModel } = require("../../database/index");
+const { uACCESS_TOKEN_SECRET, UATIME } = require("../../config/index");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
 
 //@desc Register the User
 //@route GET /user/log/register
 //access public
-//Final decision Plan Incomplete
 const registerUser = asyncHandler(async (req, res) => {
-    const { username, email, password, age, sex, mobile } = req.body;
-    if (!username || !email || !password) {
+    const { username, email, password, age, sex, mobile, telephone } = req.body;
+    if (!username || !email || !password || !age || !sex || !mobile) {
         res.status(400);
         throw new Error("All fields are mandatory");
     }
 
-    const userAvailable = await User.findOne({ email });
+    const studentAvailable = await StudentModel.findOne({ email });
 
-    if (userAvailable) {
+    if (studentAvailable) {
         return res.sendStatus(409); //Conflict        
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({ username, email, password: hashedPassword, age, sex, mobile });
-    if (user) {
-        res.status(201).json({ 'success': `New user ${user.username} created!` });
+    const createStudent = await StudentModel.create({
+        name: username, age, sex,
+        userName: username, password: hashedPassword,
+        email, mobile, telephone: telephone ? telephone : undefined
+    });
+    if (createStudent) {
+        res.status(201).json({ 'success': `New user ${createStudent.userName} created!` });
     } else {
         res.status(400);
         throw new Error("User data is not valid");
@@ -37,44 +39,33 @@ const registerUser = asyncHandler(async (req, res) => {
 //@desc loginHandler
 //@route GET /user/log/login
 //access public
-
 const loginUser = asyncHandler(async (req, res) => {
-    const { uname: username, password } = req.body;
+    const { username, password } = req.body;
 
     if (!username || !password) {
         res.status(400);
         throw new Error("All fields are mandatory");
     }
 
-    const foundUser = await User.findOne({ username });
-
+    const foundUser = await StudentModel.findOne({ userName: username });
     // compare password with hashedPassword
     if (foundUser && await bcrypt.compare(password, foundUser.password)) {
         const accessToken = jwt.sign(
             {
                 "UserInfo": {
-                    "username": foundUser.username,
-                    "userdata": crypto.randomUUID(),
+                    "username": foundUser.userName,
+                    "userId": foundUser._id,
                 }
             },
-            APP_SECRET,
-            { expiresIn: `${process.env.ATIME}` }
-        );
-        const refreshToken = jwt.sign(
-            { "username": foundUser.username },
-            RFRESH_TOKEN_SECRET,
-            { expiresIn: `${process.env.RTIME}` }
+            uACCESS_TOKEN_SECRET,
+            { expiresIn: `${UATIME}` }
         );
 
-        // Saving refreshToken with current user
-        foundUser.refreshToken = refreshToken;
-        await foundUser.save();
-
-        res.cookie('jwt', refreshToken, { httpOnly: true, secure: false, sameSite: 'strict', maxAge: 24 * 60 * 60 * 1000 });
-        res.json({ message: 'proceeded', accessToken, uid: foundUser.userid, uname: foundUser.username });
+        res.cookie('jwt', accessToken, { httpOnly: true, secure: false, sameSite: 'strict', maxAge: 24 * 60 * 60 * 1000 });
+        res.json({ message: 'proceeded', userid: foundUser._id, username: foundUser.userName });
     } else {
         res.status(401);
-        throw new Error("email or password is not valid");
+        throw new Error("username or password is not valid");
     }
 });
 
