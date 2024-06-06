@@ -58,10 +58,10 @@ function App() {
         <CssBaseline />
         <Routes>
 
+          <Route path="/" element={<Navigate to="/login" />} />
           <Route path="login" element={<Login />} />
 
           <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Navigate to="/home" />} />
             <Route path="restrict" element={<Restrict />} />
             <Route element={<PersistLogin />}>
               <Route element={<RequireAuth allowedRoles={[5150]} />}>
