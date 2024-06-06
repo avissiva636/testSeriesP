@@ -16,4 +16,6 @@ module.exports = {
     AREFRESH_TOKEN_SECRET: process.env.AREFRESH_TOKEN_SECRET,
     ATIME: process.env.ATIME,
     RTIME: process.env.RTIME,
+    UATIME: process.env.UATIME,
+    uACCESS_TOKEN_SECRET: process.env.uACCESS_TOKEN_SECRET,
 };
