@@ -26,6 +26,8 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { logOut, selectCurrentUser } from "../../state/stateSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const drawerWidth = 240;
 
@@ -77,6 +79,9 @@ const Drawer = styled(MuiDrawer, {
 const defaultTheme = createTheme();
 
 export default function Appbar() {
+  const userName = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const handleClick = (name) => {
     navigate(`/${name}`);
@@ -204,15 +209,16 @@ export default function Appbar() {
             </Typography>
             {/* <Stack spacing={70} direction={"row"}> */}
             <Stack spacing={10} direction="row" alignItems="center">
-    <IconButton color="inherit">
-      <Badge badgeContent={4} color="secondary">
-        <NotificationsIcon />
-      </Badge>
-    </IconButton>
-    <Button variant="contained" color="error">
-      Sign Out
-    </Button>
-  </Stack>
+              <IconButton color="inherit">
+                <Badge badgeContent={4} color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <Button variant="contained" color="error" 
+              onClick={()=>dispatch(logOut())}>
+                Sign Out
+              </Button>
+            </Stack>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -224,7 +230,7 @@ export default function Appbar() {
               px: [1],
             }}
           >
-            <h3>Username</h3>
+            <h3>{userName}</h3>
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
