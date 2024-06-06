@@ -8,8 +8,6 @@ const getDiscussionResults = asyncHandler(async (req, res) => {
 
     const paramuid = req.params.uid;
 
-    console.log('paramuid', paramuid);
-
     res.json(
         {
             prelims: ['{title, description, subject, nQuestions, timeAlloted}'],

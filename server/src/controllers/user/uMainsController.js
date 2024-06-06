@@ -89,8 +89,6 @@ const getMainsAttempt = asyncHandler(async (req, res) => {
 const getMainsPaper = asyncHandler(async (req, res) => {
     const paramuid = req.params.qno;
 
-    console.log('paramuid', paramuid);
-
     res.json(
         {
             questions: [`{
