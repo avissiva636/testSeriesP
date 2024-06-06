@@ -1,15 +1,39 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { logOut } from "./stateSlice";
+
+const baseQuery = fetchBaseQuery({
+    baseUrl: process.env.REACT_APP_BASE_URL,
+    credentials: 'include',
+})
+
+const baseQuesryWithReauth = async (args, api, extraOptions) => {
+    let result = await baseQuery(args, api, extraOptions);
+
+    if (result?.error?.status === 403) {        
+        if (result?.error?.data?.message === "User is not authorized" ||
+            result?.error?.data?.message === "User UnAuthorized"
+        ) {          
+            api.dispatch(logOut());
+        }
+    }
+
+    return result;
+}
 
 export const api = createApi({
-    baseQuery: fetchBaseQuery({
-        baseUrl: process.env.REACT_APP_BASE_URL,
-        credentials: 'include'
-    }),
+    baseQuery: baseQuesryWithReauth,
     reducerPath: "adminApi",
     tagTypes: ["pQuestionSeries", "pQuestion", "pAttempt", "mAttempt",
         "archives", "archivesAttempt", "archivesMainAttempt"
     ],
     endpoints: (build) => ({
+        login: build.mutation({
+            query: (loginData) => ({
+                url: `/user/log/login`,
+                method: "POST",
+                body: { ...loginData }
+            }),
+        }),
 
         getPrelimsSeries: build.query({
             query: ({ userId }) => `/user/prelims/${userId}`
@@ -108,6 +132,7 @@ export const api = createApi({
 });
 
 export const {
+    useLoginMutation,
     useGetPrelimsSeriesQuery,
     useGetMainsSeriesQuery,
     useGetPurchasedSeriesQuery,
