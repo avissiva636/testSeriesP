@@ -85,7 +85,7 @@ const SellPaperTemplate = ({ isSeriesLoading, seriesData, handleSubmit }) => {
                     variant="standard"
                     children={
                         !isSeriesLoading && seriesData ? seriesData?.map((pSeries) => (
-                            <MenuItem key={pSeries._id} value={pSeries._id} >
+                            pSeries.status === 'start' && <MenuItem key={pSeries._id} value={pSeries._id} >
                                 {pSeries.title}
                             </MenuItem>
                         )) : <MenuItem value="">Select a Series</MenuItem>
