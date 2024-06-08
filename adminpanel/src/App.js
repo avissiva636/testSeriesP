@@ -47,6 +47,9 @@ import Profile from "scenes/profile";
 import Login from "scenes/login/Login";
 import RequireAuth from "components/auth/RequireAuth";
 import PersistLogin from "components/auth/PersistLogin";
+import PrelimResult from "scenes/prelims/PrelimResult";
+import MainsResult from "scenes/mains/MainsResult";
+import AddMainsCorrection from "scenes/mains/AddMainsCorrection";
 
 function App() {
   const mode = useSelector(selectCurrentMode);
@@ -66,6 +69,16 @@ function App() {
             <Route element={<PersistLogin />}>
               <Route element={<RequireAuth allowedRoles={[5150]} />}>
                 <Route path="profile" element={<Profile />} />
+
+                <Route path="sellprelimsseries" element={<SellPrelimsSeries />} />
+                <Route path="salesprelimsseries" element={<SalesPrelimsSeries />} />
+
+                <Route path="sellmainsseries" element={<SellMainsSeries />} />
+                <Route path="salesmainsseries" element={<SalesMainsSeries />} />
+
+                <Route path="addstudents" element={<AddStudents />} />
+                <Route path="editstudents/:id" element={<EditStudents />} />
+                <Route path="liststudents" element={<ListStudents />} />
               </Route>
               <Route element={<RequireAuth allowedRoles={[1984]} />}>
                 <Route path="home" element={<Dashboard />} />
@@ -73,8 +86,7 @@ function App() {
                 <Route path="addprelimsseries" element={<AddPrelimsSeries />} />
                 <Route path="editprelimsseries/:id" element={<EditPrelimsSeries />} />
                 <Route path="listprelimsseries" element={<ListPrelimsSeries />} />
-                <Route path="sellprelimsseries" element={<SellPrelimsSeries />} />
-                <Route path="salesprelimsseries" element={<SalesPrelimsSeries />} />
+                <Route path="prelimresult" element={<PrelimResult />} />
                 <Route path="add_prelims_qp_description" element={<AddPrelimsQpDes />} />
                 <Route path="edit_prelims_qp_description" element={<EditPrelimsQpDes />} />
                 <Route path="list_prelims_qp_description" element={<ListPrelimsQpDes />} />
@@ -84,8 +96,8 @@ function App() {
                 <Route path="addmainsseries" element={<AddMainsSeries />} />
                 <Route path="editmainsseries/:id" element={<EditMainsSeries />} />
                 <Route path="listmainsseries" element={<ListMainsSeries />} />
-                <Route path="sellmainsseries" element={<SellMainsSeries />} />
-                <Route path="salesmainsseries" element={<SalesMainsSeries />} />
+                <Route path="mainresult" element={<MainsResult />} />
+                <Route path="maincorrection" element={<AddMainsCorrection />} />
                 <Route path="add_mains_qp_description" element={<AddMainsQpDes />} />
                 <Route path="edit_mains_qp_description" element={<EditMainsQpDes />} />
                 <Route path="list_mains_qp_description" element={<ListMainsQpDes />} />
@@ -111,9 +123,7 @@ function App() {
                 <Route path="editbatch/:id" element={<EditBatch />} />
                 <Route path="listbatches" element={<ListBatches />} />
 
-                <Route path="addstudents" element={<AddStudents />} />
-                <Route path="editstudents/:id" element={<EditStudents />} />
-                <Route path="liststudents" element={<ListStudents />} />
+
 
               </Route>
             </Route>
