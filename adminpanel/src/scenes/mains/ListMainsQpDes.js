@@ -134,7 +134,7 @@ const ListMainsQpDes = () => {
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
                         {/* list_prelims_qp_desription paperName*/}
-                        <Link to={`/add_prelims_question?${queryString}`}
+                        <Link to={`/mainresult?${queryString}`}
                             style={{
                                 color: 'inherit',
                                 textDecoration: 'none'
