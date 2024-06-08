@@ -22,7 +22,6 @@ const EditStudents = () => {
         sid: decodeURIComponent(urlUserId),
     });
     const [updateStudent] = useUpdateStudentMutation();
-
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
     const [sex, setSex] = useState('Male');
@@ -38,16 +37,16 @@ const EditStudents = () => {
     useEffect(() => {
 
         if (!isStudentLoading && studentList) {
-            setName(studentList.name);
-            setAge(studentList.age);
-            setSex(studentList.sex);
-            setUserName(studentList.userName);
+            setName(studentList?.name || '');
+            setAge(studentList?.age || '');
+            setSex(studentList?.sex || '');
+            setUserName(studentList?.userName || '');
             setCourse(studentList?.course || '');
             setBatch(studentList?.batch || '');
-            setEmail(studentList.email);
-            setMobile(studentList.mobile);
-            setTelephone(studentList.telephone);
-            setStatus(studentList.status);
+            setEmail(studentList?.email || '');
+            setMobile(studentList?.mobile || '');
+            setTelephone(studentList?.telephone || '');
+            setStatus(studentList.status || '');
         }
     }, [isStudentLoading, studentList]);
 
@@ -88,7 +87,7 @@ const EditStudents = () => {
 
     return (
         <Box m="1.5rem 2.5rem" height={isNonMobile ? undefined : '80%'}>
-            <Header title="STUDENTS" subtitle="Edit Students" />
+            <Header title="STUDENTS" subtitle="Edit Students" isNavigate={true} />
 
             {isStudentLoading ? <p>Loading...</p> :
                 <Box m="1rem 2.5rem"
