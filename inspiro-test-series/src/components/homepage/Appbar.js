@@ -19,11 +19,11 @@ import ListItemText from "@mui/material/ListItemText";
 import ImportantDevicesIcon from "@mui/icons-material/ImportantDevices";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-import ScheduleIcon from "@mui/icons-material/Schedule";
+// import ScheduleIcon from "@mui/icons-material/Schedule";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ArchiveIcon from "@mui/icons-material/Archive";
-import SettingsIcon from "@mui/icons-material/Settings";
+// import SettingsIcon from "@mui/icons-material/Settings";
 import { Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { logOut, selectCurrentUser } from "../../state/stateSlice";
@@ -121,7 +121,7 @@ export default function Appbar() {
           <ListItemText primary="Mains Test Store" />
         </ListItemButton>
       </Box>
-      <Box sx={{ margin: "20px 0" }}>
+      {/* <Box sx={{ margin: "20px 0" }}>
         <ListItemButton onClick={() => handleClick("ScheduledTestStore")}>
           <ListItemIcon>
             <ScheduleIcon />
@@ -136,7 +136,7 @@ export default function Appbar() {
           </ListItemIcon>
           <ListItemText primary="Previous Year QP's" />
         </ListItemButton>
-      </Box>
+      </Box> */}
       <Box sx={{ margin: "20px 0" }}>
         <ListItemButton onClick={() => handleClick("DiscussionMainPage")}>
           <ListItemIcon>
@@ -161,14 +161,14 @@ export default function Appbar() {
           <ListItemText primary="Archives" />
         </ListItemButton>
       </Box>
-      <Box sx={{ margin: "20px 0" }}>
+      {/* <Box sx={{ margin: "20px 0" }}>
         <ListItemButton onClick={() => handleClick("Settings")}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
           <ListItemText primary="Settings" />
         </ListItemButton>
-      </Box>
+      </Box> */}
     </React.Fragment>
   );
   const [open, setOpen] = React.useState(true);
