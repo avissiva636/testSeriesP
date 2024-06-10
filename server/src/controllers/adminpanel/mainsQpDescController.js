@@ -1,7 +1,8 @@
 const asyncHandler = require("express-async-handler");
-const { mQpDesModel: mQpDescription } = require('../../database/index');
+const { mResultModel: mainResult, mQpDesModel: mQpDescription } = require('../../database/index');
 const path = require("path");
 const fs = require('fs');
+const mongoose = require('mongoose');
 
 //@desc get All Mains Qp Desc
 //@route GET /admin/mQpDescseries
@@ -135,7 +136,7 @@ const updateMQpDescStatus = asyncHandler(async (req, res) => {
 //@route DELETE /admin/mQpDescseries/mSingle/:id
 //access private
 const deleteMQpDesc = asyncHandler(async (req, res) => {
-    const id = req.params.id;    
+    const id = req.params.id;
 
     const deletemQpDescription = await mQpDescription.findById(id);
 
@@ -160,8 +161,131 @@ const deleteMQpDesc = asyncHandler(async (req, res) => {
     }
 });
 
+//@desc get All Student prelim result of particular question with prelimDescriptionId
+//@route GET /admin/mQpDescseries/mResult/:mDescId
+//access private
+const getSpecifcMainsResult = asyncHandler(async (req, res) => {
+    const { mQDesId, page = 1, pageSize = 20, sort = null, search = "" } = req.query;
+    const clientSearch = search !== null ? JSON.parse(search) : null;
+
+    // formatted sort should look like { userId: -1 }
+    const generateSort = () => {
+        const sortParsed = JSON.parse(sort);
+
+        const sortFormatted = {
+            [sortParsed.field]: (sortParsed.sort === "asc" ? 1 : -1),
+        };
+
+        return sortFormatted;
+    };
+    const sortFormatted = Boolean(sort) ? generateSort() : { undefined: -1 };
+
+    const pipeline = [
+        {
+            $match: { questionDescriptionId: new mongoose.Types.ObjectId(mQDesId) }
+        },
+        {
+            $lookup: {
+                from: 'students',
+                localField: 'userId',
+                foreignField: '_id',
+                as: 'userId'
+            }
+        },
+        {
+            $lookup: {
+                from: 'mseriesqpdescs',
+                localField: 'questionDescriptionId',
+                foreignField: '_id',
+                as: 'questionDescriptions'
+            }
+        },
+        {
+            $project: {
+                userId: { _id: 1, name: 1 },
+                questionDescriptions: { _id: 1, schedule: 1, title: 1, description: 1 },
+                questionDescriptionId: 1,
+                submittedAnswer: 1,
+                correctedAnswer: 1
+            }
+        },
+        {
+            $project: {
+                userId: { $arrayElemAt: ["$userId", 0] },
+                questionDescriptions: { $arrayElemAt: ["$questionDescriptions", 0] },
+                questionDescriptionId: 1,
+                submittedAnswer: 1,
+                correctedAnswer: 1
+            }
+        },
+        {
+            $match: {
+                $or: [
+                    { questionDescriptionId: new mongoose.Types.ObjectId(mQDesId) },
+                    { "userId.name": { $regex: new RegExp(clientSearch, "i") } },
+                ]
+            }
+        },
+        {
+            $facet: {
+                totalCount: [{ $count: "value" }],
+                paginatedData: [
+                    { $sort: sortFormatted },
+                    { $skip: page * pageSize },
+                    { $limit: pageSize * 1 }
+                ]
+            }
+        }
+    ];
+
+    const mResults = await mainResult.aggregate(pipeline);
+    const totalCount = mResults[0].totalCount[0] ? mResults[0].totalCount[0].value : 0;
+
+    if (mResults) {
+        res.status(200).json({
+            mResults: mResults[0].paginatedData,
+            total: totalCount
+        });
+    } else {
+        res.status(404).json({ "message": "No Student" });
+    }
+});
+
+//@desc updated Mains Corrected Result
+//@route PUT /admin/mQpDescseries/mSubmit/:uid
+//access private
+const updatecorrectedMainsResult = asyncHandler(async (req, res) => {
+    const uid = req.params.uid;
+    const msCorrectionImageName = req.msCorrectionImageName;
+    const { mQDesId } = req.body;
+
+    const mainsResult = await mainResult.findOneAndUpdate(
+        {
+            userId: new mongoose.Types.ObjectId(uid),
+            questionDescriptionId: new mongoose.Types.ObjectId(mQDesId)
+        },
+        {
+            $set: { correctedAnswer: msCorrectionImageName }
+        },
+        {
+            new: true,
+        }
+    );
+
+    if (mainsResult) {
+        res.json({
+            message: "proceeded"
+        })
+    } else {
+        res.status(400).json({ "message": "No Mains Result" });
+    }
+
+});
+
 module.exports = {
     getAllMQpDescs, getAllSpecificMQpDescs, getMQpDesc,
+    getSpecifcMainsResult,
     createMQpDesc, updateMQpDesc, updateMQpDescStatus,
-    deleteMQpDesc
+    deleteMQpDesc,
+    updatecorrectedMainsResult
 };
