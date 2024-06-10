@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const pResultSchema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Student",
         required: [true, "please add the user id"]
     },
     userIdString: {
