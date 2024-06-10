@@ -7,7 +7,7 @@ const ejs = require('ejs');
 const cors = require('cors')
 const corsOptions = require('./config/corsOptions');
 const cookieParser = require('cookie-parser');
-const validateToken = require('./util/middleware/validateTokenHandler');
+// const validateToken = require('./util/middleware/validateTokenHandler');
 const credentials = require("./util/middleware/credentials");
 
 const initializeServer = async () => {
@@ -36,6 +36,7 @@ const initializeServer = async () => {
     app.use('/user/progress', require('./routes/api/user/userProgress'));
     app.use('/user/archive', require('./routes/api/user/userArchives'));
     app.use('/user/profile', require('./routes/api/user/userProfile'));
+    // app.use('/user/email',require("./controllers/adminpanel/emailContoller"));
 
     app.use('/admin/log', require('./routes/api/adminpanel/logRoutes'));
     app.use('/admin/setting', require('./routes/api/adminpanel/settingRoutes'));
@@ -52,10 +53,10 @@ const initializeServer = async () => {
     app.use('/admin/mQpDescseries', require('./routes/api/adminpanel/mainsQpDescRoutes'));
     app.use('/admin/mSales', require('./routes/api/adminpanel/mainsSalesRoutes'));
 
-    app.use('/logout', require('./routes/logout'));
+    // app.use('/logout', require('./routes/logout'));
 
-    app.use(validateToken);
-    app.use('/employees', require('./routes/api/employees'));
+    // app.use(validateToken);
+    // app.use('/employees', require('./routes/api/employees'));
 
     app.all('*', (req, res) => {
         res.status(404);
