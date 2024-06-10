@@ -20,4 +20,7 @@ router.route("/pSingle/:id")
     .put(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), dataflow.any(), prelimsQpDescController.updatePQpDescStatus)
     .delete(verifyRoles(ROLES_LIST.Admin), prelimsQpDescController.deletePQpDesc);
 
+router.route("/pResult/:pDescId")
+.get(verifyRoles(ROLES_LIST.Admin),prelimsQpDescController.getSpecifcPrelimResult)
+
 module.exports = router;

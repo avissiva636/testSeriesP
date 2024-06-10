@@ -2,6 +2,8 @@ const asyncHandler = require("express-async-handler");
 const { pQpDesModel: pQpDescription, psQuestionModel: psQuestion } = require('../../database/index');
 const path = require("path");
 const fs = require('fs');
+const prelimResult = require("../../database/models/prelimResult");
+const mongoose = require('mongoose');
 
 //@desc get All prelims Qp Desc
 //@route GET /admin/pQpDescseries
@@ -161,9 +163,9 @@ const deletePQpDesc = asyncHandler(async (req, res) => {
     if (deletepQpDescription.length > 0) {
         res.status(400).json({ "message": "pQpDescription not deleted" });
     } else {
-        const { imgName } = req.body;        
+        const { imgName } = req.body;
         const deletePhoto = path.join(__dirname, '../../../public/images/pQpDesc', imgName);
-        if (fs.existsSync(deletePhoto)) {            
+        if (fs.existsSync(deletePhoto)) {
             fs.unlinkSync(deletePhoto);
         }
         else {
@@ -179,7 +181,99 @@ const deletePQpDesc = asyncHandler(async (req, res) => {
     }
 });
 
+//@desc get All Student prelim result of particular question with prelimDescriptionId
+//@route GET /admin/pQpDescseries/pResult/:pDescId
+//access private
+const getSpecifcPrelimResult = asyncHandler(async (req, res) => {
+    const { pQDesId, page = 1, pageSize = 20, sort = null, search = "" } = req.query;
+    const clientSearch = search !== null ? JSON.parse(search) : null;
+
+    // formatted sort should look like { userId: -1 }
+    const generateSort = () => {
+        const sortParsed = JSON.parse(sort);
+
+        const sortFormatted = {
+            [sortParsed.field]: (sortParsed.sort === "asc" ? 1 : -1),
+        };
+
+        return sortFormatted;
+    };
+    const sortFormatted = Boolean(sort) ? generateSort() : { undefined: -1 };
+
+    const pipeline = [
+        {
+            $match: { questionDescriptionId: new mongoose.Types.ObjectId(pQDesId) }
+        },
+        {
+            $lookup: {
+                from: 'students',
+                localField: 'userId',
+                foreignField: '_id',
+                as: 'userId'
+            }
+        },
+        {
+            $lookup: {
+                from: 'pseriesqpdescs',
+                localField: 'questionDescriptionId',
+                foreignField: '_id',
+                as: 'questionDescriptions'
+            }
+        },
+        {
+            $project: {
+                userId: { _id: 1, name: 1 },
+                questionDescriptions:{_id:1,cMarks:1,title:1},
+                questionDescriptionId: 1,
+                correctCount: 1,
+                submitCount: 1
+            }
+        },
+        {
+            $project: {
+                userId: { $arrayElemAt: ["$userId", 0] },
+                questionDescriptions:{ $arrayElemAt: ["$questionDescriptions", 0] },
+                questionDescriptionId: 1,
+                correctCount: 1,
+                submitCount: 1
+            }
+        },
+        {
+            $match: {
+                $or: [
+                    { questionDescriptionId: new mongoose.Types.ObjectId(pQDesId) },
+                    { correctCount: { $regex: new RegExp(search, "i") } },
+                    { "userId.name": { $regex: new RegExp(search, "i") } },
+                ]
+            }
+        },
+        {
+            $facet: {
+                totalCount: [{ $count: "value" }],
+                paginatedData: [
+                    { $sort: sortFormatted },
+                    { $skip: page * pageSize },
+                    { $limit: pageSize * 1 }
+                ]
+            }
+        }
+    ];
+
+    const pResults = await prelimResult.aggregate(pipeline);
+    const totalCount = pResults[0].totalCount[0] ? pResults[0].totalCount[0].value : 0;
+
+    if (pResults) {
+        res.status(200).json({
+            pResults: pResults[0].paginatedData,
+            total: totalCount
+        });
+    } else {
+        res.status(404).json({ "message": "No Student" });
+    }
+});
+
 module.exports = {
     getAllPQpDescs, getAllSpecificPQpDescs, getPQpDesc,
-    createPQpDesc, updatePQpDescStatus, updatePQpDesc, deletePQpDesc
+    createPQpDesc, updatePQpDescStatus, updatePQpDesc, deletePQpDesc,
+    getSpecifcPrelimResult
 };
