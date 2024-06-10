@@ -9,10 +9,10 @@ const baseQuery = fetchBaseQuery({
 const baseQuesryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
 
-    if (result?.error?.status === 403) {        
+    if (result?.error?.status === 403) {
         if (result?.error?.data?.message === "User is not authorized" ||
             result?.error?.data?.message === "User UnAuthorized"
-        ) {          
+        ) {
             api.dispatch(logOut());
         }
     }
@@ -30,6 +30,20 @@ export const api = createApi({
         login: build.mutation({
             query: (loginData) => ({
                 url: `/user/log/login`,
+                method: "POST",
+                body: { ...loginData }
+            }),
+        }),
+        preRegister: build.mutation({
+            query: (loginData) => ({
+                url: `/user/log/register`,
+                method: "POST",
+                body: { ...loginData }
+            }),
+        }),
+        postRegister: build.mutation({
+            query: (loginData) => ({
+                url: `/user/log/postRegister`,
                 method: "POST",
                 body: { ...loginData }
             }),
@@ -133,6 +147,8 @@ export const api = createApi({
 
 export const {
     useLoginMutation,
+    usePreRegisterMutation,
+    usePostRegisterMutation,
     useGetPrelimsSeriesQuery,
     useGetMainsSeriesQuery,
     useGetPurchasedSeriesQuery,
