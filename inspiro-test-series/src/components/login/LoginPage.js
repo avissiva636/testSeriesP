@@ -20,20 +20,26 @@ const LoginPage = () => {
       await login({ username, password })
         .unwrap()
         .then((response) => {
-          if (response.message === "proceeded") {            
+          if (response.message === "proceeded") {
             navigate("/Homepage");
             const userid = response.userid;
             const username = response.username;
 
-            dispatch(setCredentials({ user: username, userid: userid }));            
+            dispatch(setCredentials({ user: username, userid: userid }));
           } else {
             alert("Please try again");
           }
         });
 
-    } catch (error) {
+    } catch (error) {      
       if (error.status === 401) {
-        alert("Ivalid username or password");
+        if (error?.data?.message === "unApproved"
+        ) {
+          alert("Student Not Approved");
+        }
+        else {
+          alert("Ivalid username or password");
+        }
       }
     }
   };
@@ -49,7 +55,7 @@ const LoginPage = () => {
             justifyContent: "space-evenly",
           }}
         >
-          <Grid2>Hi</Grid2>
+          {/* <Grid2>Hi</Grid2> */}
           <Divider></Divider>
           <Grid2>
             <Box
@@ -89,6 +95,14 @@ const LoginPage = () => {
                   color="success"
                 >
                   Login
+                </Button>
+                <Button
+                  variant="contained"
+                  // onClick={handleLogin}
+                  onClick={() => navigate("/register")}
+                  color="success"
+                >
+                  Register
                 </Button>
               </Stack>
             </Box>
