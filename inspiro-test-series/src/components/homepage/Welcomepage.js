@@ -4,8 +4,11 @@ import { Button, Card, Stack, Typography } from "@mui/material";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../state/stateSlice";
 
 const Welcomepage = () => {
+  const userName = useSelector(selectCurrentUser);
   const navigate = useNavigate();
   const handleClick = (name) => {
     navigate(`/${name}`);
@@ -23,7 +26,7 @@ const Welcomepage = () => {
           alignItems={"center"}
           sx={{ marginTop: "100px" }}
         >
-          Welcome Jagan to the Online Examination Portal
+          Welcome {userName} to the Online Examination Portal
         </Typography>
       </Stack>
       <Stack
