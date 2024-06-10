@@ -118,7 +118,7 @@ const submitMainsPaper = asyncHandler(async (req, res) => {
                 userIdString: uid,
                 seriesId: mSeries,
                 questionDescriptionId: mqDesc,
-                correctedAnswer: mainsAnswer
+                submittedAnswer: mainsAnswer
             })
 
             foundseriesAttempt.questionDescriptions.push({
@@ -135,7 +135,7 @@ const submitMainsPaper = asyncHandler(async (req, res) => {
             userIdString: uid,
             seriesId: mSeries,
             questionDescriptionId: mqDesc,
-            correctedAnswer: mainsAnswer
+            submittedAnswer: mainsAnswer
         })
         await mainsAttempt.create({
             userId: uid,
