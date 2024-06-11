@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import FlexBetween from './FlexBetween';
 import {
   ChevronLeft, ExpandLess, ExpandMore, HomeOutlined,
+  AdjustOutlined, ImportContactsOutlined, HailOutlined
   // SettingsOutlined
 } from '@mui/icons-material';
 // import profileImage from '../assets/profile.jpeg';
@@ -16,7 +17,7 @@ const navItems = [
   },
   {
     text: "Prelims Series",
-    icon: <HomeOutlined />,
+    icon: <AdjustOutlined />,
     data: [
       {
         text: "Add Prelims Series",
@@ -34,7 +35,7 @@ const navItems = [
   },
   {
     text: "Mains Series",
-    icon: <HomeOutlined />,
+    icon: <AdjustOutlined />,
     data: [
       {
         text: "Add Mains Series",
@@ -76,7 +77,7 @@ const navItems = [
   // },
   {
     text: "Question Paper Outlines",
-    icon: <HomeOutlined />,
+    icon: <ImportContactsOutlined />,
     data: [
       {
         text: "Add Outline",
@@ -88,7 +89,7 @@ const navItems = [
   },
   {
     text: "Subjects",
-    icon: <HomeOutlined />,
+    icon: <ImportContactsOutlined />,
     data: [
       {
         text: "Add Subjects",
@@ -100,7 +101,7 @@ const navItems = [
   },
   {
     text: "Courses",
-    icon: <HomeOutlined />,
+    icon: <ImportContactsOutlined />,
     data: [
       {
         text: "Add Courses",
@@ -112,7 +113,7 @@ const navItems = [
   },
   {
     text: "Batches",
-    icon: <HomeOutlined />,
+    icon: <ImportContactsOutlined />,
     data: [
       {
         text: "Add Batches",
@@ -124,7 +125,7 @@ const navItems = [
   },
   {
     text: "Students",
-    icon: <HomeOutlined />,
+    icon: <HailOutlined />,
     data: [
       {
         text: "Add Students",
