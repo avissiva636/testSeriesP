@@ -282,10 +282,57 @@ const updatecorrectedMainsResult = asyncHandler(async (req, res) => {
 
 });
 
+//@desc delete Mains Corrected Result
+//@route DELETE /admin/mQpDescseries/mSubmit/:uid
+//access private
+const deleteMainsResult = asyncHandler(async (req, res) => {
+    const uid = req.params.uid;
+    const { questionDescId } = req.body;
+
+    const mainsResult = await mainResult.findOneAndDelete(
+        {
+            userId: new mongoose.Types.ObjectId(uid),
+            questionDescriptionId: new mongoose.Types.ObjectId(questionDescId)
+        },
+
+    );
+
+    if (mainsResult.length > 0) {
+        res.status(400).json({ "message": "Mains Result not deleted" });
+    } else {
+        if (mainsResult?.submittedAnswer) {
+            const deletePhoto = path.join(__dirname, '../../../public/images/uMains', mainsResult?.submittedAnswer);
+            if (fs.existsSync(deletePhoto)) {
+                fs.unlinkSync(deletePhoto);
+            }
+            else {
+                console.log(`File one ${deletePhoto} does not exist.`);
+            }
+        }
+        if (mainsResult?.correctedAnswer) {
+            const deletePhoto = path.join(__dirname, '../../../public/images/uMainsSubmitted', mainsResult?.correctedAnswer);
+            if (fs.existsSync(deletePhoto)) {
+                fs.unlinkSync(deletePhoto);
+            }
+            else {
+                console.log(`File ${deletePhoto} does not exist.`);
+            }
+        }
+    }
+
+    if (mainsResult) {
+        res.status(204).end();
+    } else {
+        res.status(400).json({ "message": "Mains Result not deleted" });
+    }
+
+});
+
 module.exports = {
     getAllMQpDescs, getAllSpecificMQpDescs, getMQpDesc,
     getSpecifcMainsResult,
     createMQpDesc, updateMQpDesc, updateMQpDescStatus,
     deleteMQpDesc,
-    updatecorrectedMainsResult
+    updatecorrectedMainsResult,
+    deleteMainsResult
 };

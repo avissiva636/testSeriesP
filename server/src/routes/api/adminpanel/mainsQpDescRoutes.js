@@ -23,6 +23,7 @@ router.route("/mSingle/:id")
 router.route("/mResult/:mDescId")
     .get(verifyRoles(ROLES_LIST.Admin), mainsQpDescController.getSpecifcMainsResult);
 router.route("/mSubmit/:uid")
-    .put(verifyRoles(ROLES_LIST.Admin), msResultCorrectUpload.single("schedule"), mainsQpDescController.updatecorrectedMainsResult);
+    .put(verifyRoles(ROLES_LIST.Admin), msResultCorrectUpload.single("schedule"), mainsQpDescController.updatecorrectedMainsResult)
+    .delete(verifyRoles(ROLES_LIST.Admin),  mainsQpDescController.deleteMainsResult);
 
 module.exports = router;
