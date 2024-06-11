@@ -54,10 +54,10 @@ const MainsTestPage = () => {
         formData.append('mqDesc', testDetails?._id);
         formData.append('mainsAnswer', selectedFile);
 
-        if (!selectedFile) {
-            alert("Please attach file");
-            return;
-        }
+        // if (!selectedFile) {
+        //     alert("Please attach file");
+        //     return;
+        // }
 
         const confirmation = window.confirm("Are you sure you want to submit?");
         if (confirmation) {
