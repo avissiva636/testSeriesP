@@ -30,7 +30,11 @@ const ProgressCardMain = () => {
     });
   };
   const downloadHandler = async (schedule) => {
-    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/images/mQpDesc/${schedule}`);
+    if (!schedule) {
+      alert("Paper not corrected");
+      return;
+    }
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/images/uMainsSubmitted/${schedule}`);
     if (response.ok) {
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
@@ -177,7 +181,7 @@ const ProgressCardMain = () => {
                       color="success"
                       variant="contained"
                       sx={{ width: "auto" }}
-                      onClick={() => downloadHandler(data?.questionDescriptionId?.schedule)}
+                      onClick={() => downloadHandler(data?.correctedAnswer)}
                     >
                       Download Result
                     </Button>
