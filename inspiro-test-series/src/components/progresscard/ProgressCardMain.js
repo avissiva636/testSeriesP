@@ -59,8 +59,8 @@ const ProgressCardMain = () => {
                 variant="outlined"
                 sx={{
                   width: "100vh",
-                  minHeight: progressPrelimsData.prelimResult.length < 2 ? "380px" : "auto",
-                  height: progressPrelimsData.prelimResult.length < 2 ? "200px" : "auto",
+                  minHeight: progressPrelimsData?.prelimResult.length < 2 ? "380px" : "auto",
+                  height: progressPrelimsData?.prelimResult.length < 2 ? "200px" : "auto",
                   textAlign: "center",
                   margin: "10px",
                   borderColor: "ButtonShadow",
@@ -69,8 +69,8 @@ const ProgressCardMain = () => {
               >
                 <Grid sx={{ marginTop: "10px" }}>
                   <Stack direction={"column"}>
-                    <h2>{data.questionDescriptionId.title}</h2>
-                    <p>{data.questionDescriptionId.description}</p>
+                    <h2>{data?.questionDescriptionId?.title}</h2>
+                    <p>{data?.questionDescriptionId?.description}</p>
                   </Stack>
                 </Grid>
                 <Grid>
@@ -95,12 +95,12 @@ const ProgressCardMain = () => {
                         </TableHead>
                         <TableBody>
                           <TableRow>
-                            <TableCell>{data.questionDescriptionId.nQuestions}</TableCell>
-                            <TableCell>{data.correctCount}</TableCell>
-                            <TableCell>{data.questionDescriptionId.nQuestions - data.correctCount}</TableCell>
+                            <TableCell>{data?.questionDescriptionId?.nQuestions}</TableCell>
+                            <TableCell>{data?.correctCount}</TableCell>
+                            <TableCell>{data?.questionDescriptionId?.nQuestions - data?.correctCount}</TableCell>
                             <TableCell>{
-                              (data.correctCount * data.questionDescriptionId.cMarks) -
-                              ((data.submitCount - data.correctCount) * data.questionDescriptionId.wMarks)
+                              (data?.correctCount * data?.questionDescriptionId?.cMarks) -
+                              ((data?.submitCount - data?.correctCount) * data?.questionDescriptionId?.wMarks)
                             }</TableCell>
                           </TableRow>
                         </TableBody>
@@ -137,8 +137,8 @@ const ProgressCardMain = () => {
               >                
                 <Grid sx={{ marginTop: "10px" }}>
                   <Stack direction={"column"}>
-                    <h2>{data.questionDescriptionId.title}</h2>
-                    <p>{data.questionDescriptionId.description}</p>
+                    <h2>{data?.questionDescriptionId?.title}</h2>
+                    <p>{data?.questionDescriptionId?.description}</p>
                   </Stack>
                 </Grid>
                 <Grid>

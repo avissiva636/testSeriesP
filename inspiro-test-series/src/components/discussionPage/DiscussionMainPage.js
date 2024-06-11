@@ -53,14 +53,14 @@ const DiscussionMainPage = () => {
       <Stack>
         {
           isPurchasedLoading ? <h1>Loading...</h1> :
-            purchasedData.prelims.map((data) => (
+            purchasedData?.prelims.map((data) => (
               data?.question.map((question) => (
                 <Card
                   variant="outlined"
                   sx={{
                     width: "100vh",
-                    minHeight: purchasedData.prelims.length < 2 ? "380px" : "auto",
-                    height: purchasedData.prelims.length < 2 ? "200px" : "auto",
+                    minHeight: purchasedData?.prelims.length < 2 ? "380px" : "auto",
+                    height: purchasedData?.prelims.length < 2 ? "200px" : "auto",
                     textAlign: "center",
                     margin: "10px",
                     borderColor: "ButtonShadow",
@@ -69,8 +69,8 @@ const DiscussionMainPage = () => {
                 >
                   <Grid sx={{ marginTop: "10px" }}>
                     <Stack direction={"column"}>
-                      <h2>{question.title}</h2>
-                      <p>{question.description}</p>
+                      <h2>{question?.title}</h2>
+                      <p>{question?.description}</p>
                     </Stack>
                   </Grid>
                   <Grid>
@@ -94,9 +94,9 @@ const DiscussionMainPage = () => {
                           </TableHead>
                           <TableBody>
                             <TableRow>
-                              <TableCell>{question.subject}</TableCell>
-                              <TableCell>{question.nQuestions}</TableCell>
-                              <TableCell>{question.alottedTime}</TableCell>
+                              <TableCell>{question?.subject}</TableCell>
+                              <TableCell>{question?.nQuestions}</TableCell>
+                              <TableCell>{question?.alottedTime}</TableCell>
                             </TableRow>
                           </TableBody>
                         </Table>
@@ -107,7 +107,7 @@ const DiscussionMainPage = () => {
                         color="primary"
                         variant="contained"
                         sx={{ width: "auto" }}
-                        onClick={() => viewDetailsHandler(question.title, question._id)}
+                        onClick={() => viewDetailsHandler(question?.title, question?._id)}
                       >
                         Start Discussion
                       </Button>
@@ -118,7 +118,7 @@ const DiscussionMainPage = () => {
 
         {
           isPurchasedLoading ? <h1>Loading...</h1> :
-            purchasedData.mains.map((data) => (
+            purchasedData?.mains.map((data) => (
               data?.question.map((question) => (
                 <Card
                   variant="outlined"
@@ -133,8 +133,8 @@ const DiscussionMainPage = () => {
                 >
                   <Grid sx={{ marginTop: "10px" }}>
                     <Stack direction={"column"}>
-                      <h2>{question.title}</h2>
-                      <p>{question.description}</p>
+                      <h2>{question?.title}</h2>
+                      <p>{question?.description}</p>
                     </Stack>
                   </Grid>
                   <Grid>
@@ -158,9 +158,9 @@ const DiscussionMainPage = () => {
                           </TableHead>
                           <TableBody>
                             <TableRow>
-                              <TableCell>{question.subject}</TableCell>
+                              <TableCell>{question?.subject}</TableCell>
                               {/* <TableCell>{question.nQuestions}</TableCell> */}
-                              <TableCell>{question.alottedTime}</TableCell>
+                              <TableCell>{question?.alottedTime}</TableCell>
                             </TableRow>
                           </TableBody>
                         </Table>
@@ -171,7 +171,7 @@ const DiscussionMainPage = () => {
                         color="primary"
                         variant="contained"
                         sx={{ width: "auto" }}
-                        onClick={() => downloadHandler(question.schedule)}
+                        onClick={() => downloadHandler(question?.schedule)}
                       >
                         Download PDF
                       </Button>
