@@ -142,4 +142,25 @@ const msDescUpload = multer({
     }
 });
 
-module.exports = { psUpload, msUpload, psDescUpload, msDescUpload, dataflow };
+// Mains Result correctedAnswer
+const msResultStorage = multer.diskStorage({
+    destination: async function (req, file, cb) {        
+        if (!fs.existsSync(path.join(__dirname, '..', '..', '..', 'public', 'images', 'uMainsSubmitted'))) {
+            if (!fs.existsSync(path.join(__dirname, '..', '..', '..', 'public', 'images'))) {
+                await fs.promises.mkdir(path.join(__dirname, '..', '..', '..', 'public', 'images'));
+            }
+            await fs.promises.mkdir(path.join(__dirname, '..', '..', '..', 'public', 'images', 'uMainsSubmitted'));
+        }
+        cb(null, path.join(__dirname, '../../../public/images/uMainsSubmitted'));
+    },
+    filename: function (req, file, cb) {        
+        const fileName = Date.now() + path.extname(file.originalname);        
+        req.msCorrectionImageName = fileName;
+        cb(null, fileName);
+    }
+});
+const msResultCorrectUpload = multer({
+    storage: msResultStorage,
+});
+
+module.exports = { psUpload, msUpload, psDescUpload, msDescUpload,msResultCorrectUpload, dataflow };

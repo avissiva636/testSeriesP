@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const { mSeriesModel: MSeries } = require('../../database/index');
+const { mSeriesModel: MSeries, mQpDesModel: mQpDescription } = require('../../database/index');
 const path = require("path");
 const fs = require('fs');
 
@@ -124,22 +124,29 @@ const updatePsStatus = asyncHandler(async (req, res) => {
 //access private
 const deleteMSeries = asyncHandler(async (req, res) => {
     const id = req.params.mid;
+    const mQpDescs = await mQpDescription.find({ mSeries: id });
 
-    const { imgName } = req.body;
-
-    const deletePhoto = path.join(__dirname, '../../../public/images/mains', imgName);
-    if (fs.existsSync(deletePhoto)) {
-        fs.unlinkSync(deletePhoto);
-    } else {
-        console.log(`File ${deletePhoto} does not exist.`);
+    if (mQpDescs.length > 0) {
+        res.status(403).json({ "message": "MSeries not deleted" });
     }
-    const deleteMSeries = await MSeries.findByIdAndDelete(id);
+    else {
+        const { imgName } = req.body;
 
-    if (deleteMSeries) {
-        res.status(204).end();
-    } else {
-        res.status(400).json({ "message": "Mains Series not deleted" });
+        const deletePhoto = path.join(__dirname, '../../../public/images/mains', imgName);
+        if (fs.existsSync(deletePhoto)) {
+            fs.unlinkSync(deletePhoto);
+        } else {
+            console.log(`File ${deletePhoto} does not exist.`);
+        }
+        const deleteMSeries = await MSeries.findByIdAndDelete(id);
+
+        if (deleteMSeries) {
+            res.status(204).end();
+        } else {
+            res.status(400).json({ "message": "Mains Series not deleted" });
+        }
     }
+
 });
 
 module.exports = {

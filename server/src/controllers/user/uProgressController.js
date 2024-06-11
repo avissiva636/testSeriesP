@@ -1,41 +1,60 @@
 const asyncHandler = require("express-async-handler");
-// const { employeeModel: Employee } = require('../../database/index');
+const { pResultModel: prelimResult, mResultModel: mainsResult } = require("../../database");
 
-//@desc Get All progress prelims, Mains and Scheduled paper
-//@route GET /user/progress/:uid ,
+//@desc Get prelims progress descriptions
+//@route GET /user/progress/prelims/:uid ,
 //access private
-const getProgressResults = asyncHandler(async (req, res) => {
+const getPrelimProgressDescriptions = asyncHandler(async (req, res) => {
+    const uid = req.params.uid;
 
-    const paramuid = req.params.uid;
-
-    console.log('paramuid', paramuid);
+    const foundResult = await prelimResult.find({ userId: uid })
+        .populate({
+            path: "questionDescriptionId",
+            select: "title description nQuestions cMarks wMarks -_id"
+        })
+        .select("userId questionDescriptionId correctCount submitCount");
 
     res.json(
         {
-            prelims: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}'],
-            mains: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}'],
-            scheduled: ['{title,description,nQuestions, cAnswer, wAnswer, Marks}']
+            prelimResult: foundResult            
+        }
+    )
+});
+
+//@desc  Get mains progress descriptions
+//@route GET /user/progress/mains/:uid ,
+//access private
+const getMainsProgressDescriptions = asyncHandler(async (req, res) => {
+    const uid = req.params.uid;
+
+    const foundResult = await mainsResult.find({ userId: uid })
+        .populate({
+            path: "questionDescriptionId",
+            select: "title description schedule -_id"
+        })
+        .select("userId questionDescriptionId correctedAnswer");
+
+    res.json(
+        {
+            mainResult: foundResult            
         }
     )
 });
 
 //@desc Get specific progress paper prelims, Mains and Scheduled paper
-//@route GET /user/progress/:category/:qno ,
+//@route GET /user/progress/prelimProgress/:qno ,
 //access private
-const getProgressPaper = asyncHandler(async (req, res) => {
-
+const getPrelimsProgressResult = asyncHandler(async (req, res) => {
     const paramQno = req.params.qno;
-    const paramCategory = req.params.category;
 
-    console.log('paramuid', paramQno);
-    console.log('paramCategory', paramCategory);
+    const foundResult = await prelimResult.findById(paramQno)
+        .select("result");
 
     res.json(
         {
-            qAttended: [`qno`],
-            questions: [`qno, difficulty, analysis('true' / 'false')`]
+            foundResult            
         }
     )
 });
 
-module.exports = { getProgressResults, getProgressPaper };
+module.exports = { getPrelimProgressDescriptions, getMainsProgressDescriptions, getPrelimsProgressResult };

@@ -8,8 +8,6 @@ const getProfileDetail = asyncHandler(async (req, res) => {
 
     const paramuid = req.params.uid;
 
-    console.log('paramuid', paramuid);
-
     res.json(
         '{ uname, name, age, sex, mobile, emailAddress }'
     )
@@ -23,9 +21,6 @@ const updateProfileDetail = asyncHandler(async (req, res) => {
 
     const paramuid = req.params.uid;
     const { uname, name, age, sex, mobile } = req.body;
-
-    console.log('paramuid', paramuid);
-    console.log(uname, name, age, sex, mobile);
 
     res.json(
         { message: "proceeded" }
@@ -41,9 +36,6 @@ const emailUpdateVerfication = asyncHandler(async (req, res) => {
     const paramuid = req.params.uid;
     const { uname } = req.body;
 
-    console.log('paramuid', paramuid);
-    console.log(uname);
-
     res.json(
         { message: "proceeded" }
     )
@@ -57,9 +49,6 @@ const passwordUpdate = asyncHandler(async (req, res) => {
 
     const paramuid = req.params.uid;
     const { uname } = req.body;
-
-    console.log('paramuid', paramuid);
-    console.log(uname);
 
     res.json(
         { message: "proceeded" }
