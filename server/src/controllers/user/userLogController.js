@@ -112,7 +112,7 @@ const loginUser = asyncHandler(async (req, res) => {
                 { expiresIn: `${UATIME}` }
             );
 
-            res.cookie('jwt', accessToken, { httpOnly: true, secure: false, sameSite: 'strict', maxAge: 24 * 60 * 60 * 1000 });
+            res.cookie('jwt', accessToken, { httpOnly: true, secure: true, sameSite: "None", maxAge: 24 * 60 * 60 * 1000 });
             res.json({ message: 'proceeded', userid: foundUser._id, username: foundUser.userName });
         }
         else {
