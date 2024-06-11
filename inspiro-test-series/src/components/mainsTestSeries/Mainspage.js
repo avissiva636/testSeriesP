@@ -1,6 +1,6 @@
 import { Button, Card, Grid, Stack } from "@mui/material";
-import Navigationbar from "../homepage/Navigationbar";
-import Explorer from "../homepage/Explorer";
+// import Navigationbar from "../homepage/Navigationbar";
+// import Explorer from "../homepage/Explorer";
 // import { useInspiroCrud } from "../context/InspiroContext";
 import Appbar from "../homepage/Appbar";
 import { useGetMainsSeriesQuery } from "../../state/apiDevelopmentSlice";
@@ -43,8 +43,8 @@ const Mainspage = () => {
               >
                 <Grid direction={"column"} spacing={1}>
                   <Grid item>
-                    <h2>{mains.mSeriesDetails.title}</h2>
-                    <p>{mains.mSeriesDetails.description}</p>
+                    <h2>{mains?.mSeriesDetails?.title}</h2>
+                    <p>{mains?.mSeriesDetails?.description}</p>
                   </Grid>
                   {/* <Divider /> */}
                   <Stack
@@ -64,7 +64,7 @@ const Mainspage = () => {
                           justifyContent: "center",
                         }}
                       >
-                        Purchase for ₹ <b>{mains.mSeriesDetails.price}</b>
+                        Purchase for ₹ <b>{mains?.mSeriesDetails?.price}</b>
                       </Grid>
                     </Grid>
                     <Grid item>
@@ -77,15 +77,15 @@ const Mainspage = () => {
                           marginBottom: "10px",
                         }}
                       >
-                        <a href={`${process.env.REACT_APP_BASE_URL}/images/mains/${mains.mSeriesDetails.schedule}`}>
+                        <a href={`${process.env.REACT_APP_BASE_URL}/images/mains/${mains?.mSeriesDetails?.schedule}`}>
                           <Button variant="contained" color="primary">
                             Schedule
                           </Button>
                         </a>
                         <h4 style={{ paddingTop: "10px" }}>
-                          {mains.totalCount + " Tests"}
+                          {mains?.totalCount + " Tests"}
                         </h4>
-                        <a href={mains.mSeriesDetails.paymentLink}>
+                        <a href={mains?.mSeriesDetails?.paymentLink}>
                           <Button variant="contained" color="success">
                             Buy
                           </Button>

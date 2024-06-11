@@ -43,8 +43,8 @@ const Prelimspage = () => {
               >
                 <Grid direction={"column"} spacing={1}>
                   <Grid item>
-                    <h2>{prelims.pSeriesDetails.title}</h2>
-                    <p>{prelims.pSeriesDetails.description}</p>
+                    <h2>{prelims?.pSeriesDetails?.title}</h2>
+                    <p>{prelims?.pSeriesDetails?.description}</p>
                   </Grid>
                   {/* <Divider /> */}
                   <Stack
@@ -64,7 +64,7 @@ const Prelimspage = () => {
                           justifyContent: "center",
                         }}
                       >
-                        Purchase for ₹ <b>{prelims.pSeriesDetails.price}</b>
+                        Purchase for ₹ <b>{prelims?.pSeriesDetails?.price}</b>
                       </Grid>
                     </Grid>
                     <Grid item>
@@ -77,13 +77,13 @@ const Prelimspage = () => {
                           marginBottom: "10px"
                         }}
                       >
-                        <a href={`${process.env.REACT_APP_BASE_URL}/images/prelims/${prelims.pSeriesDetails.schedule}`}>
+                        <a href={`${process.env.REACT_APP_BASE_URL}/images/prelims/${prelims?.pSeriesDetails?.schedule}`}>
                           <Button variant="contained" color="primary">
                             Schedule
                           </Button>
                         </a>
-                        <h4 style={{ paddingTop: "10px" }}>{prelims.totalCount + " Tests"}</h4>
-                        <a href={prelims.pSeriesDetails.paymentLink}>
+                        <h4 style={{ paddingTop: "10px" }}>{prelims?.totalCount + " Tests"}</h4>
+                        <a href={prelims?.pSeriesDetails?.paymentLink}>
                           <Button variant="contained" color="success">
                             Buy
                           </Button></a>
