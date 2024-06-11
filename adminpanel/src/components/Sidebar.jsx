@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import FlexBetween from './FlexBetween';
 import {
   ChevronLeft, ExpandLess, ExpandMore, HomeOutlined,
+  AdjustOutlined, ImportContactsOutlined, HailOutlined
   // SettingsOutlined
 } from '@mui/icons-material';
 // import profileImage from '../assets/profile.jpeg';
@@ -16,7 +17,7 @@ const navItems = [
   },
   {
     text: "Prelims Series",
-    icon: <HomeOutlined />,
+    icon: <AdjustOutlined />,
     data: [
       {
         text: "Add Prelims Series",
@@ -34,7 +35,7 @@ const navItems = [
   },
   {
     text: "Mains Series",
-    icon: <HomeOutlined />,
+    icon: <AdjustOutlined />,
     data: [
       {
         text: "Add Mains Series",
@@ -50,33 +51,33 @@ const navItems = [
       },
     ]
   },
-  {
-    text: "Scheduled Series",
-    icon: <HomeOutlined />,
-    data: [
-      {
-        text: "Add Scheduled Series",
-      },
-      {
-        text: "List Scheduled Series",
-      },
-      {
-        text: "Enrolled Scheduled Series",
-      },
-    ]
-  },
-  {
-    text: "Previous Paper",
-    icon: <HomeOutlined />,
-    data: [
-      {
-        text: "Upload",
-      },
-    ]
-  },
+  // {
+  //   text: "Scheduled Series",
+  //   icon: <HomeOutlined />,
+  //   data: [
+  //     {
+  //       text: "Add Scheduled Series",
+  //     },
+  //     {
+  //       text: "List Scheduled Series",
+  //     },
+  //     {
+  //       text: "Enrolled Scheduled Series",
+  //     },
+  //   ]
+  // },
+  // {
+  //   text: "Previous Paper",
+  //   icon: <HomeOutlined />,
+  //   data: [
+  //     {
+  //       text: "Upload",
+  //     },
+  //   ]
+  // },
   {
     text: "Question Paper Outlines",
-    icon: <HomeOutlined />,
+    icon: <ImportContactsOutlined />,
     data: [
       {
         text: "Add Outline",
@@ -88,7 +89,7 @@ const navItems = [
   },
   {
     text: "Subjects",
-    icon: <HomeOutlined />,
+    icon: <ImportContactsOutlined />,
     data: [
       {
         text: "Add Subjects",
@@ -100,7 +101,7 @@ const navItems = [
   },
   {
     text: "Courses",
-    icon: <HomeOutlined />,
+    icon: <ImportContactsOutlined />,
     data: [
       {
         text: "Add Courses",
@@ -112,7 +113,7 @@ const navItems = [
   },
   {
     text: "Batches",
-    icon: <HomeOutlined />,
+    icon: <ImportContactsOutlined />,
     data: [
       {
         text: "Add Batches",
@@ -124,7 +125,7 @@ const navItems = [
   },
   {
     text: "Students",
-    icon: <HomeOutlined />,
+    icon: <HailOutlined />,
     data: [
       {
         text: "Add Students",
@@ -162,8 +163,8 @@ const initialReducerItems = [
   { name: 'home', visible: false },
   { name: 'prelims series', visible: false },
   { name: 'mains series', visible: false },
-  { name: 'scheduled series', visible: false },
-  { name: 'previous paper', visible: false },
+  // { name: 'scheduled series', visible: false },
+  // { name: 'previous paper', visible: false },
   { name: 'question paper outlines', visible: false },
   { name: 'subjects', visible: false },
   { name: 'courses', visible: false },

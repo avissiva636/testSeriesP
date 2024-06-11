@@ -165,7 +165,7 @@ const ListPrelimsQpDes = () => {
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
                         {/* submitted results*/}
-                        <Link to={`/list__qp_desription?${queryString}`}
+                        <Link to={`/prelimresult?${queryString}`}
                             style={{
                                 color: 'inherit',
                                 textDecoration: 'none'

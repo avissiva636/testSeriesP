@@ -42,7 +42,7 @@ export const api = createApi({
     tagTypes: ["Subject", "Course", "Batch", "Student", "Outline",
         "Pseries", "Mseries",
         "Psales",
-        "psDescSeriesSingle", "psDescSeries", "psInvidualQuestion",
+        "psDescSeriesSingle", "psDescSeries", "psInvidualQuestion", "psDescResult",
         "msDescSeriesSingle", "msDescSeries",
         "Msales", "profile"],
     endpoints: (build) => ({
@@ -321,6 +321,14 @@ export const api = createApi({
             }),
             providesTags: ["psDescSeriesSingle"]
         }),
+        getPseriesResult: build.query({
+            query: ({ pQDesId, page, pageSize, sort, search }) => ({
+                url: `/admin/pQpDescseries/pResult/${pQDesId}`,
+                method: "GET",
+                params: { pQDesId, page, pageSize, sort, search },
+            }),
+            providesTags: ["psDescResult"]
+        }),
         getSpecificPdescs: build.query({
             query: ({ pDesId }) => `/admin/pQpDescseries/${pDesId}`,
             providesTags: ["psDescSeries"]
@@ -422,6 +430,30 @@ export const api = createApi({
                 method: "GET"
             }),
             providesTags: ["msDescSeriesSingle"]
+        }),
+        getMseriesResult: build.query({
+            query: ({ mQDesId, page, pageSize, sort, search }) => ({
+                url: `/admin/mQpDescseries/mResult/${mQDesId}`,
+                method: "GET",
+                params: { mQDesId, page, pageSize, sort, search },
+            }),
+            providesTags: ["psDescResult"]
+        }),
+        updateMainCorrect: build.mutation({
+            query: ({ userId, formData }) => ({
+                url: `/admin/mQpDescseries/mSubmit/${userId}`,
+                method: "PUT",
+                body: formData,
+            }),
+            invalidatesTags: ["msDescSeriesSingle"]
+        }),
+        deleteMainCorrect: build.mutation({
+            query: ({ userId, questionDescId }) => ({
+                url: `/admin/mQpDescseries/mSubmit/${userId}`,
+                method: "DELETE",
+                body: {questionDescId},
+            }),
+            invalidatesTags: ["msDescSeriesSingle"]
         }),
         getSpecificMdescs: build.query({
             query: ({ mDesId }) => `/admin/mQpDescseries/${mDesId}`,
@@ -577,6 +609,7 @@ export const {
 
     useGetPseriesDesQuery,
     useGetSpecificPdescsQuery,
+    useGetPseriesResultQuery,
     useCreatePSeriesDesMutation,
     useUpdatePSeriesDesMutation,
     useUpdatePSeriesDesStatusMutation,
@@ -588,6 +621,9 @@ export const {
 
     useGetPrelimSalesQuery,
     useGetcondtionalPrelimSalesQuery,
+    useGetMseriesResultQuery,
+    useUpdateMainCorrectMutation,
+    useDeleteMainCorrectMutation,
     useCreatePrelimSalesMutation,
     useUpdatePrelimSalesMutation,
     useDeletePrelimSalesMutation,

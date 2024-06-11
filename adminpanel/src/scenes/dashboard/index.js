@@ -47,13 +47,13 @@ const Dashboard = () => {
             viewAll='/listprelimsseries'
           />
           <DashboardCard
-            text="Revenue"
+            text="Revenue This Month"
             icon={
               <CurrencyRupeeOutlined
                 sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
               />
             }
-            number={DashboardData?.prelim?.price}
+            number={DashboardData?.prelim?.price||0}
             viewAll='/salesprelimsseries'
           />
         </Box>
@@ -84,13 +84,13 @@ const Dashboard = () => {
             viewAll='/listmainsseries'
           />
           <DashboardCard
-            text="Revenue"
+            text="Revenue This Month"
             icon={
               <CurrencyRupeeOutlined
                 sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
               />
             }
-            number={DashboardData?.mains?.price}
+            number={DashboardData?.mains?.price||0}
             viewAll='/salesmainsseries'
           />
 

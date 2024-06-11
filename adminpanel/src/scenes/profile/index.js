@@ -4,7 +4,7 @@ import { useCreateProfileMutation, useDeleteProfileMutation, useGetProfileQuery,
 import { DataGrid } from '@mui/x-data-grid';
 import { makeStyles } from '@mui/styles'
 import { Box, Button, Checkbox, Divider, FormControl, IconButton, ListItemText, MenuItem, OutlinedInput, Select, TextField, useTheme } from '@mui/material';
-import { CreateRounded, DeleteRounded } from '@mui/icons-material';
+import { CreateRounded, DeleteRounded,CloseSharp } from '@mui/icons-material';
 import Header from 'components/Header';
 import FlexBetween from 'components/FlexBetween';
 
@@ -299,7 +299,7 @@ const Profile = () => {
                                 sx={{
                                     backgroundColor: 'rgba(0, 0, 0, 0.2)'
                                 }}>
-                                <CreateRounded />
+                                <CloseSharp />
                             </IconButton>
                         </>
                     }

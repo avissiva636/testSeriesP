@@ -21,7 +21,7 @@ const authSlice = createSlice({
         logOut: (state, action) => {
             state.user = null;
             state.token = null;
-            window.location.reload();
+            // window.location.reload();
         }
     }
 })
