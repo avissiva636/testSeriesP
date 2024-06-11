@@ -1,13 +1,16 @@
 import { Button, Card, Grid, Stack } from "@mui/material";
 import Navigationbar from "../homepage/Navigationbar";
 import Explorer from "../homepage/Explorer";
-import { useInspiroCrud } from "../context/InspiroContext";
+// import { useInspiroCrud } from "../context/InspiroContext";
 import Appbar from "../homepage/Appbar";
 import { useGetMainsSeriesQuery } from "../../state/apiDevelopmentSlice";
+import { selectCurrentUserId } from "../../state/stateSlice";
+import { useSelector } from "react-redux";
 
 const Mainspage = () => {
-  const { mainsTest } = useInspiroCrud();
-  const { isLoading: isMainsLoading, data: mainsData } = useGetMainsSeriesQuery({ userId: "66279432cc5ed3267265fd5d" });
+  // const { mainsTest } = useInspiroCrud();
+  const currentUserId = useSelector(selectCurrentUserId);
+  const { isLoading: isMainsLoading, data: mainsData } = useGetMainsSeriesQuery({ userId: currentUserId });
 
   return (
     <Stack direction="row" spacing={8}>
@@ -25,7 +28,7 @@ const Mainspage = () => {
       >
         {
           isMainsLoading ? <h1>Loading...</h1> :
-          mainsData?.mains.map((mains) => (
+            mainsData?.mains.map((mains) => (
               <Card
                 variant="outlined"
                 sx={{

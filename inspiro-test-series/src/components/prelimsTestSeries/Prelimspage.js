@@ -9,11 +9,14 @@ import {
 // import Navigationbar from "../homepage/Navigationbar";
 import Appbar from "../homepage/Appbar";
 import { useGetPrelimsSeriesQuery } from "../../state/apiDevelopmentSlice";
+import { selectCurrentUserId } from "../../state/stateSlice";
+import { useSelector } from "react-redux";
 // import { useEffect } from "react";
 
 const Prelimspage = () => {
   // const { prelimsTest } = useInspiroCrud();
-  const { isLoading: isPrelimsLoading, data: prelimsData } = useGetPrelimsSeriesQuery({ userId: "66279432cc5ed3267265fd5d" });
+  const currentUserId = useSelector(selectCurrentUserId);
+  const { isLoading: isPrelimsLoading, data: prelimsData } = useGetPrelimsSeriesQuery({ userId: currentUserId });
 
   return (
     <Stack direction="row" spacing={8}>
