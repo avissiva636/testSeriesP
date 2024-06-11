@@ -95,9 +95,10 @@ const MainsTestPage = () => {
                                     <Stack sx={{ margin: "10px" }}>
                                         <Card>
                                             <Stack sx={{ margin: "5px 15px", minHeight: "500px" }}>
-                                                <Typography variant="h6">
+                                                {/* <Typography variant="h6">
                                                     {testDetails?.question}
-                                                </Typography>
+                                                </Typography> */}
+                                                <Typography variant="h6" component="div" dangerouslySetInnerHTML={{ __html: testDetails?.question }} />
                                             </Stack>
                                         </Card>
                                     </Stack>
