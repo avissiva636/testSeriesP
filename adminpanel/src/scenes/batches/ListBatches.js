@@ -83,7 +83,7 @@ const ListBatches = () => {
             field: "course",
             headerName: "COURSE",
             flex: 1.5,
-            valueGetter: (params) => params.row.course.name,
+            valueGetter: (params) => params.row?.course?.name,
         },
         {
             field: "name",
@@ -104,10 +104,10 @@ const ListBatches = () => {
             sortable: false,
             renderCell: (params) => {
                 const queryString = new URLSearchParams({
-                    id: encodeURIComponent(params.row._id),
-                    course: encodeURIComponent(params.row.course._id),
-                    batch: encodeURIComponent(params.row.name),
-                    description: encodeURIComponent(params.row.description)
+                    id: encodeURIComponent(params?.row?._id),
+                    course: encodeURIComponent(params?.row?.course?._id),
+                    batch: encodeURIComponent(params?.row?.name),
+                    description: encodeURIComponent(params?.row?.description)
                 }).toString();
 
                 return (<FlexBetween gap={'1rem'}>
@@ -115,7 +115,7 @@ const ListBatches = () => {
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
-                        <Link to={`/editbatch/${params.row._id}?${queryString}`}
+                        <Link to={`/editbatch/${params?.row?._id}?${queryString}`}
                             style={{
                                 color: 'inherit',
                                 textDecoration: 'none'
@@ -126,8 +126,8 @@ const ListBatches = () => {
 
                     <IconButton
                         onClick={() => deleteClick({
-                            id: params.row._id,
-                            title: params.row.name,
+                            id: params?.row?._id,
+                            title: params?.row?.name,
                         })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
@@ -185,7 +185,7 @@ const ListBatches = () => {
                 <DataGrid
                     loading={isLoading || !data}
                     // loading={!data}
-                    getRowId={(row) => row._id}
+                    getRowId={(row) => row?._id}
                     rows={(data) || []}
                     columns={columns}
 
