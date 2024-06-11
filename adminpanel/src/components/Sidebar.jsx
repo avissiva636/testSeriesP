@@ -50,30 +50,30 @@ const navItems = [
       },
     ]
   },
-  {
-    text: "Scheduled Series",
-    icon: <HomeOutlined />,
-    data: [
-      {
-        text: "Add Scheduled Series",
-      },
-      {
-        text: "List Scheduled Series",
-      },
-      {
-        text: "Enrolled Scheduled Series",
-      },
-    ]
-  },
-  {
-    text: "Previous Paper",
-    icon: <HomeOutlined />,
-    data: [
-      {
-        text: "Upload",
-      },
-    ]
-  },
+  // {
+  //   text: "Scheduled Series",
+  //   icon: <HomeOutlined />,
+  //   data: [
+  //     {
+  //       text: "Add Scheduled Series",
+  //     },
+  //     {
+  //       text: "List Scheduled Series",
+  //     },
+  //     {
+  //       text: "Enrolled Scheduled Series",
+  //     },
+  //   ]
+  // },
+  // {
+  //   text: "Previous Paper",
+  //   icon: <HomeOutlined />,
+  //   data: [
+  //     {
+  //       text: "Upload",
+  //     },
+  //   ]
+  // },
   {
     text: "Question Paper Outlines",
     icon: <HomeOutlined />,
@@ -162,8 +162,8 @@ const initialReducerItems = [
   { name: 'home', visible: false },
   { name: 'prelims series', visible: false },
   { name: 'mains series', visible: false },
-  { name: 'scheduled series', visible: false },
-  { name: 'previous paper', visible: false },
+  // { name: 'scheduled series', visible: false },
+  // { name: 'previous paper', visible: false },
   { name: 'question paper outlines', visible: false },
   { name: 'subjects', visible: false },
   { name: 'courses', visible: false },
