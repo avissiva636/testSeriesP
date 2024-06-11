@@ -5,8 +5,8 @@ import Header from 'components/Header'
 import React, { useState } from 'react'
 import { Link, useOutletContext, useSearchParams } from 'react-router-dom';
 import { PrelimResultToolbar as DataGridCustomToolbar } from 'components/PrelimResultToolbar'
-import { useGetMseriesResultQuery } from 'state/apiDevelopmentSlice';
-import { CreateRounded } from '@mui/icons-material';
+import { useDeleteMainCorrectMutation, useGetMseriesResultQuery } from 'state/apiDevelopmentSlice';
+import { CreateRounded, DeleteRounded } from '@mui/icons-material';
 import FlexBetween from 'components/FlexBetween';
 
 const useStyles = makeStyles(() => {
@@ -51,6 +51,23 @@ const MainsResult = () => {
         Sort: JSON.stringify(pResultSort),
         search: JSON.stringify(serverSearch)
     })
+    const [deleteMainCorrect] = useDeleteMainCorrectMutation();
+
+    const deleteClick = async ({ userId, questionDescId, title }) => {
+        const confirmation = window.confirm(`Are you sure you want to delete ${title}?`);
+
+        if (confirmation) {
+            try {
+                await deleteMainCorrect({ userId, questionDescId }).unwrap()
+                    .catch((response) => console.log(response));
+            } catch (error) {
+                if (error.status === 403) {
+                    alert("Description not Empty");
+                }
+            }
+
+        }
+    }
 
     const columns = [
         {
@@ -78,7 +95,7 @@ const MainsResult = () => {
             headerName: "Anwer Sheet",
             flex: 1,
             renderCell: function (params) {
-                console.log(params)
+                // console.log(params)
                 return (<FlexBetween gap={'1rem'}>
                     <IconButton
                         sx={{
@@ -126,17 +143,17 @@ const MainsResult = () => {
                         </Link>
                     </IconButton>
 
-                    {/* <IconButton
-                        // onClick={() => deleteClick({
-                        //     id: params.row._id,
-                        //     title: params.row.title,
-                        //     schedule: params.row.schedule,
-                        // })}
+                    <IconButton
+                        onClick={() => deleteClick({
+                            userId: params.row.userId._id,
+                            questionDescId: params.row.questionDescriptionId,
+                            title: params.row.questionDescriptions.title,
+                        })}
                         sx={{
                             backgroundColor: 'rgba(0, 0, 0, 0.2)'
                         }}>
                         <DeleteRounded />
-                    </IconButton> */}
+                    </IconButton>
                 </FlexBetween>)
             }
         },

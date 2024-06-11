@@ -447,6 +447,14 @@ export const api = createApi({
             }),
             invalidatesTags: ["msDescSeriesSingle"]
         }),
+        deleteMainCorrect: build.mutation({
+            query: ({ userId, questionDescId }) => ({
+                url: `/admin/mQpDescseries/mSubmit/${userId}`,
+                method: "DELETE",
+                body: {questionDescId},
+            }),
+            invalidatesTags: ["msDescSeriesSingle"]
+        }),
         getSpecificMdescs: build.query({
             query: ({ mDesId }) => `/admin/mQpDescseries/${mDesId}`,
             providesTags: ["msDescSeries"]
@@ -615,6 +623,7 @@ export const {
     useGetcondtionalPrelimSalesQuery,
     useGetMseriesResultQuery,
     useUpdateMainCorrectMutation,
+    useDeleteMainCorrectMutation,
     useCreatePrelimSalesMutation,
     useUpdatePrelimSalesMutation,
     useDeletePrelimSalesMutation,
