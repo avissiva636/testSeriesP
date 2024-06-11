@@ -33,6 +33,9 @@ const getMainsPapers = asyncHandler(async (req, res) => {
             }
         },
         {
+            $match: { 'mSeriesDetails.status': "start" }
+        },
+        {
             $project: {
                 totalCount: 1,
                 mSeriesDetails: { $arrayElemAt: ["$mSeriesDetails", 0] }

@@ -32,6 +32,9 @@ const getPrelimsPapers = asyncHandler(async (req, res) => {
             }
         },
         {
+            $match: { 'pSeriesDetails.status': "start" }
+        },
+        {
             $project: {
                 totalCount: 1,
                 pSeriesDetails: { $arrayElemAt: ["$pSeriesDetails", 0] }
@@ -141,10 +144,10 @@ function evaluateAnswers(questions, answers) {
 const submitPrelimsPaper = asyncHandler(async (req, res) => {
     const qno = req.params.qno;
     const { uid, pAnswer, pSeries, pqDesc } = req.body;
-  
+
     const foundAttempt = await attemptModel.findOne({
         userId: uid,
-        seriesId: pSeries,        
+        seriesId: pSeries,
     });
 
     const psQuestions = await psQuestion.aggregate([
@@ -162,14 +165,14 @@ const submitPrelimsPaper = asyncHandler(async (req, res) => {
 
     const evaluatedAnswer = evaluateAnswers(psQuestions, pAnswer)
 
-    if (foundAttempt) {        
+    if (foundAttempt) {
         const foundDescAttempt = await attemptModel.findOne({
             userId: uid,
             seriesId: pSeries,
             'questionDescriptions.questionDescriptionId': pqDesc
         });
 
-        if (!foundDescAttempt) {            
+        if (!foundDescAttempt) {
             foundAttempt.questionDescriptions.push({
                 questionDescriptionId: pqDesc,
                 questions: [{
@@ -188,7 +191,7 @@ const submitPrelimsPaper = asyncHandler(async (req, res) => {
                 correctCount: evaluatedAnswer.correctCount,
                 submitCount: evaluatedAnswer.submitCount,
             })
-        } else {            
+        } else {
             await attemptModel.findOneAndUpdate(
                 {
                     _id: foundAttempt._id,
@@ -213,7 +216,7 @@ const submitPrelimsPaper = asyncHandler(async (req, res) => {
             result: evaluatedAnswer.evaluationResult,
             correctCount: evaluatedAnswer.correctCount,
             submitCount: evaluatedAnswer.submitCount,
-        })        
+        })
 
         await attemptModel.create({
             userId: uid,
@@ -226,7 +229,7 @@ const submitPrelimsPaper = asyncHandler(async (req, res) => {
                     attempt: 1
                 }]
             }]
-        })        
+        })
     }
 
     const prelimSubmitResult = await prelimResult.find({ userId: uid, questionDescriptionId: pqDesc })
